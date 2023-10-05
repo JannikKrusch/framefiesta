@@ -1,5 +1,5 @@
-import { MotionPicture } from './MotionPicture';
+import { MotionPicture } from "./MotionPicture";
 
-export interface Film extends MotionPicture {
-  runTime: number;
+export class Film extends MotionPicture {
+  public runTime: number = 0;
 }

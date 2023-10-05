@@ -1,6 +1,6 @@
-import { MotionPicture } from './MotionPicture';
+import { MotionPicture } from "./MotionPicture";
 
-export interface Series extends MotionPicture {
-  seasons: number;
-  episodes: number;
+export class Series extends MotionPicture {
+  public seasons: number = 0;
+  public episodes: number = 0;
 }

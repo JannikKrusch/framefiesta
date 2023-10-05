@@ -1,10 +1,10 @@
-export interface MotionPicture {
-  title: string;
-  director: string;
-  actors: string[];
-  rating: number;
-  image: string;
-  genre: string[];
-  initialRelease: string;
-  comments: string[];
+export class MotionPicture {
+  public title: string = "";
+  public director: string = "";
+  public actors: string[] = [];
+  public rating: number = 0;
+  public image: string = "";
+  public genre: string[] = [];
+  public initialRelease: string = "";
+  public comments: string[] = [];
 }

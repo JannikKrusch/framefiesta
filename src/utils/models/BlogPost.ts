@@ -1,6 +1,6 @@
 import { MotionPicture } from "./MotionPicture";
 
-export interface BlockPost {
-    id: number,
-    MotionPicture: MotionPicture
+export class BlockPost {
+  public id: number = 0;
+  public motionPicture: MotionPicture = new MotionPicture();
 }
