@@ -9,7 +9,7 @@ import {
 import { COMPANY_NAME } from "../../../utils/constants/Names";
 import { RouterPaths } from "../../../utils/constants/RouterPaths";
 
-function CustomNavbar() {
+export function CustomNavbar() {
   return (
     <Navbar expand="lg" className="bg-body-tertiary" data-bs-theme="dark">
       <Container fluid>
@@ -48,5 +48,3 @@ function CustomNavbar() {
     </Navbar>
   );
 }
-
-export default CustomNavbar;

@@ -1,7 +1,7 @@
 import { COMPANY_NAME } from "../../../utils/constants/Names";
 import "./Footer.css";
 
-function Footer() {
+export function Footer() {
   return (
     <footer className="footer">
       <p>
@@ -10,5 +10,3 @@ function Footer() {
     </footer>
   );
 }
-
-export default Footer;

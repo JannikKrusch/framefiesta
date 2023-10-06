@@ -1,10 +1,9 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Footer from "./components/shared/footer/Footer";
-import CustomNavbar from "./components/shared/navbar/CustomNavbar";
 import "./App.css";
 import { RouterPaths } from "./utils/constants/RouterPaths";
 import Home from "./pages/Home";
+import { CustomNavbar, Footer } from "./components/shared";
 
 function App() {
   return (
