@@ -14,7 +14,7 @@ function Home({ searchQuery }: HomeProps) {
     setblogPosts(DummyBlogPosts(10));
   }, []);
 
-  const filteredBlogPosts = blogPosts; //filterBlogPosts(blogPosts);
+  const filteredBlogPosts = filterBlogPosts(blogPosts);
 
   function filterBlogPosts(blogposts: BlogPost[]): BlogPost[] {
     console.warn(searchQuery);
