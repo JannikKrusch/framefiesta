@@ -9,7 +9,11 @@ import {
 import { COMPANY_NAME } from "../../../utils/constants/Names";
 import { RouterPaths } from "../../../utils/constants/RouterPaths";
 
-export function CustomNavbar() {
+interface CustomNavbarProps {
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export function CustomNavbar({ setSearchQuery }: CustomNavbarProps) {
   return (
     <Navbar expand="lg" className="bg-body-tertiary" data-bs-theme="dark">
       <Container fluid>
@@ -40,6 +44,7 @@ export function CustomNavbar() {
               placeholder="Search"
               className="me-2"
               aria-label="Search"
+              onChange={(e) => setSearchQuery((current) => e.target.value)}
             />
             <Button variant="outline-success">Search</Button>
           </Form>
