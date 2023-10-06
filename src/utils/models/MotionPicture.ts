@@ -5,6 +5,6 @@ export class MotionPicture {
   public rating: number = 0;
   public image: string = "";
   public genre: string[] = [];
-  public initialRelease: string = "";
+  public initialRelease: number = 0;
   public comments: string[] = [];
 }

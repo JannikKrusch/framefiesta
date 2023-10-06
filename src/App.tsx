@@ -15,7 +15,7 @@ function App() {
         <div className="main-container">
           <Routes>
             <Route
-              path={`${RouterPaths.Home}`}
+              path={`${RouterPaths.Default}`}
               element={<Home searchQuery={searchQuery} />}
             />
             <Route path={`${RouterPaths.About}`} element={<About />} />

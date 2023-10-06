@@ -17,7 +17,9 @@ export function CustomNavbar({ setSearchQuery }: CustomNavbarProps) {
   return (
     <Navbar expand="lg" className="bg-body-tertiary" data-bs-theme="dark">
       <Container fluid>
-        <Navbar.Brand href={`${RouterPaths.Home}`}>{COMPANY_NAME}</Navbar.Brand>
+        <Navbar.Brand href={`${RouterPaths.Default}`}>
+          {COMPANY_NAME}
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -46,7 +48,7 @@ export function CustomNavbar({ setSearchQuery }: CustomNavbarProps) {
               aria-label="Search"
               onChange={(e) => setSearchQuery((current) => e.target.value)}
             />
-            <Button variant="outline-success">Search</Button>
+            {/* <Button variant="outline-success">Search</Button> */}
           </Form>
         </Navbar.Collapse>
       </Container>

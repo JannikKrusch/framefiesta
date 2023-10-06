@@ -1,7 +1,7 @@
-html,
+/* html,
 body {
-  overflow-y: hidden;
-}
+   overflow-y: hidden; 
+} */
 
 .container {
   display: flex;

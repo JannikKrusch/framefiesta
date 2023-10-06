@@ -1,5 +1,5 @@
 export enum RouterPaths {
-  Home = "/",
+  Default = "/",
   About = "/about",
   Users = "/users",
 }
