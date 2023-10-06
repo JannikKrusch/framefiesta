@@ -8,3 +8,8 @@ html,
 body {
   background-color: var(--page-background-color);
 }
+
+.main-container {
+  min-height: calc(100vh - 100px);
+  background-color: var(--page-background-color);
+}
