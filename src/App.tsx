@@ -12,17 +12,10 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <ErrorBoundary>
-          <div
-            style={{
-              margin: 0,
-              padding: 0,
-              minHeight: "100vh",
-              backgroundColor: "var(--page-background-color)",
-            }}
-          >
+        <div className="main-container">
+          <ErrorBoundary>
             <CustomNavbar setSearchQuery={setSearchQuery} />
-            <div className="main-container">
+            <div className="content-container">
               <Routes>
                 <Route
                   path={`${RouterPaths.Default.path}`}
@@ -34,8 +27,8 @@ function App() {
             </div>
 
             <Footer />
-          </div>
-        </ErrorBoundary>
+          </ErrorBoundary>
+        </div>
       </BrowserRouter>
     </>
   );

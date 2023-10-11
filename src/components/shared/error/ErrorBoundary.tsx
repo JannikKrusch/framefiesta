@@ -3,24 +3,21 @@ import { ErrorBoundaryProps, ErrorBoundaryState } from "../../../utils";
 import { Error } from "./Error";
 
 //!Error Boundary only catches Errors that are thrown directly, cannot handle async
-export class ErrorBoundary extends React.Component<
-  ErrorBoundaryProps,
-  ErrorBoundaryState
-> {
+export class ErrorBoundary extends React.Component<any, any> {
   state: {
     hasError: boolean;
-    error: Error | null;
+    error?: Error;
   };
 
   constructor(props: any) {
     super(props);
     this.state = {
       hasError: false,
-      error: null,
+      error: undefined,
     };
   }
 
-  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+  static getDerivedStateFromError(error: any): ErrorBoundaryState {
     return { hasError: true, error: error };
   }
 
@@ -28,11 +25,18 @@ export class ErrorBoundary extends React.Component<
     console.log("Error caught!");
     console.log(error);
     console.log(errorInfo);
+    setTimeout(() => {
+      this.setState({ hasError: false, error: undefined });
+    }, 2000);
   }
 
   render(): ReactNode {
     if (this.state.hasError) {
-      return <Error error={this.state.error} />;
+      return (
+        <>
+          <Error error={this.state.error} />
+        </>
+      );
     } else {
       return this.props.children;
     }

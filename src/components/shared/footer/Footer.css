@@ -5,7 +5,12 @@ body > footer {
 
 .footer {
   text-align: center;
-  padding: 10px;
+  padding: 1rem;
   background-color: var(--component-background-color);
   color: var(--component-text-color);
+  font-size: var(--component-text-size);
+}
+
+.follow-us-icons {
+  background-color: red;
 }
