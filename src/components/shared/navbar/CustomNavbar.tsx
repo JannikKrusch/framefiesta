@@ -1,57 +1,60 @@
-import {
-  Navbar,
-  Nav,
-  NavDropdown,
-  Form,
-  Button,
-  Container,
-} from "react-bootstrap";
+import { List } from "react-bootstrap-icons";
 import { COMPANY_NAME } from "../../../utils/constants/Names";
 import { RouterPaths } from "../../../utils/constants/RouterPaths";
+
+import "./CustomNavbar.css";
+import { useEffect, useState } from "react";
 
 interface CustomNavbarProps {
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export function CustomNavbar({ setSearchQuery }: CustomNavbarProps) {
+  const [menuActive, setMenuActive] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuActive(!menuActive);
+  };
+
+  useEffect(() => {
+    // const handleResize = () => {
+    //   if (window.innerWidth > 768) setMenuActive(false);
+    // };
+    // window.addEventListener("resize", handleResize);
+    // return () => {
+    //   window.removeEventListener("resize", handleResize);
+    // };
+  }, [menuActive]);
+
   return (
-    <Navbar expand="lg" className="bg-body-tertiary" data-bs-theme="dark">
-      <Container fluid>
-        <Navbar.Brand href={`${RouterPaths.Default}`}>
-          {COMPANY_NAME}
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="navbarScroll" />
-        <Navbar.Collapse id="navbarScroll">
-          <Nav
-            className="me-auto my-2 my-lg-0"
-            style={{ maxHeight: "100px" }}
-            navbarScroll
-          >
-            <Nav.Link href={`${RouterPaths.About}`}>About</Nav.Link>
-            <Nav.Link href={`${RouterPaths.Users}`}>Users</Nav.Link>
-            <NavDropdown title="Link" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action4">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action5">
-                Something else here
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-          <Form className="d-flex">
-            <Form.Control
-              type="search"
-              placeholder="Search"
-              className="me-2"
-              aria-label="Search"
-              onChange={(e) => setSearchQuery((current) => e.target.value)}
-            />
-            {/* <Button variant="outline-success">Search</Button> */}
-          </Form>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <div className={menuActive ? "topnav responsive" : "topnav"} id="myTopnav">
+      <a href="#home" className="active">
+        Home
+      </a>
+      <a href="#news">News</a>
+      <a href="#contact">Contact</a>
+      <a href="#about">About</a>
+      <a href="javascript:void(0);" className="icon" onClick={toggleMenu}>
+        <List />
+        {/* <i className="fa fa-bars"></i> */}
+      </a>
+    </div>
+    // <nav className="navbar">
+    //   <div className="navbar-company-name">{COMPANY_NAME}</div>
+    //   <ul className={`navbar-menu ${menuActive ? "active" : ""}`}>
+    //     {Object.values(RouterPaths)
+    //       .slice(1)
+    //       .map((route) => (
+    //         <li key={route.path}>
+    //           <a href={route.path}>{route.display}</a>
+    //         </li>
+    //       ))}
+    //   </ul>
+    //   <div className="navbar-menu-toggle" id="mobile-menu" onClick={toggleMenu}>
+    //     <span className="navbar-bar"></span>
+    //     <span className="navbar-bar"></span>
+    //     <span className="navbar-bar"></span>
+    //   </div>
+    // </nav>
   );
 }

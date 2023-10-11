@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import { ErrorBoundaryProps, ErrorBoundaryState } from "../../../utils";
 import { Error } from "./Error";
 
-//!Error Boundry only catches Errors that are thrown directly, cannot handle async must must throw async errors by hand
+//!Error Boundary only catches Errors that are thrown directly, cannot handle async
 export class ErrorBoundary extends React.Component<
   ErrorBoundaryProps,
   ErrorBoundaryState
@@ -31,9 +31,8 @@ export class ErrorBoundary extends React.Component<
   }
 
   render(): ReactNode {
-    if (this.state.hasError && this.state.error) {
-      //TODO create Error Component & add it here
-      return <Error error={this.state?.error} />;
+    if (this.state.hasError) {
+      return <Error error={this.state.error} />;
     } else {
       return this.props.children;
     }

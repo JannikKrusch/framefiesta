@@ -3,7 +3,7 @@ import "./Loader.css";
 
 export function Loader() {
   return (
-    <div className="container">
+    <div className="loader-container">
       <Spinner animation="border" variant="light" />
     </div>
   );

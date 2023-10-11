@@ -1,5 +1,5 @@
-export enum RouterPaths {
-  Default = "/",
-  About = "/about",
-  Users = "/users",
-}
+export const RouterPaths = {
+  Default: { path: "/", display: "Default" },
+  About: { path: "/about", display: "About" },
+  Users: { path: "/users", display: "Users" },
+} as const;

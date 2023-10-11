@@ -12,21 +12,30 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <CustomNavbar setSearchQuery={setSearchQuery} />
-        <div className="main-container">
-          <ErrorBoundary>
-            <Routes>
-              <Route
-                path={`${RouterPaths.Default}`}
-                element={<Home searchQuery={searchQuery} />}
-              />
-              <Route path={`${RouterPaths.About}`} element={<About />} />
-              <Route path={`${RouterPaths.Users}`} element={<Users />} />
-            </Routes>
-          </ErrorBoundary>
-        </div>
+        <ErrorBoundary>
+          <div
+            style={{
+              margin: 0,
+              padding: 0,
+              minHeight: "100vh",
+              backgroundColor: "var(--page-background-color)",
+            }}
+          >
+            <CustomNavbar setSearchQuery={setSearchQuery} />
+            <div className="main-container">
+              <Routes>
+                <Route
+                  path={`${RouterPaths.Default.path}`}
+                  element={<Home searchQuery={searchQuery} />}
+                />
+                <Route path={`${RouterPaths.About.path}`} element={<About />} />
+                <Route path={`${RouterPaths.Users.path}`} element={<Users />} />
+              </Routes>
+            </div>
 
-        <Footer />
+            <Footer />
+          </div>
+        </ErrorBoundary>
       </BrowserRouter>
     </>
   );

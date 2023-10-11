@@ -1,9 +1,4 @@
-/* html,
-body {
-   overflow-y: hidden; 
-} */
-
-.container {
+.loader-container {
   display: flex;
   align-items: center;
   justify-content: center;
