@@ -4,3 +4,5 @@ export * from "./models/BlogPost";
 export * from "./constants/Names";
 export * from "./constants/Api";
 export * from "./constants/RouterPaths";
+export * from "./models/ErrorBoundaryProps";
+export * from "./models/ErrorBoundaryState";
