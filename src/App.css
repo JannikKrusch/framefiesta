@@ -1,8 +1,8 @@
 /* Color Theme https://colorhunt.co/palette/0000003e065f700b978e05c2 */
 
 :root {
-  --page-background-color: rgb(30, 30, 30);
-  --component-background-color: rgb(43, 48, 53);
+  /* --page-background-color: rgb(30, 30, 30); */
+  --component-background-color: rgb(30, 30, 30);
   --component-background-color-active: rgb(142, 5, 194);
   --component-background-color-hover: rgb(62, 6, 95);
   --searchbar-background-color: rgb(57, 62, 70);
@@ -14,7 +14,7 @@
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  background-color: var(--page-background-color);
+  background-color: var(--component-background-color);
   color: var(--component-text-color) !important;
   font-size: var(--component-text-size);
 
