@@ -1,9 +1,9 @@
-import { List } from "react-bootstrap-icons";
 import { COMPANY_NAME } from "../../../utils/constants/Names";
 import { RouterPaths } from "../../../utils/constants/RouterPaths";
 
 import "./CustomNavbar.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { Navbar, Container, Nav } from "react-bootstrap";
 
 interface CustomNavbarProps {
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
@@ -17,23 +17,38 @@ export function CustomNavbar({ setSearchQuery }: CustomNavbarProps) {
   };
 
   return (
-    <div
-      className={menuActive ? "custom-navbar responsive" : "custom-navbar"}
-      id="mycustom-navbar"
-    >
-      <a href="#home" className="active">
-        {COMPANY_NAME}
-      </a>
-      {Object.values(RouterPaths)
-        .slice(1)
-        .map((route) => (
-          <a href={route.path} key={route.path}>
-            {route.display}
-          </a>
-        ))}
-      <a href="javascript:void(0);" className="icon" onClick={toggleMenu}>
-        <List />
-      </a>
-    </div>
+    <Navbar expand="sm" className="custom-navbar" data-bs-theme="dark">
+      <Container fluid>
+        <Navbar.Brand
+          className="custom-navbar-link"
+          href={RouterPaths.Default.path}
+        >
+          {COMPANY_NAME}
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="navbarScroll" />
+        <Navbar.Collapse id="navbarScroll">
+          <Nav
+            className="me-auto my-2 my-lg-0"
+            style={{ maxHeight: "100px" }}
+            navbarScroll
+          >
+            {Object.values(RouterPaths)
+              .slice(2)
+              .map((route) => (
+                <Nav.Link className="custom-navbar-link" href={route.path}>
+                  {route.display}
+                </Nav.Link>
+              ))}
+          </Nav>
+          <div className="d-flex">
+            <input
+              className="w-100 search-box"
+              placeholder="search"
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }

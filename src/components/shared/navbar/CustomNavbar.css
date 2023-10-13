@@ -1,54 +1,24 @@
 .custom-navbar {
-  /* overflow: hidden; */
-  background-color: var(--component-background-color);
   position: fixed;
   top: 0;
   width: 100%;
+  background-color: var(--component-background-color) !important;
+  color: var(--component-text-color) !important;
 }
 
-.custom-navbar a {
-  float: left;
-  display: block;
-  color: var(--component-text-color);
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: var(--component-text-size);
+.custom-navbar-link {
+  color: var(--component-text-color) !important;
 }
 
-.custom-navbar a:hover {
-  background-color: var(--component-background-color-hover);
-  color: var(--component-text-color);
+.search-box {
+  padding-left: 0.2rem;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  font-size: 1rem;
+  border: 1px solid white;
+  border-radius: 4px;
 }
 
-.custom-navbar a.active {
-  background-color: var(--component-background-color-active);
-  color: var(--component-text-color-active);
-}
-
-.custom-navbar .icon {
-  display: none;
-}
-
-@media screen and (max-width: 600px) {
-  .custom-navbar a:not(:first-child) {
-    display: none;
-  }
-  .custom-navbar a.icon {
-    float: right;
-    display: block;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .custom-navbar.responsive .icon {
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-  .custom-navbar.responsive a {
-    float: none;
-    display: block;
-    text-align: left;
-  }
+.navbar-toggler-icon {
+  color: var(--component-text-color) !important;
 }
