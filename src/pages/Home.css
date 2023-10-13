@@ -1,0 +1,42 @@
+section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 400px;
+  padding: 100px 20vw;
+}
+
+.spacer-top {
+  aspect-ratio: 1920/300;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.spacer-bottom {
+  aspect-ratio: 1920/300;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  transform: rotate(180deg);
+  z-index: -1;
+}
+
+.layer1 {
+  background-image: url("../assets/images/layer1.svg");
+}
+
+.blue {
+  background-color: blue;
+}
+.red {
+  background-color: red;
+}
+
+.green {
+  background-color: green;
+}
+.dark {
+  background-color: black;
+}

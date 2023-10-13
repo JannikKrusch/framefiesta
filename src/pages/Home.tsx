@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { BlogPost } from "../utils";
 import { Loader } from "../components/shared";
 import { DummyBlogPosts } from "../utils/helper/DummyData";
-
+import "./Home.css";
 interface HomeProps {
   searchQuery: string;
 }
@@ -40,39 +40,75 @@ function Home({ searchQuery }: HomeProps) {
 
   return (
     <>
-      <div style={{ color: "white" }}>
-        {/* <Loader /> */}
-        <span style={{ color: "white" }}>{searchQuery}</span>
-        {filteredBlogPosts.map((post) => {
-          return (
-            <>
-              <p>{post.id}</p>
-              <p>{post.motionPicture.title}</p>
-              <p>{post.motionPicture.rating}</p>
-              <p>{post.motionPicture.initialRelease}</p>
-              <p>{post.motionPicture.director}</p>
-              <p>
-                {post.motionPicture.actors.map((actor) => {
-                  return (
-                    <>
-                      <span>actor: {actor} | </span>
-                    </>
-                  );
-                })}
-              </p>
-              <p>
-                {post.motionPicture.genre.map((genre) => {
-                  return (
-                    <>
-                      <span>genre: {genre} | </span>
-                    </>
-                  );
-                })}
-              </p>
-            </>
-          );
-        })}
-      </div>
+      <section>
+        <h1>Nice Curves</h1>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
+          mollitia, molestiae quas vel sint commodi repudiandae consequuntur
+          voluptatum laborum numquam blanditiis harum quisquam
+        </p>
+      </section>
+
+      {/* <div className="spacer-top layer1"></div>
+      <div className="spacer-bottom layer1"></div> */}
+
+      <section>
+        <h1>Nice Curves</h1>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
+          mollitia, molestiae quas vel sint commodi repudiandae consequuntur
+          voluptatum laborum numquam blanditiis harum quisquam
+        </p>
+      </section>
+      <div className="spacer layer1"></div>
+      <section>
+        <h1>Nice Curves</h1>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
+          mollitia, molestiae quas vel sint commodi repudiandae consequuntur
+          voluptatum laborum numquam blanditiis harum quisquam
+        </p>
+      </section>
+      <section>
+        <h1>Nice Curves</h1>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
+          mollitia, molestiae quas vel sint commodi repudiandae consequuntur
+          voluptatum laborum numquam blanditiis harum quisquam
+        </p>
+      </section>
+      <section>
+        <h1>Nice Curves</h1>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
+          mollitia, molestiae quas vel sint commodi repudiandae consequuntur
+          voluptatum laborum numquam blanditiis harum quisquam
+        </p>
+      </section>
+      <section>
+        <h1>Nice Curves</h1>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
+          mollitia, molestiae quas vel sint commodi repudiandae consequuntur
+          voluptatum laborum numquam blanditiis harum quisquam
+        </p>
+      </section>
+      <section>
+        <h1>Nice Curves</h1>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
+          mollitia, molestiae quas vel sint commodi repudiandae consequuntur
+          voluptatum laborum numquam blanditiis harum quisquam
+        </p>
+      </section>
+      <section>
+        <h1>Nice Curves</h1>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
+          mollitia, molestiae quas vel sint commodi repudiandae consequuntur
+          voluptatum laborum numquam blanditiis harum quisquam
+        </p>
+      </section>
     </>
   );
 }
