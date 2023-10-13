@@ -5,8 +5,8 @@
   --component-background-color: rgb(43, 48, 53);
   --component-background-color-active: rgb(142, 5, 194);
   --component-background-color-hover: rgb(62, 6, 95);
-  --component-text-color: rgb(220, 220, 220);
-  --component-text-color-active: rgb(255, 255, 255);
+  --searchbar-background-color: rgb(57, 62, 70);
+  --component-text-color: rgb(255, 255, 255);
   --component-text-size: 1rem;
 }
 

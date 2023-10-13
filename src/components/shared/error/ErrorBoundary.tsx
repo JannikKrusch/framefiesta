@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { ErrorBoundaryProps, ErrorBoundaryState } from "../../../utils";
-import { Error } from "./Error";
+import { ErrorPage } from "./ErrorPage";
 
 //!Error Boundary only catches Errors that are thrown directly, cannot handle async
 export class ErrorBoundary extends React.Component<any, any> {
@@ -31,12 +31,8 @@ export class ErrorBoundary extends React.Component<any, any> {
   }
 
   render(): ReactNode {
-    if (this.state.hasError) {
-      return (
-        <>
-          <Error error={this.state.error} />
-        </>
-      );
+    if (this.state.hasError && this.state.error) {
+      return <ErrorPage />;
     } else {
       return this.props.children;
     }
