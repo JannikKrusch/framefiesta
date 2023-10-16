@@ -1,0 +1,25 @@
+.teaser-content {
+  display: flex;
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: var(--teaser-max-width);
+  background-color: var(--component-background-color);
+  border: 1px solid var(--border-color);
+}
+
+.teaser-card {
+  max-width: var(--teaser-max-width);
+  min-width: var(--teaser-min-width);
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.teaser-image {
+  object-fit: cover;
+  width: 100%;
+}
+
+.teaser-text {
+  text-align: start;
+  border-top: 1px solid var(--border-color);
+}

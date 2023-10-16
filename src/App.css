@@ -8,6 +8,10 @@
   --searchbar-background-color: rgb(57, 62, 70);
   --component-text-color: rgb(255, 255, 255);
   --component-text-size: 1rem;
+  --border-color: rgb(200, 200, 200);
+
+  --teaser-max-width: 400px;
+  --teaser-min-width: 300px;
 }
 
 .main-container {
@@ -25,6 +29,7 @@
     rgba(62, 6, 94, 1) 50%,
     rgba(30, 30, 30, 1) 100%
   );
+  font-family: "Roboto", sans-serif;
 }
 
 .spacer-top {
@@ -50,4 +55,5 @@
 .content-container {
   min-height: 100vh;
   padding: 4rem 1rem 0rem 1rem;
+  text-align: center;
 }

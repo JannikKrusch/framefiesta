@@ -5,7 +5,7 @@ export class MotionPicture {
   public rating: number = 0;
   public ageRating: number = 0;
   public image: string = "";
-  public genre: string[] = [];
+  public genres: string[] = [];
   public initialRelease: number = 0;
   public comments: string[] = [];
 }

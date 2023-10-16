@@ -4,7 +4,7 @@ export function DummyBlogPosts(amount: number): BlogPost[] {
   const blogPosts: BlogPost[] = [];
 
   for (let i = 1; i <= amount; i++) {
-    if (i <= 0) {
+    if (amount <= 0) {
       return [];
     }
     console.warn("in loop");
@@ -18,9 +18,16 @@ export function DummyBlogPosts(amount: number): BlogPost[] {
       "et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet",
     ];
     motionPicture.director = `director ${i}`;
-    motionPicture.genre = ["genre 1", "genre 2", "genre 3"];
+    motionPicture.genres = [
+      "Horror",
+      "Comedy",
+      "Science-Fiction",
+      "Thriller",
+      "Drama",
+      "Romance",
+    ];
     motionPicture.image =
-      "https://www.imdb.com/title/tt0110912/mediaviewer/rm4065424384/?ref_=tt_ov_i";
+      "https://de.web.img2.acsta.net/r_1280_720/newsv7/20/04/28/09/51/1944619.jpg";
     motionPicture.initialRelease = 1994;
     motionPicture.rating = 8.9;
     motionPicture.title = `Pulp Fiction ${i}`;

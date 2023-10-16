@@ -3,6 +3,8 @@ import { BlogPost } from "../utils";
 import { Loader } from "../components/shared";
 import { DummyBlogPosts } from "../utils/helper/DummyData";
 import "./Home.css";
+import Welcome from "../components/modules/home/welcome/Welcome";
+import BlogPostTeaser from "../components/modules/home/blogpostteaser/BlogPostTeaser";
 interface HomeProps {
   searchQuery: string;
 }
@@ -13,8 +15,6 @@ function Home({ searchQuery }: HomeProps) {
   useEffect(() => {
     setblogPosts(DummyBlogPosts(10));
   }, []);
-
-  const filteredBlogPosts = filterBlogPosts(blogPosts);
 
   function filterBlogPosts(blogposts: BlogPost[]): BlogPost[] {
     console.warn(searchQuery);
@@ -31,7 +31,7 @@ function Home({ searchQuery }: HomeProps) {
         motionPicture.actors.some((actor: string) =>
           actor.toLowerCase().includes(searchQueryLowerCase)
         ) ||
-        motionPicture.genre.some((genre: String) =>
+        motionPicture.genres.some((genre: String) =>
           genre.toLowerCase().includes(searchQueryLowerCase)
         )
       );
@@ -40,7 +40,9 @@ function Home({ searchQuery }: HomeProps) {
 
   return (
     <>
-      <section>
+      <Welcome />
+      <BlogPostTeaser blogPosts={blogPosts} />
+      {/* <section>
         <h1>Nice Curves</h1>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
@@ -49,8 +51,8 @@ function Home({ searchQuery }: HomeProps) {
         </p>
       </section>
 
-      {/* <div className="spacer-top layer1"></div>
-      <div className="spacer-bottom layer1"></div> */}
+      <div className="spacer-top layer1"></div>
+      <div className="spacer-bottom layer1"></div>
 
       <section>
         <h1>Nice Curves</h1>
@@ -60,8 +62,8 @@ function Home({ searchQuery }: HomeProps) {
           voluptatum laborum numquam blanditiis harum quisquam
         </p>
       </section>
-      <div className="spacer layer1"></div>
-      <section>
+      <div className="spacer layer1"></div> */}
+      {/* <section>
         <h1>Nice Curves</h1>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
@@ -108,7 +110,7 @@ function Home({ searchQuery }: HomeProps) {
           mollitia, molestiae quas vel sint commodi repudiandae consequuntur
           voluptatum laborum numquam blanditiis harum quisquam
         </p>
-      </section>
+      </section> */}
     </>
   );
 }
