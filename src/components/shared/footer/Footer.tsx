@@ -3,6 +3,10 @@ import { COMPANY_NAME } from "../../../utils/constants/Names";
 import "./Footer.css";
 
 export function Footer() {
+  function iconClick(): void {
+    window.open("https://t.ly/UcFH_", "_blank");
+  }
+
   return (
     <footer className="footer">
       <div className="row g-0">
@@ -12,10 +16,22 @@ export function Footer() {
         <span className="p">Follow us on</span>
       </div>
 
-      <div className="d-flex flex-row justify-content-center py-2">
-        <Instagram size={"2rem"} />
-        <Twitter size={"2rem"} className="mx-auto mx-sm-5" />
-        <Youtube size={"2rem"} />
+      <div className="d-flex justify-content-center py-2">
+        <Instagram
+          className="social-media-icons"
+          size={"2rem"}
+          onClick={iconClick}
+        />
+        <Twitter
+          className="social-media-icons mx-5"
+          size={"2rem"}
+          onClick={iconClick}
+        />
+        <Youtube
+          className="social-media-icons"
+          size={"2rem"}
+          onClick={iconClick}
+        />
       </div>
     </footer>
   );

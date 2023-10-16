@@ -11,6 +11,10 @@ body > footer {
   font-size: var(--component-text-size);
 }
 
-.follow-us-icons {
-  background-color: red;
+.social-media-icons {
+  cursor: pointer;
+}
+
+.social-media-icons:hover {
+  color: var(--component-background-color-hover);
 }

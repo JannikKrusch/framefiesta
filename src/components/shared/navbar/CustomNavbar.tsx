@@ -9,7 +9,7 @@ interface CustomNavbarProps {
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export function CustomNavbar({ setSearchQuery }: CustomNavbarProps) {
+export function CustomNavbar(props: CustomNavbarProps) {
   const [menuActive, setMenuActive] = useState(false);
 
   const toggleMenu = () => {
@@ -44,7 +44,7 @@ export function CustomNavbar({ setSearchQuery }: CustomNavbarProps) {
             <input
               className="w-100 search-box"
               placeholder="search"
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => props.setSearchQuery(e.target.value)}
             />
           </div>
         </Navbar.Collapse>
