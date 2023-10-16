@@ -1,8 +1,8 @@
 /* Color Theme https://colorhunt.co/palette/0000003e065f700b978e05c2 */
 
 :root {
-  --page-background-color: rgb(30, 30, 30);
-  --component-background-color: rgb(43, 48, 53);
+  /* --page-background-color: rgb(30, 30, 30); */
+  --component-background-color: rgb(30, 30, 30);
   --component-background-color-active: rgb(142, 5, 194);
   --component-background-color-hover: rgb(62, 6, 95);
   --searchbar-background-color: rgb(57, 62, 70);
@@ -14,9 +14,37 @@
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  background-color: var(--page-background-color);
+  background-color: var(--component-background-color);
   color: var(--component-text-color) !important;
   font-size: var(--component-text-size);
+
+  background: rgb(30, 30, 30);
+  background: linear-gradient(
+    180deg,
+    rgba(30, 30, 30, 1) 0%,
+    rgba(62, 6, 94, 1) 50%,
+    rgba(30, 30, 30, 1) 100%
+  );
+}
+
+.spacer-top {
+  aspect-ratio: 1920/300;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.spacer-bottom {
+  aspect-ratio: 1920/300;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  transform: rotate(180deg);
+  z-index: -1;
+}
+
+.layer1 {
+  background-image: url("./assets/images/layer1.svg");
 }
 
 .content-container {

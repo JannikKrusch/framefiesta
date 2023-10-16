@@ -28,7 +28,6 @@ function App() {
                 element={<ErrorPage />}
               />
               <Route path={`${RouterPaths.About.path}`} element={<About />} />
-              <Route path={`${RouterPaths.Users.path}`} element={<Users />} />
             </Routes>
           </div>
           <Footer />
@@ -54,8 +53,4 @@ function About(): JSX.Element {
       <button onClick={buttonClick}>click</button>
     </>
   );
-}
-
-function Users() {
-  return <h2>Users</h2>;
 }
