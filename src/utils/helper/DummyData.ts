@@ -12,11 +12,6 @@ export function DummyBlogPosts(amount: number): BlogPost[] {
     const motionPicture = new MotionPicture();
 
     motionPicture.actors = ["actor 1", "actor 2", "actor 3", "actor 4"];
-    motionPicture.comments = [
-      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd",
-      "ubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tem",
-      "et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet",
-    ];
     motionPicture.director = `director ${i}`;
     motionPicture.genres = [
       "Horror",

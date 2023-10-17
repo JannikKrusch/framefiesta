@@ -1,7 +1,28 @@
 export const DEFAULT_URL: string = "";
 
 export enum Controllers {
-  Film = "film",
-  Series = "series",
-  BlogPosts = "blog",
+  Blogs = "blogs",
+  Admin = "admin",
+  User = "user",
+}
+
+export enum BlogEndPoints {
+  //returns list
+  GetMotionPictures = "/motionPictures",
+  GetFilms = "/getFilms",
+  GetSeries = "/getSeries",
+  //returns single item
+  GetFilmBy = "/getFilmById",
+  GetSeriesById = "/getSeriesById",
+}
+
+export enum Admin {
+  DeleteUser = "/deleteUser",
+  DeleteBlog = "/deleteBlog",
+}
+
+export enum User {
+  Register = "/register",
+  LogIn = "/login",
+  DeleteComment = "/deleteComment",
 }
