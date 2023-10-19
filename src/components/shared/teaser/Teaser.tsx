@@ -7,7 +7,7 @@ interface TeaserProps {
 }
 
 function Teaser(props: TeaserProps) {
-  const motionPicture = props.blogPost.motionPicture;
+  const motionPicture = props.blogPost.relatedMotionPicture;
   return (
     <div className="teaser-content">
       <div className="teaser-card">

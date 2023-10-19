@@ -6,6 +6,12 @@ export enum Controllers {
   User = "user",
 }
 
+export const enum Method {
+  Get = "GET",
+  Post = "POST",
+  Put = "PUT",
+}
+
 export enum BlogEndPoints {
   //returns list
   GetMotionPictures = "/motionPictures",

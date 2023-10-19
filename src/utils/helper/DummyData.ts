@@ -28,7 +28,7 @@ export function DummyBlogPosts(amount: number): BlogPost[] {
     motionPicture.title = `Pulp Fiction ${i}`;
 
     blogPost.id = i;
-    blogPost.motionPicture = motionPicture;
+    blogPost.relatedMotionPicture = motionPicture;
 
     blogPosts.push(blogPost);
   }

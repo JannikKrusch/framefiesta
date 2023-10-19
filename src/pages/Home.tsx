@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BlogPost } from "../utils";
+import { BlogPost, Controllers } from "../utils";
 import { Loader } from "../components/shared";
 import { DummyBlogPosts } from "../utils/helper/DummyData";
 import "./Home.css";
@@ -20,7 +20,7 @@ function Home({ searchQuery }: HomeProps) {
     console.warn(searchQuery);
     const searchQueryLowerCase = searchQuery.toLowerCase();
     return blogposts.filter((post: BlogPost) => {
-      const motionPicture = post.motionPicture;
+      const motionPicture = post.relatedMotionPicture;
       return (
         motionPicture.director.toLowerCase().includes(searchQueryLowerCase) ||
         motionPicture.initialRelease
