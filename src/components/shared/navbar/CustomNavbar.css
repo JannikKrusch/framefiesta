@@ -2,12 +2,16 @@
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: var(--component-background-color) !important;
-  color: var(--component-text-color) !important;
+  background-color: var(--background-color-black) !important;
+  color: var(--text-color-default) !important;
 }
 
 .custom-navbar-link {
-  color: var(--component-text-color) !important;
+  color: var(--text-color-default) !important;
+}
+
+.custom-navbar-link:hover {
+  color: var(--text-color-purple) !important;
 }
 
 .search-box {
@@ -20,5 +24,5 @@
 }
 
 .navbar-toggler-icon {
-  color: var(--component-text-color) !important;
+  color: var(--text-color-default) !important;
 }

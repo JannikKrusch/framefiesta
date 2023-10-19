@@ -3,8 +3,7 @@ import { BlogPost, Controllers } from "../utils";
 import { Loader } from "../components/shared";
 import { DummyBlogPosts } from "../utils/helper/DummyData";
 import "./Home.css";
-import Welcome from "../components/modules/home/welcome/Welcome";
-import BlogPostTeaser from "../components/modules/home/blogpostteaser/BlogPostTeaser";
+import DetailPost from "../components/modules/home/detailPost/DetailPost";
 interface HomeProps {
   searchQuery: string;
 }
@@ -16,32 +15,12 @@ function Home({ searchQuery }: HomeProps) {
     setblogPosts(DummyBlogPosts(10));
   }, []);
 
-  function filterBlogPosts(blogposts: BlogPost[]): BlogPost[] {
-    console.warn(searchQuery);
-    const searchQueryLowerCase = searchQuery.toLowerCase();
-    return blogposts.filter((post: BlogPost) => {
-      const motionPicture = post.relatedMotionPicture;
-      return (
-        motionPicture.director.toLowerCase().includes(searchQueryLowerCase) ||
-        motionPicture.initialRelease
-          .toString()
-          .includes(searchQueryLowerCase) ||
-        motionPicture.rating.toString().includes(searchQueryLowerCase) ||
-        motionPicture.title.toLowerCase().includes(searchQueryLowerCase) ||
-        motionPicture.actors.some((actor: string) =>
-          actor.toLowerCase().includes(searchQueryLowerCase)
-        ) ||
-        motionPicture.genres.some((genre: String) =>
-          genre.toLowerCase().includes(searchQueryLowerCase)
-        )
-      );
-    });
-  }
-
   return (
     <>
-      <Welcome />
-      <BlogPostTeaser blogPosts={blogPosts} />
+      {blogPosts.length > 0 ? <DetailPost blogPost={blogPosts[0]} /> : <></>}
+
+      {/* <Welcome /> */}
+      {/* <BlogPostTeaser blogPosts={blogPosts} /> */}
       {/* <section>
         <h1>Nice Curves</h1>
         <p>

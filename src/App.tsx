@@ -27,7 +27,7 @@ function App() {
                 path={`${RouterPaths.Error.path}`}
                 element={<ErrorPage />}
               />
-              <Route path={`${RouterPaths.About.path}`} element={<About />} />
+              <Route path={`${RouterPaths.Login.path}`} element={<About />} />
             </Routes>
           </div>
           <Footer />
