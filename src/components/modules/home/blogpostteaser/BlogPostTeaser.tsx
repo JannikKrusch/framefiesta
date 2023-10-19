@@ -11,7 +11,7 @@ function BlogPostTeaser(props: BlogPostTeaserProps) {
   const blogPosts = props.blogPosts.slice(0, 4);
 
   return (
-    <div className="blogpost-teaser-content">
+    <div className="row g-0">
       {blogPosts.map((blogPost: BlogPost) => {
         return <Teaser blogPost={blogPost} />;
       })}
