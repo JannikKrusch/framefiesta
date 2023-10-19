@@ -3,6 +3,10 @@
   padding: 2rem;
 }
 
+.information-options {
+  padding-bottom: 1rem;
+}
+
 .information-option {
   margin-right: 2rem;
   cursor: pointer;

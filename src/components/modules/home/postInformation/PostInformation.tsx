@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { ReactNode, useState } from "react";
 import { BlogPost, MotionPicture } from "../../../../utils";
 import "./PostInformation.css";
 import { INFORMATION_OPTIONS } from "../../../../utils/constants/DetailPost";
+import Description from "./Description";
 
 interface PostInformationProps {
   blogPost: BlogPost;
@@ -11,9 +12,28 @@ function PostInformation(props: PostInformationProps) {
   const blogPost = props.blogPost;
   const [selectedInformation, setselectedInformation] = useState<number>(0);
 
+  function displayInformation(): ReactNode {
+    switch (selectedInformation) {
+      case 1:
+        return <>Review</>;
+      case 2:
+        return <>Comments</>;
+      case 3:
+        return <>Recommended</>;
+      default:
+        console.warn("in default");
+        return (
+          <Description
+            description={blogPost.description}
+            motionPicture={blogPost.relatedMotionPicture}
+          />
+        );
+    }
+  }
+
   return (
     <div className="post-information-container">
-      <div className="information-options d-flex">
+      <div className="information-options d-flex flex-wrap">
         {INFORMATION_OPTIONS.map((option: string, index: number) => {
           return (
             <span
@@ -27,6 +47,7 @@ function PostInformation(props: PostInformationProps) {
           );
         })}
       </div>
+      {displayInformation()}
     </div>
   );
 }

@@ -4,9 +4,6 @@ export function DummyBlogPosts(amount: number): BlogPost[] {
   const blogPosts: BlogPost[] = [];
 
   for (let i = 1; i <= amount; i++) {
-    if (amount <= 0) {
-      return [];
-    }
     console.warn("in loop");
     const blogPost = new BlogPost();
     const motionPicture = new MotionPicture();
@@ -25,10 +22,14 @@ export function DummyBlogPosts(amount: number): BlogPost[] {
       "https://de.web.img2.acsta.net/r_1280_720/newsv7/20/04/28/09/51/1944619.jpg";
     motionPicture.initialRelease = 1994;
     motionPicture.rating = 8.9;
+    motionPicture.ageRating = 18;
+    motionPicture.budget = 10000000;
     motionPicture.title = `Pulp Fiction ${i}`;
 
     blogPost.id = i;
     blogPost.relatedMotionPicture = motionPicture;
+    blogPost.description =
+      "Ullamco fugiat irure officia adipisicing dolore consectetur cupidatat reprehenderit adipisicing dolor et ex. Reprehenderit fugiat do aliquip pariatur. Nostrud esse anim exercitation in anim ex.";
 
     blogPosts.push(blogPost);
   }
