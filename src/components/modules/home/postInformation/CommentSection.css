@@ -1,0 +1,15 @@
+.comment-container {
+  margin-bottom: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-color-default);
+}
+
+.comment-author-icon {
+  color: var(--text-color-purple);
+}
+
+.comment-author-name {
+  color: var(--text-color-purple);
+}

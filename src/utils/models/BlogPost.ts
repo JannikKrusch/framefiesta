@@ -1,3 +1,4 @@
+import { Comment } from "./Comment";
 import { MotionPicture } from "./MotionPicture";
 
 export class BlogPost {

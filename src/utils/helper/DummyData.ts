@@ -1,4 +1,5 @@
 import { BlogPost, MotionPicture } from "..";
+import { Comment } from "../models/Comment";
 
 export function DummyBlogPosts(amount: number): BlogPost[] {
   const blogPosts: BlogPost[] = [];
@@ -28,8 +29,28 @@ export function DummyBlogPosts(amount: number): BlogPost[] {
 
     blogPost.id = i;
     blogPost.relatedMotionPicture = motionPicture;
+    blogPost.review =
+      "Excepteur cupidatat duis cupidatat exercitation cupidatat Lorem adipisicing pariatur minim enim in. Eu occaecat elit aliquip labore excepteur ea eiusmod nisi deserunt duis in. Proident sit ut dolor cupidatat duis pariatur ex. Quis mollit ex qui labore voluptate amet anim culpa sunt ut laborum culpa culpa ea. Voluptate minim magna mollit amet ad est aute. Do aute et cupidatat do incididunt.d" +
+      "Consequat fugiat et irure proident. Cupidatat voluptate officia ad voluptate consequat non reprehenderit aliquip veniam magna consequat ullamco. Commodo pariatur nostrud in fugiat exercitation ipsum consequat duis ea ex magna anim voluptate veniam. Commodo pariatur enim eiusmod in est id. Eu minim reprehenderit qui do officia minim sunt." +
+      "In occaecat velit sint ea sint ex officia reprehenderit. Elit enim et officia esse excepteur reprehenderit ipsum sit. Ut adipisicing laboris nostrud voluptate mollit deserunt in irure ullamco labore et sunt aliqua labore. Culpa ipsum cupidatat et do mollit dolor ullamco et." +
+      "Magna adipisicing duis cupidatat consequat. Aute commodo occaecat sint deserunt laborum et dolore laboris anim aliqua tempor dolore. Anim commodo magna pariatur minim in nostrud cillum cillum duis." +
+      "Commodo pariatur velit anim pariatur labore laborum nostrud. Ad irure amet occaecat laboris ad laboris do et. Incididunt ullamco quis minim in esse laborum labore.";
     blogPost.description =
       "Ullamco fugiat irure officia adipisicing dolore consectetur cupidatat reprehenderit adipisicing dolor et ex. Reprehenderit fugiat do aliquip pariatur. Nostrud esse anim exercitation in anim ex.";
+
+    const min = 1;
+    const max = blogPost.review.length;
+    for (let i = 0; i < 10; i++) {
+      const comment = new Comment();
+      comment.date = new Date();
+      comment.userName = "Sussy Baka";
+      comment.text = blogPost.review.substring(
+        Math.floor(Math.random() * (max - min + 1)) + min,
+        Math.floor(Math.random() * (max - min + 1)) + min
+      );
+
+      blogPost.comments.push(comment);
+    }
 
     blogPosts.push(blogPost);
   }

@@ -3,6 +3,7 @@ import { BlogPost, MotionPicture } from "../../../../utils";
 import "./PostInformation.css";
 import { INFORMATION_OPTIONS } from "../../../../utils/constants/DetailPost";
 import Description from "./Description";
+import Review from "./Review";
 
 interface PostInformationProps {
   blogPost: BlogPost;
@@ -15,7 +16,13 @@ function PostInformation(props: PostInformationProps) {
   function displayInformation(): ReactNode {
     switch (selectedInformation) {
       case 1:
-        return <>Review</>;
+        return (
+          <Review
+            review={blogPost.review}
+            rating={blogPost.relatedMotionPicture.rating}
+            comments={blogPost.comments}
+          />
+        );
       case 2:
         return <>Comments</>;
       case 3:

@@ -16,7 +16,7 @@ function Description(props: DescriptionProps) {
     "Genre",
     "Budget",
     "Director",
-    "Actors",
+    "Cast",
   ];
   const factValue = [
     motionPicture.initialRelease,

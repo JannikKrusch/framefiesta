@@ -1,6 +1,1 @@
-export const INFORMATION_OPTIONS = [
-  "Description",
-  "Review",
-  "Comments",
-  "Recommended",
-];
+export const INFORMATION_OPTIONS = ["Description", "Review", "Recommended"];
