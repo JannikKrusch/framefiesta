@@ -6,6 +6,25 @@
   color: var(--text-color-default);
 }
 
+.commentsection-header {
+  margin-bottom: 1rem;
+}
+
+.commentsection-header span {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.sort-button {
+  background-color: var(--text-color-purple) !important;
+  border: 0 !important;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
 .comment-author-icon {
   color: var(--text-color-purple);
 }

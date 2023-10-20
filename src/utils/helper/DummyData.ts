@@ -43,6 +43,8 @@ export function DummyBlogPosts(amount: number): BlogPost[] {
     for (let i = 0; i < 10; i++) {
       const comment = new Comment();
       comment.date = new Date();
+      comment.date.setDate(Math.floor(Math.random() * (30 - 1 + 1)) + 1);
+      comment.date.setMonth(Math.floor(Math.random() * (12 - 1 + 1)) + 1);
       comment.userName = "Sussy Baka";
       comment.text = blogPost.review.substring(
         Math.floor(Math.random() * (max - min + 1)) + min,
