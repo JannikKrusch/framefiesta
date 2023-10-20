@@ -8,7 +8,6 @@ interface DescriptionProps {
 }
 
 function Description(props: DescriptionProps) {
-  console.warn(props.description);
   const motionPicture = props.motionPicture;
 
   const factName = [
@@ -44,8 +43,8 @@ function Description(props: DescriptionProps) {
   }
 
   return (
-    <div className="row">
-      <div className="col-sm-12 col-md-6">{props.description}</div>
+    <div className="description-container row">
+      <div className="col-sm-12 col-md-6 mb-sm-4">{props.description}</div>
       <div className="col-sm-12 col-md-6">{displayFacts()}</div>
     </div>
   );

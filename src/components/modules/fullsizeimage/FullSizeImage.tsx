@@ -9,7 +9,27 @@ function FullSizeImage(props: FullSizeImageProps) {
   const image = props.image;
   return (
     // <div className="full-size-image-container">
-    <img className="full-size-image" src={image} alt="Motion picture"></img>
+    <>
+      <div className="image-wrapper">
+        <div
+          className="background-container"
+          style={{ backgroundImage: `url(${image})` }}
+        ></div>
+
+        <div className="centered-image">
+          <img src={image} alt="Motion picture"></img>
+        </div>
+      </div>
+
+      {/* <div
+        className="image-container"
+        style={{ backgroundImage: `url(${image})` }}
+      >
+        <div className="centered-image">
+          <img src={image} alt="Motion picture"></img>
+        </div>
+      </div> */}
+    </>
     // </div>
   );
 }

@@ -7,6 +7,7 @@ interface DetailPostProps {
   blogPost: BlogPost;
 }
 
+//https://dribbble.com/shots/2623175-MediaMe-Film-Card/attachments/524445?mode=media
 function DetailPost(props: DetailPostProps) {
   const blogPost = props.blogPost;
 
