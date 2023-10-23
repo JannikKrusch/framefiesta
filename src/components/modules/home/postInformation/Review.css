@@ -1,15 +1,15 @@
-.rating-column {
+.clickable {
   cursor: pointer;
 }
 
 .review-progressbar .progress-bar {
   background-color: var(--text-color-purple) !important;
-  cursor: pointer;
   font-size: var(--text-size);
 }
 
 .review-placeholder {
   width: 100%;
+  cursor: pointer;
   animation-name: example;
   animation-duration: 4s;
   animation-iteration-count: infinite;

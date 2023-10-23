@@ -20,27 +20,27 @@ function Review(props: ReviewProps) {
   return (
     <>
       <div className="row">
-        <div className="rating-column col-sm-12 col-md-6 col-lg-4 mb-4 mb-md-0">
+        <div className="col-sm-12 col-md-6 col-lg-4 mb-4 mb-md-0">
           <span>Fiesta Rating</span>
           {showRating ? (
-            <ProgressBar
-              className="review-progressbar"
-              animated
-              min={0}
-              max={10}
-              now={props.rating}
-              label={`${props.rating}`}
-              onClick={toggleRating}
-            />
+            <div className="clickable">
+              <ProgressBar
+                className="review-progressbar"
+                animated
+                min={0}
+                max={10}
+                now={props.rating}
+                label={`${props.rating}`}
+                onClick={toggleRating}
+              />
+            </div>
           ) : (
             <Placeholder
               className="review-placeholder"
               as={ProgressBar}
               animation="glow"
               onClick={toggleRating}
-            >
-              <Placeholder />
-            </Placeholder>
+            ></Placeholder>
           )}
         </div>
         <div className="col-sm-12 col-md-6 col-lg-8 mb-4">

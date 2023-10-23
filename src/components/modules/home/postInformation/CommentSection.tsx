@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Comment } from "../../../../utils/models/Comment";
 import { PersonCircle } from "react-bootstrap-icons";
 import "./CommentSection.css";
-import { Button, ButtonGroup } from "react-bootstrap";
+import { Button, ButtonGroup, Form, InputGroup } from "react-bootstrap";
 
 interface CommentProps {
   comments: Comment[];
@@ -10,21 +10,25 @@ interface CommentProps {
 
 function CommentSection(props: CommentProps) {
   const [filtered, setfiltered] = useState<Comment[]>(props.comments);
+  const [comment, setComment] = useState("");
+  const [isFocused, setIsFocused] = useState(false);
   //! filter
   function filterNewest(): void {
-    console.warn("first");
-    const sortedComments = [...props.comments].sort(
-      (commentA, commentB) => commentB.date.getTime() - commentA.date.getTime()
-    );
+    const sortedComments = [...props.comments].sort((commentA, commentB) => {
+      return commentB.date.getTime() - commentA.date.getTime();
+    });
 
+    console.warn("filterNewest");
     setfiltered((prev) => sortedComments);
   }
 
   function filterOldest(): void {
-    const filter = props.comments.sort(
-      (commentA, commentB) => commentA.date.getTime() - commentB.date.getTime()
-    );
-    setfiltered((prev) => filter);
+    const sortedComments = [...props.comments].sort((commentA, commentB) => {
+      return commentA.date.getTime() - commentB.date.getTime();
+    });
+
+    console.warn("filterOldest");
+    setfiltered((prev) => sortedComments);
   }
 
   return (
@@ -42,6 +46,39 @@ function CommentSection(props: CommentProps) {
           </ButtonGroup>
         </div>
       </div>
+
+      <InputGroup data-bs-theme="dark">
+        <InputGroup.Text className="comment-inputgroup">
+          <PersonCircle className="comment-author-icon" size={"3rem"} />
+        </InputGroup.Text>
+        <Form.Control
+          className="comment-inputgroup"
+          rows={Math.min(comment.split("\n").length, 10)}
+          as="textarea"
+          placeholder="Add Comment..."
+          value={comment}
+          onChange={(e) => {
+            setComment(e.target.value);
+            console.warn(e.target.value);
+          }}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => {
+            if (!comment.trim()) {
+              setIsFocused(false);
+            }
+          }}
+        />
+      </InputGroup>
+      {isFocused ? (
+        <>
+          <div className="comment-input-buttons ">
+            <Button className="submit-button">Comment</Button>
+            <Button className="cancel-button">Cancel</Button>
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
 
       {filtered.map((comment: Comment) => {
         return (
