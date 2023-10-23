@@ -8,7 +8,6 @@ interface FullSizeImageProps {
 function FullSizeImage(props: FullSizeImageProps) {
   const image = props.image;
   return (
-    // <div className="full-size-image-container">
     <>
       <div className="image-wrapper">
         <div
@@ -20,17 +19,7 @@ function FullSizeImage(props: FullSizeImageProps) {
           <img src={image} alt="Motion picture"></img>
         </div>
       </div>
-
-      {/* <div
-        className="image-container"
-        style={{ backgroundImage: `url(${image})` }}
-      >
-        <div className="centered-image">
-          <img src={image} alt="Motion picture"></img>
-        </div>
-      </div> */}
     </>
-    // </div>
   );
 }
 

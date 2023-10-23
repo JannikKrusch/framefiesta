@@ -1,11 +1,7 @@
 .teaser-card {
-  /* max-width: var(--teaser-max-width);
-  min-width: var(--teaser-min-width); */
   min-width: var(--teaser-min-width);
   border: 1px solid black;
   cursor: pointer;
-  /* margin-left: 1rem;
-  margin-bottom: 1rem; */
 }
 
 .teaser-image {

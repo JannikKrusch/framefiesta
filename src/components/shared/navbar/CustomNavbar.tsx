@@ -1,16 +1,14 @@
 import { COMPANY_NAME } from "../../../utils/constants/Names";
 import { RouterPaths } from "../../../utils/constants/RouterPaths";
+import { DataContext } from "../../../utils/context/DataContext";
 
 import "./CustomNavbar.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
 
-interface CustomNavbarProps {
-  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
-}
-
-export function CustomNavbar(props: CustomNavbarProps) {
+export function CustomNavbar() {
   const [menuActive, setMenuActive] = useState(false);
+  const { setSearchQuery } = useContext(DataContext);
 
   const toggleMenu = () => {
     setMenuActive(!menuActive);
@@ -44,7 +42,7 @@ export function CustomNavbar(props: CustomNavbarProps) {
             <input
               className="w-100 search-box"
               placeholder="search"
-              onChange={(e) => props.setSearchQuery(e.target.value)}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
         </Navbar.Collapse>

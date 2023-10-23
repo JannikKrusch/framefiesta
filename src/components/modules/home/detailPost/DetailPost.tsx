@@ -14,7 +14,7 @@ function DetailPost(props: DetailPostProps) {
   return (
     <div className="detail-post-container w-100">
       <FullSizeImage image={blogPost.relatedMotionPicture.image} />
-      <PostInformation blogPost={blogPost} />
+      <PostInformation blogPost={blogPost} recommendations={[]} />
       <div></div>
     </div>
   );

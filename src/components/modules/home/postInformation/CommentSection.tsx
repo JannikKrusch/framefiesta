@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Comment } from "../../../../utils/models/Comment";
 import { PersonCircle } from "react-bootstrap-icons";
 import "./CommentSection.css";
 import { Button, ButtonGroup, Form, InputGroup } from "react-bootstrap";
+import { DataContext } from "../../../../utils/context/DataContext";
 
 interface CommentProps {
   comments: Comment[];
@@ -12,6 +13,7 @@ function CommentSection(props: CommentProps) {
   const [filtered, setfiltered] = useState<Comment[]>(props.comments);
   const [comment, setComment] = useState("");
   const [isFocused, setIsFocused] = useState(false);
+  const { user } = useContext(DataContext);
   //! filter
   function filterNewest(): void {
     const sortedComments = [...props.comments].sort((commentA, commentB) => {
@@ -47,7 +49,7 @@ function CommentSection(props: CommentProps) {
         </div>
       </div>
 
-      <InputGroup data-bs-theme="dark">
+      <InputGroup data-bs-theme="dark" hidden={user === undefined}>
         <InputGroup.Text className="comment-inputgroup">
           <PersonCircle className="comment-author-icon" size={"3rem"} />
         </InputGroup.Text>

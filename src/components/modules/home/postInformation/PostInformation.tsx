@@ -4,9 +4,11 @@ import "./PostInformation.css";
 import { INFORMATION_OPTIONS } from "../../../../utils/constants/DetailPost";
 import Description from "./Description";
 import Review from "./Review";
+import Recommended from "./Recommended";
 
 interface PostInformationProps {
   blogPost: BlogPost;
+  recommendations: BlogPost[];
 }
 
 function PostInformation(props: PostInformationProps) {
@@ -24,11 +26,8 @@ function PostInformation(props: PostInformationProps) {
           />
         );
       case 2:
-        return <>Comments</>;
-      case 3:
-        return <>Recommended</>;
+        return <Recommended />;
       default:
-        console.warn("in default");
         return (
           <Description
             description={blogPost.description}
