@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { ReactNode, useContext, useState } from "react";
 import { Comment } from "../../../../utils/models/Comment";
 import { PersonCircle } from "react-bootstrap-icons";
 import "./CommentSection.css";
@@ -12,9 +12,12 @@ interface CommentProps {
 function CommentSection(props: CommentProps) {
   const [filtered, setfiltered] = useState<Comment[]>(props.comments);
   const [comment, setComment] = useState("");
+  const itemsPerPage = 10;
+  const [activeCommentPage, setActiveCommentPage] = useState(1);
   const [isFocused, setIsFocused] = useState(false);
   const { user } = useContext(DataContext);
   //! filter
+
   function filterNewest(): void {
     const sortedComments = [...props.comments].sort((commentA, commentB) => {
       return commentB.date.getTime() - commentA.date.getTime();
@@ -33,17 +36,42 @@ function CommentSection(props: CommentProps) {
     setfiltered((prev) => sortedComments);
   }
 
+  function displayCommentPages(): ReactNode {
+    const amountCommentPages = Math.ceil(filtered.length / 10);
+    let buttonLabels = [];
+    for (let i = 1; i <= amountCommentPages; i++) {
+      buttonLabels.push(i);
+    }
+    return (
+      <ButtonGroup>
+        {buttonLabels.map((label) => {
+          return (
+            <Button
+              className={`comment-page-button ${
+                label == activeCommentPage ? "active" : ""
+              }`}
+              href="#comment-section-start"
+              onClick={() => setActiveCommentPage(label)}
+            >
+              {label}
+            </Button>
+          );
+        })}
+      </ButtonGroup>
+    );
+  }
+
   return (
-    <div className="commentsection-container">
+    <div className="commentsection-container" id={"comment-section-start"}>
       <div className="commentsection-header">
         <span>Comments ({props.comments.length})</span>
         <div className="">
           <ButtonGroup>
             <Button className="sort-button" onClick={() => filterOldest()}>
-              Sort Oldest
+              Oldest
             </Button>
             <Button className="sort-button" onClick={() => filterNewest()}>
-              Sort Newst
+              Newest
             </Button>
           </ButtonGroup>
         </div>
@@ -73,33 +101,42 @@ function CommentSection(props: CommentProps) {
       </InputGroup>
       {isFocused ? (
         <>
-          <div className="comment-input-buttons ">
-            <Button className="submit-button">Comment</Button>
-            <Button className="cancel-button">Cancel</Button>
+          <div className="comment-input-buttons">
+            <ButtonGroup>
+              <Button className="submit-button">Comment</Button>
+              <Button className="cancel-button">Cancel</Button>
+            </ButtonGroup>
           </div>
         </>
       ) : (
         <></>
       )}
 
-      {filtered.map((comment: Comment) => {
-        return (
-          <div className="comment-container g-0 row">
-            <div className="row">
-              <div className="col-auto">
-                <PersonCircle className="comment-author-icon" size={"3rem"} />
-              </div>
-              <div className="col mb-2">
-                <div className="comment-author-name row">
-                  {comment.userName}
+      {filtered
+        .slice(
+          (activeCommentPage - 1) * itemsPerPage,
+          activeCommentPage * itemsPerPage
+        )
+        .map((comment: Comment) => {
+          return (
+            <div className="comment-container g-0 row">
+              <div className="row">
+                <div className="col-auto">
+                  <PersonCircle className="comment-author-icon" size={"3rem"} />
                 </div>
-                <div className="row">{comment.date.toLocaleDateString()}</div>
+                <div className="col mb-2">
+                  <div className="comment-author-name row">
+                    {comment.userName}
+                  </div>
+                  <div className="row">{comment.date.toLocaleDateString()}</div>
+                </div>
               </div>
+              <div className="row">{comment.text}</div>
             </div>
-            <div className="row">{comment.text}</div>
-          </div>
-        );
-      })}
+          );
+        })}
+
+      {displayCommentPages()}
     </div>
   );
 }

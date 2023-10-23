@@ -40,12 +40,12 @@ export function DummyBlogPosts(amount: number): BlogPost[] {
 
     const min = 1;
     const max = blogPost.review.length;
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 20; i++) {
       const comment = new Comment();
       comment.date = new Date();
       comment.date.setDate(Math.floor(Math.random() * (30 - 1 + 1)) + 1);
       comment.date.setMonth(Math.floor(Math.random() * (12 - 1 + 1)) + 1);
-      comment.userName = "Sussy Baka";
+      comment.userName = "Sussy Baka" + i;
       comment.text = blogPost.review.substring(
         Math.floor(Math.random() * (max - min + 1)) + min,
         Math.floor(Math.random() * (max - min + 1)) + min

@@ -23,6 +23,8 @@
   padding-bottom: 0.5rem;
   padding-left: 1rem;
   padding-right: 1rem;
+  margin-right: 1rem;
+  border-radius: 4px !important;
 }
 
 .form-control:focus {
@@ -59,4 +61,22 @@
 
 .comment-author-name {
   color: var(--text-color-purple);
+}
+
+.comment-page-button {
+  background-color: var(--text-color-default) !important;
+  border-color: var(--border-color) !important;
+  color: var(--background-color-black) !important;
+  box-shadow: none !important;
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+  border-radius: 4px !important;
+  margin-right: 1rem;
+}
+
+.comment-page-button.active {
+  background-color: var(--text-color-purple) !important;
+  color: var(--text-color-default) !important;
 }
