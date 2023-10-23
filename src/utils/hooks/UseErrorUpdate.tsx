@@ -1,14 +1,14 @@
 import { useContext, useEffect } from "react";
-import { ErrorContext } from "../context/ErrorContext";
+import { StateContext } from "../context/StateContext";
 import { useNavigate } from "react-router-dom";
 import { RouterPaths } from "../constants/RouterPaths";
 
 export function useErrorUpdate() {
   const navigate = useNavigate();
-  const { error } = useContext(ErrorContext);
+  const { error } = useContext(StateContext);
 
   useEffect(() => {
-    if (error != undefined) {
+    if (error !== undefined) {
       navigate(RouterPaths.Error.path);
     }
   }, [error]);

@@ -1,5 +1,5 @@
 import React, { ReactNode, useState } from "react";
-import { BlogPost, MotionPicture } from "../../../../utils";
+import { BlogPost } from "../../../../utils";
 import "./PostInformation.css";
 import { INFORMATION_OPTIONS } from "../../../../utils/constants/DetailPost";
 import Description from "./Description";
