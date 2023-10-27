@@ -50,8 +50,8 @@ function CommentSection(props: CommentProps) {
               className={`comment-page-button ${
                 label == activeCommentPage ? "active" : ""
               }`}
-              href="#comment-section-start"
-              onClick={() => setActiveCommentPage(label)}
+              href={"#comment-section-start"}
+              onClick={() => setActiveCommentPage((prev) => label)}
             >
               {label}
             </Button>
