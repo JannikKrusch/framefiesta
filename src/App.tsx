@@ -14,24 +14,22 @@ function App() {
   const [error, setError] = useState<Error | undefined>(undefined);
   const [loading, setLoading] = useState<boolean>(true);
   const [user, setUser] = useState<User | undefined>(undefined);
+  const [selectedBlogPostId, setSelectedBlogPostId] = useState<string>("");
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const stateValue = useMemo(
-    () => ({ error, setError, loading, setLoading }),
-    [error, setError, loading, setLoading]
-  );
-  const dataValue = useMemo(
-    () => ({
-      user,
-      setUser,
-      blogPosts,
-      setBlogPosts,
-      searchQuery,
-      setSearchQuery,
-    }),
-    [user, setUser, blogPosts, setBlogPosts, searchQuery, setSearchQuery]
-  );
+  const stateValue = { error, setError, loading, setLoading };
+
+  const dataValue = {
+    user,
+    setUser,
+    selectedBlogPostId,
+    setSelectedBlogPostId,
+    blogPosts,
+    setBlogPosts,
+    searchQuery,
+    setSearchQuery,
+  };
 
   return (
     <StateContext.Provider value={stateValue}>
@@ -39,12 +37,12 @@ function App() {
         <BrowserRouter>
           <div className="main-container">
             <CustomNavbar />
-            {/* <Loader> */}
             <div className="content-container">
               <Routes>
+                <Route path={`/about`} element={<About />} />
                 <Route
                   path={`${RouterPaths.Default.path}`}
-                  element={<Home searchQuery={searchQuery} />}
+                  element={<Home />}
                 />
                 <Route
                   path={`${RouterPaths.Error.path}`}
@@ -53,7 +51,6 @@ function App() {
                 <Route path={`${RouterPaths.Login.path}`} element={<About />} />
               </Routes>
             </div>
-            {/* </Loader> */}
             <Footer />
           </div>
         </BrowserRouter>
@@ -65,17 +62,17 @@ function App() {
 export default App;
 
 function About(): JSX.Element {
-  const { error, setError } = useContext(StateContext);
+  const { selectedBlogPostId, setSelectedBlogPostId } = useContext(DataContext);
   useErrorUpdate();
-
   function buttonClick() {
-    console.warn("click");
-    setError(new Error("Test Button Click"));
+    setSelectedBlogPostId((prev) => {
+      return prev + 1;
+    });
   }
   return (
     <>
       <h2>About</h2>
-      <button onClick={buttonClick}>click</button>
+      <button onClick={buttonClick}>Click {selectedBlogPostId}</button>
     </>
   );
 }

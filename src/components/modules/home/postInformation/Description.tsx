@@ -1,6 +1,10 @@
 import React, { ReactNode } from "react";
 import { MotionPicture } from "../../../../utils";
 import "./Description.css";
+import {
+  currencyCompactFormat,
+  listConjunctionFormat,
+} from "../../../../utils/helper/DataFormatting";
 
 interface DescriptionProps {
   description: string;
@@ -21,10 +25,10 @@ function Description(props: DescriptionProps) {
   const factValue = [
     motionPicture.initialRelease,
     motionPicture.ageRating,
-    motionPicture.genres.join(", "),
-    motionPicture.budget,
+    listConjunctionFormat(motionPicture.genres),
+    currencyCompactFormat(motionPicture.budget),
     motionPicture.director,
-    motionPicture.actors.join(", "),
+    listConjunctionFormat(motionPicture.actors),
   ];
 
   function displayFacts(): ReactNode {
@@ -33,8 +37,8 @@ function Description(props: DescriptionProps) {
         {factName.map((name, index) => {
           return (
             <div className={`row ${index <= 2 ? "highlight" : ""}`}>
-              <div className="col-4 col-lg-2">{name}</div>
-              <div className="col-8 col-lg-10">{factValue[index]}</div>
+              <div className="col-sm-12 col-md-4">{name}:</div>
+              <div className="col-sm-12 col-md-8">{factValue[index]}</div>
             </div>
           );
         })}

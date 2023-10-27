@@ -2,7 +2,7 @@ import { Comment } from "./Comment";
 import { MotionPicture } from "./MotionPicture";
 
 export class BlogPost {
-  public id: number = 0;
+  public id: string = "";
   public date: Date = new Date();
   public typeOf: string = "";
   public description: string = "";

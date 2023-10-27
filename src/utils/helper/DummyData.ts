@@ -5,7 +5,6 @@ export function DummyBlogPosts(amount: number): BlogPost[] {
   const blogPosts: BlogPost[] = [];
 
   for (let i = 1; i <= amount; i++) {
-    console.warn("in loop");
     const blogPost = new BlogPost();
     const motionPicture = new MotionPicture();
 
@@ -27,7 +26,7 @@ export function DummyBlogPosts(amount: number): BlogPost[] {
     motionPicture.budget = 10000000;
     motionPicture.title = `Pulp Fiction ${i}`;
 
-    blogPost.id = i;
+    blogPost.id = i.toString();
     blogPost.relatedMotionPicture = motionPicture;
     blogPost.review =
       "Excepteur cupidatat duis cupidatat exercitation cupidatat Lorem adipisicing pariatur minim enim in. Eu occaecat elit aliquip labore excepteur ea eiusmod nisi deserunt duis in. Proident sit ut dolor cupidatat duis pariatur ex. Quis mollit ex qui labore voluptate amet anim culpa sunt ut laborum culpa culpa ea. Voluptate minim magna mollit amet ad est aute. Do aute et cupidatat do incididunt.d" +

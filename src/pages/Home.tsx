@@ -6,25 +6,31 @@ import "./Home.css";
 import DetailPost from "../components/modules/home/detailPost/DetailPost";
 import { DataContext } from "../utils/context/DataContext";
 import { StateContext } from "../utils/context/StateContext";
-interface HomeProps {
-  searchQuery: string;
-}
 
-function Home({ searchQuery }: HomeProps) {
-  const { blogPosts, setBlogPosts } = useContext(DataContext);
+function Home() {
+  const { setBlogPosts, selectedBlogPostId, setSelectedBlogPostId } =
+    useContext(DataContext);
   const { setLoading, loading } = useContext(StateContext);
 
   useEffect(() => {
-    setBlogPosts(DummyBlogPosts(10));
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
+    setLoading((prev) => true);
+    const dummyPosts = DummyBlogPosts(10);
+    if (selectedBlogPostId === "") {
+      setSelectedBlogPostId(dummyPosts[0].id);
+    }
+    if (dummyPosts.length > 0) {
       setLoading((prev) => false);
-    }, 1000);
-
-    return () => clearInterval(interval);
+    }
+    setBlogPosts(dummyPosts);
   }, []);
+
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setLoading((prev) => false);
+  //   }, 1000);
+
+  //   return () => clearInterval(interval);
+  // }, []);
 
   return (
     <>
