@@ -4,6 +4,7 @@ import { PersonCircle } from "react-bootstrap-icons";
 import "./CommentSection.css";
 import { Button, ButtonGroup, Form, InputGroup } from "react-bootstrap";
 import { DataContext } from "../../../../utils/context/DataContext";
+import CustomButton from "../../../shared/button/CustomButton";
 
 interface CommentProps {
   comments: Comment[];
@@ -11,6 +12,7 @@ interface CommentProps {
 
 function CommentSection(props: CommentProps) {
   const [filtered, setfiltered] = useState<Comment[]>(props.comments);
+  const [filteredState, setFilteredState] = useState<number>(-1);
   const [comment, setComment] = useState("");
   const itemsPerPage = 10;
   const [activeCommentPage, setActiveCommentPage] = useState(1);
@@ -44,17 +46,15 @@ function CommentSection(props: CommentProps) {
     }
     return (
       <ButtonGroup>
-        {buttonLabels.map((label) => {
+        {buttonLabels.map((label, index) => {
           return (
-            <Button
-              className={`comment-page-button ${
-                label == activeCommentPage ? "active" : ""
-              }`}
+            <CustomButton
+              label={label.toString()}
+              isActive={label === activeCommentPage}
+              notLast={index < buttonLabels.length}
               href={"#comment-section-start"}
-              onClick={() => setActiveCommentPage((prev) => label)}
-            >
-              {label}
-            </Button>
+              method={() => setActiveCommentPage((prev) => label)}
+            />
           );
         })}
       </ButtonGroup>
@@ -67,12 +67,24 @@ function CommentSection(props: CommentProps) {
         <span>Comments ({props.comments.length})</span>
         <div className="">
           <ButtonGroup>
-            <Button className="sort-button" onClick={() => filterOldest()}>
-              Oldest
-            </Button>
-            <Button className="sort-button" onClick={() => filterNewest()}>
-              Newest
-            </Button>
+            <CustomButton
+              label={"Oldest"}
+              isActive={filteredState === 0}
+              notLast={true}
+              method={() => {
+                setFilteredState(0);
+                filterOldest();
+              }}
+            />
+            <CustomButton
+              label={"Newst"}
+              isActive={filteredState === 1}
+              notLast={false}
+              method={() => {
+                setFilteredState(1);
+                filterNewest();
+              }}
+            />
           </ButtonGroup>
         </div>
       </div>
@@ -103,8 +115,19 @@ function CommentSection(props: CommentProps) {
         <>
           <div className="comment-input-buttons">
             <ButtonGroup>
-              <Button className="submit-button">Comment</Button>
-              <Button className="cancel-button">Cancel</Button>
+              <CustomButton
+                label={"Cancel"}
+                isActive={false}
+                notLast={false}
+                onlyText={true}
+                method={() => {}}
+              />
+              <CustomButton
+                label={"Comment"}
+                isActive={true}
+                notLast={true}
+                method={() => {}}
+              />
             </ButtonGroup>
           </div>
         </>

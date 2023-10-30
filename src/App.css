@@ -25,26 +25,6 @@
   font-family: "Roboto", sans-serif;
 }
 
-.spacer-top {
-  aspect-ratio: 1920/300;
-  width: 100%;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.spacer-bottom {
-  aspect-ratio: 1920/300;
-  width: 100%;
-  background-repeat: no-repeat;
-  background-position: center;
-  transform: rotate(180deg);
-  z-index: -1;
-}
-
-.layer1 {
-  background-image: url("./assets/images/layer1.svg");
-}
-
 .content-container {
   min-height: 100vh;
   text-align: center;

@@ -3,8 +3,6 @@ export * from "./models/Series";
 export * from "./models/Search";
 export * from "./models/MotionPicture";
 export * from "./models/Film";
-export * from "./models/ErrorBoundaryState";
-export * from "./models/ErrorBoundaryProps";
 export * from "./models/Comment";
 export * from "./models/BlogPost";
 export * from "./helper/DataFormatting";
