@@ -1,22 +1,24 @@
+import { Typeahead } from "react-bootstrap-typeahead";
 import { BlogPost } from "../../../utils";
 import { COMPANY_NAME } from "../../../utils/constants/Names";
 import { RouterPaths } from "../../../utils/constants/RouterPaths";
 import { DataContext } from "../../../utils/context/DataContext";
 
 import "./CustomNavbar.css";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
+import "react-bootstrap-typeahead/css/Typeahead.css";
+import { PersonCircle } from "react-bootstrap-icons";
 
 export function CustomNavbar() {
   const { blogPosts } = useContext(DataContext);
-  const [menuActive, setMenuActive] = useState(false);
   const { setSearchQuery } = useContext(DataContext);
-  const [suggestions, setSuggestions] = useState<BlogPost[]>([]);
+  const [selected, setSelected] = useState<BlogPost[]>([]);
   const allPossibleSuggestions = blogPosts;
 
   function updateSuggestions(query: string) {
     if (!query.trim()) {
-      setSuggestions([]);
+      setSelected([]);
       return;
     }
 
@@ -25,21 +27,24 @@ export function CustomNavbar() {
         .toLowerCase()
         .includes(query.toLowerCase())
     );
-    setSuggestions(filteredSuggestions);
+    setSelected(filteredSuggestions);
   }
 
-  function selectSuggestion(suggestion: BlogPost) {
-    setSearchQuery(suggestion.relatedMotionPicture.title);
-    setSuggestions([]); // Vorschläge leeren, sobald ein Vorschlag ausgewählt wurde
-  }
-
-  function handleInput(query: string): void {
-    setSearchQuery(query);
-    updateSuggestions(query);
-  }
+  // Verwenden Sie diesen Effekt, um die ausgewählte Option als aktuelle Suchanfrage zu setzen
+  useEffect(() => {
+    if (selected.length > 0) {
+      setSearchQuery(selected[0].relatedMotionPicture.title);
+      setSelected([]);
+    }
+  }, [selected]);
 
   return (
-    <Navbar expand="sm" className="custom-navbar" data-bs-theme="dark">
+    <Navbar
+      expand="sm"
+      className="custom-navbar"
+      data-bs-theme="dark"
+      sticky="top"
+    >
       <Container fluid>
         <Navbar.Brand
           className="custom-navbar-link"
@@ -47,7 +52,7 @@ export function CustomNavbar() {
         >
           {COMPANY_NAME}
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="navbarScroll" />
+        <Navbar.Toggle aria-controls="navbarScroll" className="ms-auto" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
             className="me-auto my-2 my-lg-0"
@@ -57,29 +62,32 @@ export function CustomNavbar() {
             {Object.values(RouterPaths)
               .slice(2)
               .map((route) => (
-                <Nav.Link className="custom-navbar-link" href={route.path}>
+                <Nav.Link
+                  key={route.path}
+                  className="custom-navbar-link"
+                  href={route.path}
+                >
                   {route.display}
                 </Nav.Link>
               ))}
           </Nav>
-          <div className="d-flex">
+          <div className="d-flex ms-auto">
             <input
-              className="w-100 search-box"
-              placeholder="search"
-              onChange={(e) => handleInput(e.target.value)}
+              className="form-control"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <div className="suggestions-container">
-              {suggestions.map((suggestion) => (
-                <div
-                  key={suggestion.id}
-                  onClick={() => selectSuggestion(suggestion)}
-                  className="suggestion-item"
-                >
-                  {suggestion.relatedMotionPicture.title}
-                </div>
-              ))}
-            </div>
           </div>
+          <Nav>
+            <Nav.Link
+              className="custom-navbar-link"
+              href={RouterPaths.Login.path}
+            >
+              <PersonCircle style={{ width: "2rem", height: "2rem" }} />
+            </Nav.Link>
+          </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
