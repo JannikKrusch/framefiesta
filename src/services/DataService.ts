@@ -1,8 +1,6 @@
 import { useContext } from "react";
 import { Controllers, DEFAULT_URL, HttpStatusCodes, Method } from "../utils";
-import { useErrorUpdate } from "../utils/hooks/UseErrorUpdate";
 import { StateContext } from "../utils/context/StateContext";
-import { Http2ServerResponse } from "http2";
 import { isInstanceOfResponse } from "../utils/helper/InstanceOf";
 
 export class DataService {
@@ -18,7 +16,7 @@ export class DataService {
   protected async callEndpointAsync(
     url: string,
     method?: Method
-  ): Promise<Response | null> {
+  ): Promise<Response | Error> {
     const response = await fetch(url, {
       mode: "cors",
       method: method ? method : Method.Get,
@@ -28,7 +26,7 @@ export class DataService {
         return response;
       })
       .catch((error: Error) => {
-        return null;
+        return error;
       });
 
     return response;
@@ -43,15 +41,31 @@ export class DataService {
           const data = await response.json();
           return data;
         } else {
-          //TODO  update ERROR
+          //TODO update ERROR
+          this._setError(this.convertToError(response));
           return null;
         }
       }
-      //TODO  update ERROR
+      //TODO update ERROR
+      this._setError(this.convertToError(response));
       return null;
     } catch (ex) {
-      this._setError(ex as Error);
+      this._setError(this.convertToError(ex));
       return null;
+    }
+  }
+
+  private convertToError(input: Response | unknown): Error {
+    const error = new Error();
+    if (isInstanceOfResponse(input)) {
+      error.message = input.statusText;
+      error.name = input.status.toString();
+      return error;
+    } else {
+      const parsed = input as Error;
+      error.message = parsed.message;
+      error.name = HttpStatusCodes.InternalServerError.toString();
+      return error;
     }
   }
 }
