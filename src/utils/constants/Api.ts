@@ -32,3 +32,9 @@ export enum UserEndpoints {
   LogIn = "/login",
   DeleteComment = "/deleteComment",
 }
+
+export enum HttpStatusCodes {
+  Ok = 200,
+  NotFound = 404,
+  InternalServerError = 500,
+}

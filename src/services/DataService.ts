@@ -1,7 +1,9 @@
 import { useContext } from "react";
-import { Controllers, DEFAULT_URL, Method } from "../utils";
+import { Controllers, DEFAULT_URL, HttpStatusCodes, Method } from "../utils";
 import { useErrorUpdate } from "../utils/hooks/UseErrorUpdate";
 import { StateContext } from "../utils/context/StateContext";
+import { Http2ServerResponse } from "http2";
+import { isInstanceOfResponse } from "../utils/helper/InstanceOf";
 
 export class DataService {
   public controller: Controllers;
@@ -26,10 +28,30 @@ export class DataService {
         return response;
       })
       .catch((error: Error) => {
-        this._setError(error);
         return null;
       });
 
     return response;
+  }
+
+  protected async handleResponse<Type>(
+    response: Response | Error
+  ): Promise<Type | null> {
+    try {
+      if (isInstanceOfResponse(response)) {
+        if (response.ok) {
+          const data = await response.json();
+          return data;
+        } else {
+          //TODO  update ERROR
+          return null;
+        }
+      }
+      //TODO  update ERROR
+      return null;
+    } catch (ex) {
+      this._setError(ex as Error);
+      return null;
+    }
   }
 }
