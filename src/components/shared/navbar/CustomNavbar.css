@@ -20,10 +20,14 @@
   border-radius: 4px;
 }
 
-.navbar-toggler-icon {
+.dropdown-item {
   color: var(--text-color-default) !important;
 }
 
-.navbar-user-icon-active {
-  color: var(--text-color-purple) !important;
+.dropdown-item.active {
+  background-color: var(--text-color-purple);
+}
+
+.dropdown-item:hover {
+  background-color: var(--text-color-purple) !important;
 }

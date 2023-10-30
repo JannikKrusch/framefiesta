@@ -9,34 +9,22 @@ import { useContext, useEffect, useState } from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import { PersonCircle } from "react-bootstrap-icons";
+import { Search } from "../../../utils/models/Search";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export function CustomNavbar() {
   const { blogPosts } = useContext(DataContext);
   const { setSearchQuery } = useContext(DataContext);
-  const [selected, setSelected] = useState<BlogPost[]>([]);
-  const allPossibleSuggestions = blogPosts;
 
-  function updateSuggestions(query: string) {
-    if (!query.trim()) {
-      setSelected([]);
-      return;
-    }
-
-    const filteredSuggestions = allPossibleSuggestions.filter((suggestion) =>
-      suggestion.relatedMotionPicture.title
-        .toLowerCase()
-        .includes(query.toLowerCase())
-    );
-    setSelected(filteredSuggestions);
-  }
-
-  // Verwenden Sie diesen Effekt, um die ausgewählte Option als aktuelle Suchanfrage zu setzen
-  useEffect(() => {
-    if (selected.length > 0) {
-      setSearchQuery(selected[0].relatedMotionPicture.title);
-      setSelected([]);
-    }
-  }, [selected]);
+  const [selected, setSelected] = useState<Search[]>([]);
+  const options: Search[] = blogPosts.map((post) => {
+    return {
+      id: post.id,
+      title: post.relatedMotionPicture.title,
+      actors: post.relatedMotionPicture.actors.join(","),
+    };
+  });
+  const location = useLocation();
 
   return (
     <Navbar
@@ -71,14 +59,22 @@ export function CustomNavbar() {
                 </Nav.Link>
               ))}
           </Nav>
-          <div className="d-flex ms-auto">
-            <input
-              className="form-control"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
+          <div className=" ms-auto">
+            {location.pathname === RouterPaths.Default.path ? (
+              <Typeahead
+                id="blog-post-search"
+                onChange={(selected) => {
+                  setSelected((prev) => selected as Search[]);
+                }}
+                options={options}
+                labelKey={"title"}
+                filterBy={["title", "actors"]}
+                placeholder="Search for a title..."
+                selected={selected}
+              />
+            ) : (
+              <></>
+            )}
           </div>
           <Nav>
             <Nav.Link
