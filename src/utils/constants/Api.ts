@@ -22,12 +22,12 @@ export enum BlogEndPoints {
   GetSeriesById = "/getSeriesById",
 }
 
-export enum Admin {
+export enum AdminEndpoints {
   DeleteUser = "/deleteUser",
   DeleteBlog = "/deleteBlog",
 }
 
-export enum User {
+export enum UserEndpoints {
   Register = "/register",
   LogIn = "/login",
   DeleteComment = "/deleteComment",

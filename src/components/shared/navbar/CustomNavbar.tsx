@@ -10,12 +10,12 @@ import { Navbar, Container, Nav } from "react-bootstrap";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import { PersonCircle } from "react-bootstrap-icons";
 import { Search } from "../../../utils/models/Search";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 export function CustomNavbar() {
-  const { blogPosts } = useContext(DataContext);
+  const { blogPosts, user } = useContext(DataContext);
   const { setSearchQuery } = useContext(DataContext);
-
+  const { selectedBlogPostId, setSelectedBlogPostId } = useContext(DataContext);
   const [selected, setSelected] = useState<Search[]>([]);
   const options: Search[] = blogPosts.map((post) => {
     return {
@@ -25,6 +25,12 @@ export function CustomNavbar() {
     };
   });
   const location = useLocation();
+
+  useEffect(() => {
+    if (!selectedBlogPostId) {
+      setSelected([]);
+    }
+  }, [selectedBlogPostId]);
 
   return (
     <Navbar
@@ -64,7 +70,11 @@ export function CustomNavbar() {
               <Typeahead
                 id="blog-post-search"
                 onChange={(selected) => {
-                  setSelected((prev) => selected as Search[]);
+                  if (selected.length > 0) {
+                    const parsedSelected = selected as Search[];
+                    setSelectedBlogPostId(parsedSelected[0].id);
+                    setSelected((prev) => parsedSelected);
+                  }
                 }}
                 options={options}
                 labelKey={"title"}
@@ -81,7 +91,9 @@ export function CustomNavbar() {
               className="custom-navbar-link"
               href={RouterPaths.Login.path}
             >
-              <PersonCircle style={{ width: "2rem", height: "2rem" }} />
+              <PersonCircle
+                className={`user-icon ${user !== undefined ? "active" : ""}`}
+              />
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

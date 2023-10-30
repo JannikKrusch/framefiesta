@@ -31,3 +31,12 @@
 .dropdown-item:hover {
   background-color: var(--text-color-purple) !important;
 }
+
+.user-icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.user-icon.active {
+  color: var(--text-color-purple);
+}

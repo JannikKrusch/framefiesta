@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { BlogPost, Controllers } from "../utils";
+import { BlogPost, Controllers, User } from "../utils";
 import { Loader } from "../components/shared";
 import { DummyBlogPosts } from "../utils/helper/DummyData";
 import "./Home.css";
@@ -8,7 +8,7 @@ import { DataContext } from "../utils/context/DataContext";
 import { StateContext } from "../utils/context/StateContext";
 
 function Home() {
-  const { setBlogPosts, selectedBlogPostId, setSelectedBlogPostId } =
+  const { setBlogPosts, selectedBlogPostId, setSelectedBlogPostId, setUser } =
     useContext(DataContext);
   const { setLoading, loading } = useContext(StateContext);
 
@@ -21,16 +21,13 @@ function Home() {
     if (dummyPosts.length > 0) {
       setLoading((prev) => false);
     }
+    let user: User = new User();
+    user.id = "0";
+    user.isAdmin = true;
+    user.name = "Jannik";
+    setUser(user);
     setBlogPosts(dummyPosts);
   }, []);
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setLoading((prev) => false);
-  //   }, 1000);
-
-  //   return () => clearInterval(interval);
-  // }, []);
 
   return (
     <>
