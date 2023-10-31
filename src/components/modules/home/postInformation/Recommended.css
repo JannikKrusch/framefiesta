@@ -1,0 +1,25 @@
+.recommended-headline {
+  padding-bottom: 2rem;
+}
+
+.card-container {
+  gap: 1rem;
+}
+
+.recommend-card {
+  cursor: pointer;
+}
+
+.recommend-card:hover .film-icon {
+  color: var(--text-color-purple) !important;
+}
+
+.recommend-icon {
+  display: flex;
+  justify-content: center;
+}
+
+.film-icon {
+  width: 7rem;
+  height: 7rem;
+}

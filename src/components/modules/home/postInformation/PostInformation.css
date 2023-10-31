@@ -1,0 +1,21 @@
+.post-information-container {
+  text-align: left;
+  padding: 2rem;
+}
+
+.information-options {
+  padding-bottom: 1rem;
+}
+
+.information-option {
+  margin-right: 2rem;
+  cursor: pointer;
+}
+
+.information-option.active {
+  color: var(--text-color-purple);
+}
+
+.information-option .information-option:last-child {
+  margin: 0;
+}

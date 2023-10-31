@@ -1,0 +1,35 @@
+.button {
+  background-color: var(--text-color-default);
+  color: var(--text-color-purple);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  margin-right: 1rem;
+}
+
+.button.active,
+.button:hover {
+  background-color: var(--text-color-purple);
+  color: var(--text-color-default);
+}
+
+.button.notLast {
+  margin-right: 1rem;
+}
+
+.button.last {
+  margin-right: 0;
+}
+
+.button.text {
+  background-color: transparent;
+  padding-left: 0;
+  padding-right: 0;
+  color: var(--text-color-default);
+}
+
+.button.text:hover {
+  color: var(--text-color-purple);
+}

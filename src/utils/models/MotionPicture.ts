@@ -5,7 +5,11 @@ export class MotionPicture {
   public rating: number = 0;
   public ageRating: number = 0;
   public image: string = "";
-  public genre: string[] = [];
+  public genres: string[] = [];
   public initialRelease: number = 0;
-  public comments: string[] = [];
+  public budget: number = 0;
+  //!wenn idee von paul nicht funktioniert, dann das hier benutzen
+  //   public runTime?: number;
+  //   public seasons?: number;
+  //   public episodes?: number;
 }

@@ -1,0 +1,15 @@
+.teaser-card {
+  min-width: var(--teaser-min-width);
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.teaser-image {
+  object-fit: cover;
+  width: 100%;
+}
+
+.teaser-text {
+  text-align: start;
+  border-top: 1px solid var(--border-color);
+}

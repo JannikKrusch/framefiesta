@@ -1,13 +1,14 @@
 .custom-navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background-color: var(--component-background-color) !important;
-  color: var(--component-text-color) !important;
+  background-color: var(--background-color-black) !important;
+  color: var(--text-color-default) !important;
 }
 
 .custom-navbar-link {
-  color: var(--component-text-color) !important;
+  color: var(--text-color-default) !important;
+}
+
+.custom-navbar-link:hover {
+  color: var(--text-color-purple) !important;
 }
 
 .search-box {
@@ -19,6 +20,23 @@
   border-radius: 4px;
 }
 
-.navbar-toggler-icon {
-  color: var(--component-text-color) !important;
+.dropdown-item {
+  color: var(--text-color-default) !important;
+}
+
+.dropdown-item.active {
+  background-color: var(--text-color-purple);
+}
+
+.dropdown-item:hover {
+  background-color: var(--text-color-purple) !important;
+}
+
+.user-icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.user-icon.active {
+  color: var(--text-color-purple);
 }

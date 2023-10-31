@@ -6,9 +6,9 @@ body > footer {
 .footer {
   text-align: center;
   padding: 1rem;
-  background-color: var(--component-background-color);
-  color: var(--component-text-color);
-  font-size: var(--component-text-size);
+  background-color: var(--background-color-black);
+  color: var(--text-color-default);
+  font-size: var(--text-size);
 }
 
 .social-media-icons {
@@ -16,5 +16,5 @@ body > footer {
 }
 
 .social-media-icons:hover {
-  color: var(--component-background-color-hover);
+  color: var(--text-color-purple);
 }

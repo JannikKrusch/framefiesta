@@ -1,23 +1,44 @@
+import { Typeahead } from "react-bootstrap-typeahead";
+import { BlogPost } from "../../../utils";
 import { COMPANY_NAME } from "../../../utils/constants/Names";
 import { RouterPaths } from "../../../utils/constants/RouterPaths";
+import { DataContext } from "../../../utils/context/DataContext";
 
 import "./CustomNavbar.css";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
+import "react-bootstrap-typeahead/css/Typeahead.css";
+import { PersonCircle } from "react-bootstrap-icons";
+import { Search } from "../../../utils/models/Search";
+import { useLocation } from "react-router-dom";
 
-interface CustomNavbarProps {
-  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
-}
+export function CustomNavbar() {
+  const { blogPosts, user } = useContext(DataContext);
+  const { setSearchQuery } = useContext(DataContext);
+  const { selectedBlogPostId, setSelectedBlogPostId } = useContext(DataContext);
+  const [selected, setSelected] = useState<Search[]>([]);
+  const options: Search[] = blogPosts.map((post) => {
+    return {
+      id: post.id,
+      title: post.relatedMotionPicture.title,
+      actors: post.relatedMotionPicture.actors.join(","),
+    };
+  });
+  const location = useLocation();
 
-export function CustomNavbar(props: CustomNavbarProps) {
-  const [menuActive, setMenuActive] = useState(false);
-
-  const toggleMenu = () => {
-    setMenuActive(!menuActive);
-  };
+  useEffect(() => {
+    if (!selectedBlogPostId) {
+      setSelected([]);
+    }
+  }, [selectedBlogPostId]);
 
   return (
-    <Navbar expand="sm" className="custom-navbar" data-bs-theme="dark">
+    <Navbar
+      expand="sm"
+      className="custom-navbar"
+      data-bs-theme="dark"
+      sticky="top"
+    >
       <Container fluid>
         <Navbar.Brand
           className="custom-navbar-link"
@@ -25,7 +46,7 @@ export function CustomNavbar(props: CustomNavbarProps) {
         >
           {COMPANY_NAME}
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="navbarScroll" />
+        <Navbar.Toggle aria-controls="navbarScroll" className="ms-auto" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
             className="me-auto my-2 my-lg-0"
@@ -35,18 +56,46 @@ export function CustomNavbar(props: CustomNavbarProps) {
             {Object.values(RouterPaths)
               .slice(2)
               .map((route) => (
-                <Nav.Link className="custom-navbar-link" href={route.path}>
+                <Nav.Link
+                  key={route.path}
+                  className="custom-navbar-link"
+                  href={route.path}
+                >
                   {route.display}
                 </Nav.Link>
               ))}
           </Nav>
-          <div className="d-flex">
-            <input
-              className="w-100 search-box"
-              placeholder="search"
-              onChange={(e) => props.setSearchQuery(e.target.value)}
-            />
+          <div className=" ms-auto">
+            {location.pathname === RouterPaths.Default.path ? (
+              <Typeahead
+                id="blog-post-search"
+                onChange={(selected) => {
+                  if (selected.length > 0) {
+                    const parsedSelected = selected as Search[];
+                    setSelectedBlogPostId(parsedSelected[0].id);
+                    setSelected((prev) => parsedSelected);
+                  }
+                }}
+                options={options}
+                labelKey={"title"}
+                filterBy={["title", "actors"]}
+                placeholder="Search for a title..."
+                selected={selected}
+              />
+            ) : (
+              <></>
+            )}
           </div>
+          <Nav>
+            <Nav.Link
+              className="custom-navbar-link"
+              href={RouterPaths.Login.path}
+            >
+              <PersonCircle
+                className={`user-icon ${user !== undefined ? "active" : ""}`}
+              />
+            </Nav.Link>
+          </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>

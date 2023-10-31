@@ -1,46 +1,38 @@
-import { useEffect, useState } from "react";
-import { BlogPost } from "../utils";
+import { useContext, useEffect, useState } from "react";
+import { BlogPost, Controllers, User } from "../utils";
 import { Loader } from "../components/shared";
 import { DummyBlogPosts } from "../utils/helper/DummyData";
 import "./Home.css";
-interface HomeProps {
-  searchQuery: string;
-}
+import DetailPost from "../components/modules/home/detailPost/DetailPost";
+import { DataContext } from "../utils/context/DataContext";
+import { StateContext } from "../utils/context/StateContext";
 
-function Home({ searchQuery }: HomeProps) {
-  const [blogPosts, setblogPosts] = useState<BlogPost[]>([]);
+function Home() {
+  const { setBlogPosts, selectedBlogPostId, setSelectedBlogPostId, setUser } =
+    useContext(DataContext);
+  const { setLoading, loading } = useContext(StateContext);
 
   useEffect(() => {
-    setblogPosts(DummyBlogPosts(10));
+    setLoading((prev) => true);
+    const dummyPosts = DummyBlogPosts(10);
+    if (selectedBlogPostId === "") {
+      setSelectedBlogPostId(dummyPosts[0].id);
+    }
+    if (dummyPosts.length > 0) {
+      setLoading((prev) => false);
+    }
+    let user: User = new User();
+    user.id = "0";
+    user.isAdmin = true;
+    user.name = "Jannik";
+    setUser(user);
+    setBlogPosts(dummyPosts);
   }, []);
-
-  const filteredBlogPosts = filterBlogPosts(blogPosts);
-
-  function filterBlogPosts(blogposts: BlogPost[]): BlogPost[] {
-    console.warn(searchQuery);
-    const searchQueryLowerCase = searchQuery.toLowerCase();
-    return blogposts.filter((post: BlogPost) => {
-      const motionPicture = post.motionPicture;
-      return (
-        motionPicture.director.toLowerCase().includes(searchQueryLowerCase) ||
-        motionPicture.initialRelease
-          .toString()
-          .includes(searchQueryLowerCase) ||
-        motionPicture.rating.toString().includes(searchQueryLowerCase) ||
-        motionPicture.title.toLowerCase().includes(searchQueryLowerCase) ||
-        motionPicture.actors.some((actor: string) =>
-          actor.toLowerCase().includes(searchQueryLowerCase)
-        ) ||
-        motionPicture.genre.some((genre: String) =>
-          genre.toLowerCase().includes(searchQueryLowerCase)
-        )
-      );
-    });
-  }
 
   return (
     <>
-      <section>
+      {loading ? <Loader /> : <DetailPost />}
+      {/* <section>
         <h1>Nice Curves</h1>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
@@ -49,66 +41,8 @@ function Home({ searchQuery }: HomeProps) {
         </p>
       </section>
 
-      {/* <div className="spacer-top layer1"></div>
-      <div className="spacer-bottom layer1"></div> */}
-
-      <section>
-        <h1>Nice Curves</h1>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-          mollitia, molestiae quas vel sint commodi repudiandae consequuntur
-          voluptatum laborum numquam blanditiis harum quisquam
-        </p>
-      </section>
-      <div className="spacer layer1"></div>
-      <section>
-        <h1>Nice Curves</h1>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-          mollitia, molestiae quas vel sint commodi repudiandae consequuntur
-          voluptatum laborum numquam blanditiis harum quisquam
-        </p>
-      </section>
-      <section>
-        <h1>Nice Curves</h1>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-          mollitia, molestiae quas vel sint commodi repudiandae consequuntur
-          voluptatum laborum numquam blanditiis harum quisquam
-        </p>
-      </section>
-      <section>
-        <h1>Nice Curves</h1>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-          mollitia, molestiae quas vel sint commodi repudiandae consequuntur
-          voluptatum laborum numquam blanditiis harum quisquam
-        </p>
-      </section>
-      <section>
-        <h1>Nice Curves</h1>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-          mollitia, molestiae quas vel sint commodi repudiandae consequuntur
-          voluptatum laborum numquam blanditiis harum quisquam
-        </p>
-      </section>
-      <section>
-        <h1>Nice Curves</h1>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-          mollitia, molestiae quas vel sint commodi repudiandae consequuntur
-          voluptatum laborum numquam blanditiis harum quisquam
-        </p>
-      </section>
-      <section>
-        <h1>Nice Curves</h1>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-          mollitia, molestiae quas vel sint commodi repudiandae consequuntur
-          voluptatum laborum numquam blanditiis harum quisquam
-        </p>
-      </section>
+      <div className="spacer-top layer1"></div>
+  <div className="spacer-bottom layer1"></div>*/}
     </>
   );
 }

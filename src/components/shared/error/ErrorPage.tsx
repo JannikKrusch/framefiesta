@@ -1,9 +1,9 @@
 import "./ErrorPage.css";
-import { ErrorContext } from "../../../utils/context/ErrorContext";
+import { StateContext } from "../../../utils/context/StateContext";
 import { useContext } from "react";
 
 export function ErrorPage(): JSX.Element {
-  const { error } = useContext(ErrorContext);
+  const { error } = useContext(StateContext);
   return (
     <>
       <div className="error-text">{error?.message}</div>
