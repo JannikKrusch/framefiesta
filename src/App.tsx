@@ -2,7 +2,7 @@ import React, { useContext, useMemo, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import { RouterPaths } from "./utils/constants/RouterPaths";
-import Home from "./pages/Home";
+import Home from "./pages/home/Home";
 import { CustomNavbar, Footer, Loader } from "./components/shared";
 import { ErrorPage } from "./components/shared/error/ErrorPage";
 import { StateContext } from "./utils/context/StateContext";
