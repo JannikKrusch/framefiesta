@@ -15,12 +15,13 @@ export class DataService {
 
   protected async callEndpointAsync(
     url: string,
+    body?: BodyInit,
     method?: Method
   ): Promise<Response | Error> {
     const response = await fetch(url, {
       mode: "cors",
       method: method ? method : Method.Get,
-      //   body,
+      body: body,
     })
       .then((response) => {
         return response;
@@ -32,7 +33,7 @@ export class DataService {
     return response;
   }
 
-  protected async handleResponse<Type>(
+  protected async handleResponseAsync<Type>(
     response: Response | Error
   ): Promise<Type | null> {
     try {
