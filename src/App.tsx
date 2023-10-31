@@ -3,12 +3,13 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import { RouterPaths } from "./utils/constants/RouterPaths";
 import Home from "./pages/home/Home";
-import { CustomNavbar, Footer, Loader } from "./components/shared";
+import { CustomNavbar, Footer } from "./components/shared";
 import { ErrorPage } from "./components/shared/error/ErrorPage";
 import { StateContext } from "./utils/context/StateContext";
 import { useErrorUpdate } from "./utils/hooks/UseErrorUpdate";
 import { DataContext } from "./utils/context/DataContext";
 import { BlogPost, User } from "./utils";
+import Register from "./pages/register/Register";
 
 function App() {
   const [error, setError] = useState<Error | undefined>(undefined);
@@ -39,10 +40,13 @@ function App() {
             <CustomNavbar />
             <div className="content-container">
               <Routes>
-                <Route path={`/about`} element={<About />} />
                 <Route
                   path={`${RouterPaths.Default.path}`}
                   element={<Home />}
+                />
+                <Route
+                  path={`${RouterPaths.Register.path}`}
+                  element={<Register />}
                 />
                 <Route
                   path={`${RouterPaths.Error.path}`}

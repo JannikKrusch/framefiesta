@@ -26,6 +26,6 @@
 }
 
 .content-container {
-  min-height: 100vh;
+  min-height: calc(100vh - 128px - 64px);
   text-align: center;
 }
