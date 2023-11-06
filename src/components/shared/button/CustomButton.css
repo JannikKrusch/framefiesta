@@ -9,14 +9,13 @@
   margin-right: 1rem !important;
 }
 
-.button.active,
-.button:hover {
+.button.active {
   background-color: var(--text-color-purple) !important;
   color: var(--text-color-default) !important;
 }
-
-.button.active:hover {
-  color: black !important; /* !Change color to color from reference*/
+.button:hover {
+  background-color: var(--text-color-light-purple) !important;
+  color: var(--text-color-default) !important;
 }
 
 .button.notLast {
