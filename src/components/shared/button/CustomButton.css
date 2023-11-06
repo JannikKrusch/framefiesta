@@ -1,18 +1,18 @@
 .button {
-  background-color: var(--text-color-default);
-  color: var(--text-color-purple);
-  border: none;
-  border-radius: 4px;
+  background-color: var(--text-color-default) !important;
+  color: var(--text-color-purple) !important;
+  border: none !important;
+  border-radius: 4px !important;
   cursor: pointer;
-  padding: 0.5rem 1rem;
-  text-decoration: none;
-  margin-right: 1rem;
+  padding: 0.5rem 1rem !important;
+  text-decoration: none !important;
+  margin-right: 1rem !important;
 }
 
 .button.active,
 .button:hover {
-  background-color: var(--text-color-purple);
-  color: var(--text-color-default);
+  background-color: var(--text-color-purple) !important;
+  color: var(--text-color-default) !important;
 }
 
 .button.notLast {
@@ -24,12 +24,12 @@
 }
 
 .button.text {
-  background-color: transparent;
-  padding-left: 0;
-  padding-right: 0;
-  color: var(--text-color-default);
+  background-color: transparent !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  color: var(--text-color-default) !important;
 }
 
 .button.text:hover {
-  color: var(--text-color-purple);
+  color: var(--text-color-purple) !important;
 }
