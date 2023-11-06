@@ -27,8 +27,10 @@ function CustomButton(props: ButtonProps) {
     "button",
     { active: props.isActive },
     { notLast: props.notLast },
+    { last: !props.notLast },
     { text: props.onlyText }
   );
+
   return (
     <Button
       type={props.isSubit ? "submit" : "button"}
@@ -38,9 +40,6 @@ function CustomButton(props: ButtonProps) {
     >
       {props.loading && loading ? "Loading" : props.label}
     </Button>
-    // <a href={props.href} className={buttonClasses} onClick={props.method}>
-    //   {props.label}
-    // </a>
   );
 }
 

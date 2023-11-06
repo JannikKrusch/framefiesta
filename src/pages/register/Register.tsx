@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Register.css";
 import { Button, Form } from "react-bootstrap";
 import CustomButton from "../../components/shared/button/CustomButton";
+import { RouterPaths } from "../../utils";
 
 function Register() {
   const [validated, setValidated] = useState(false);
@@ -34,7 +35,7 @@ function Register() {
 
   return (
     <div className="d-flex justify-content-center register-container">
-      <div className="col-sm-12 col-md-6 col-lg-4">
+      <div className="col-sm-12 col-md-6 col-lg-4 col-12">
         <h1 className="headline">Registration</h1>
         <span className="subtext">Register for free</span>
 
@@ -103,11 +104,19 @@ function Register() {
               Password must be identical
             </Form.Control.Feedback>
           </Form.Group>
-          <div className="row g-0 text-end col-sm-12 col-md-4 ms-auto">
+          <div className="d-flex justify-content-between">
             <CustomButton
-              label={"Register"}
+              label={RouterPaths.Login.display}
+              isActive={false}
+              notLast={false}
+              isSubit={false}
+              method={() => {}}
+              href={RouterPaths.Login.path}
+            />
+            <CustomButton
+              label={RouterPaths.Register.display}
               isActive={true}
-              notLast={true}
+              notLast={false}
               isSubit={true}
               //TODO add function
               method={() => {}}
