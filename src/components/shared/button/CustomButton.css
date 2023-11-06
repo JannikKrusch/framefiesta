@@ -15,6 +15,10 @@
   color: var(--text-color-default) !important;
 }
 
+.button.active:hover {
+  color: black !important; /* !Change color to color from reference*/
+}
+
 .button.notLast {
   margin-right: 1rem !important;
 }
