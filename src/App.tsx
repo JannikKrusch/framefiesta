@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from "react";
+import React, { useContext, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import { RouterPaths } from "./utils/constants/RouterPaths";
@@ -10,6 +10,7 @@ import { useErrorUpdate } from "./utils/hooks/UseErrorUpdate";
 import { DataContext } from "./utils/context/DataContext";
 import { BlogPost, User } from "./utils";
 import Register from "./pages/register/Register";
+import Login from "./pages/login/Login";
 
 function App() {
   const [error, setError] = useState<Error | undefined>(undefined);
@@ -48,11 +49,11 @@ function App() {
                   path={`${RouterPaths.Register.path}`}
                   element={<Register />}
                 />
+                <Route path={`${RouterPaths.Login.path}`} element={<Login />} />
                 <Route
                   path={`${RouterPaths.Error.path}`}
                   element={<ErrorPage />}
                 />
-                <Route path={`${RouterPaths.Login.path}`} element={<About />} />
               </Routes>
             </div>
             <Footer />
