@@ -54,6 +54,7 @@ function App() {
                   path={`${RouterPaths.Error.path}`}
                   element={<ErrorPage />}
                 />
+                <Route path={`/about`} element={<About />} />
               </Routes>
             </div>
             <Footer />
@@ -68,11 +69,12 @@ export default App;
 
 function About(): JSX.Element {
   const { selectedBlogPostId, setSelectedBlogPostId } = useContext(DataContext);
+  const { setError } = useContext(StateContext);
+
   useErrorUpdate();
   function buttonClick() {
-    setSelectedBlogPostId((prev) => {
-      return prev + 1;
-    });
+    const newError = new Error("Test NEW ERROR");
+    setError((prev) => newError);
   }
   return (
     <>
