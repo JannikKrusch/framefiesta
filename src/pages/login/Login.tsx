@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import CustomButton from "../../components/shared/button/CustomButton";
 import { RouterPaths } from "../../utils";
 import { Form } from "react-bootstrap";
+import "./Login.css";
 
 function Login() {
   const [validated, setValidated] = useState(false);
@@ -26,7 +27,7 @@ function Login() {
   };
 
   return (
-    <div className="d-flex justify-content-center register-container">
+    <div className="d-flex justify-content-center login-container">
       <div className="col-sm-12 col-md-6 col-lg-4 col-12">
         <h1 className="headline">Login</h1>
         <span className="subtext">Login with your account</span>
