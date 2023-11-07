@@ -26,12 +26,6 @@ export function CustomNavbar() {
   });
   const location = useLocation();
 
-  useEffect(() => {
-    if (!selectedBlogPostId) {
-      setSelected([]);
-    }
-  }, [selectedBlogPostId]);
-
   return (
     <Navbar
       expand="sm"
@@ -76,11 +70,25 @@ export function CustomNavbar() {
                     setSelected((prev) => parsedSelected);
                   }
                 }}
+                onInputChange={(text, event) => {
+                  if (
+                    selected.length > 0 &&
+                    (event.type === "click" ||
+                      text ===
+                        selected[0].title.substring(
+                          0,
+                          selected[0].title.length - 1
+                        ))
+                  ) {
+                    setSelected((prev) => []);
+                  }
+                }}
                 options={options}
                 labelKey={"title"}
                 filterBy={["title", "actors"]}
                 placeholder="Search for a title..."
                 selected={selected}
+                clearButton
               />
             ) : (
               <></>
