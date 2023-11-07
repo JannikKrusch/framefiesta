@@ -118,14 +118,14 @@ function CommentSection(props: CommentProps) {
               <CustomButton
                 label={"Cancel"}
                 isActive={false}
-                notLast={false}
+                notLast={true}
                 onlyText={true}
                 method={() => {}}
               />
               <CustomButton
                 label={"Comment"}
                 isActive={true}
-                notLast={true}
+                notLast={false}
                 method={() => {}}
               />
             </ButtonGroup>

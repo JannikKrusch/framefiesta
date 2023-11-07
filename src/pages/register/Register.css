@@ -1,0 +1,12 @@
+.register-container {
+  padding: 1rem;
+}
+
+.headline {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
