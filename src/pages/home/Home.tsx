@@ -20,11 +20,11 @@ function Home() {
     if (dummyPosts.length > 0) {
       setLoading((prev) => false);
     }
-    let user: User = new User();
-    user.id = "0";
-    user.isAdmin = true;
-    user.name = "Jannik";
-    setUser(user);
+    // let user: User = new User();
+    // user.id = "0";
+    // user.isAdmin = true;
+    // user.name = "Jannik";
+    // setUser(user);
     setBlogPosts(dummyPosts);
   }, []);
 

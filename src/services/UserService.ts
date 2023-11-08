@@ -41,6 +41,12 @@ export class UserService extends DataService {
 
     const response = await this.callEndpointAsync(url, JSON.stringify(body));
     const data = await this.handleResponseAsync<User>(response);
+    const user = new User();
+    user.email = "TEST_USER@gmail.com";
+    user.id = "1";
+    user.isAdmin = true;
+    user.password = password;
+    return user;
     return data;
   }
 }

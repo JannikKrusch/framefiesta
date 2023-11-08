@@ -8,9 +8,6 @@ interface ServiceContextType {
 
 const defaultStateContextValue: ServiceContextType = {
   userService: undefined,
-  // setError: () => {},
-  // loading: true,
-  // setLoading: () => {},
 };
 export const ServiceContext = createContext<ServiceContextType>(
   defaultStateContextValue

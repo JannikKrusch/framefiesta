@@ -1,8 +1,9 @@
 import React, { useContext, useState } from "react";
 import "./Register.css";
-import { Button, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import CustomButton from "../../components/shared/button/CustomButton";
-import { RouterPaths, ServiceContext } from "../../utils";
+import { DataContext, RouterPaths, ServiceContext } from "../../utils";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const [validated, setValidated] = useState(false);
@@ -12,8 +13,9 @@ function Register() {
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const { userService } = useContext(ServiceContext);
-
+  const { setUser } = useContext(DataContext);
   const [isInvalid, setIsValid] = useState<boolean | undefined>(undefined);
+  const navigate = useNavigate();
 
   async function handleSubmitAsync(
     event: React.FormEvent<HTMLFormElement>
@@ -32,11 +34,12 @@ function Register() {
       return;
     }
 
-    // Hier können Sie den Validierungsprozess fortsetzen, wenn alles korrekt ist
     setValidated(true);
     const user = await userService?.registerAsync(name, password, email);
     if (user) {
       setIsValid(false);
+      setUser((prev) => user);
+      navigate(RouterPaths.Default.path);
     } else {
       setIsValid(true);
     }
@@ -99,9 +102,7 @@ function Register() {
               isInvalid={validated}
             />
             <Form.Control.Feedback type="invalid">
-              {isInvalid === undefined
-                ? "Password required"
-                : "Password might be invalid"}
+              {isInvalid === undefined ? "Password required" : ""}
             </Form.Control.Feedback>
           </Form.Group>
 

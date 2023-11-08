@@ -3,16 +3,16 @@ import CustomButton from "../../components/shared/button/CustomButton";
 import { DataContext, RouterPaths, ServiceContext } from "../../utils";
 import { Form } from "react-bootstrap";
 import "./Login.css";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [validated, setValidated] = useState(false);
   const [userIdentification, setUserIdentification] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [submitButtonLoading, setSubmitButtonLoading] =
-    useState<boolean>(false);
   const { setUser } = useContext(DataContext);
   const { userService } = useContext(ServiceContext);
   const [isInvalid, setIsValid] = useState<boolean | undefined>(undefined);
+  const navigate = useNavigate();
 
   async function handleSubmitAsync(
     event: React.FormEvent<HTMLFormElement>
@@ -26,14 +26,14 @@ function Login() {
       return;
     }
 
-    // Hier können Sie den Validierungsprozess fortsetzen, wenn alles korrekt ist
     setValidated(true);
-    setSubmitButtonLoading((prev) => !prev);
     //TODO send data
     const user = await userService?.loginAsync(userIdentification, password);
     if (user) {
       setUser((prev) => user);
       setIsValid((prev) => false);
+      setUser((prev) => user);
+      navigate(RouterPaths.Default.path);
     } else {
       setIsValid((prev) => true);
     }
