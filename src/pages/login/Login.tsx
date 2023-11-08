@@ -6,7 +6,7 @@ import "./Login.css";
 
 function Login() {
   const [validated, setValidated] = useState(false);
-  const [email, setEmail] = useState<string>("");
+  const [userIdentification, setUserIdentification] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -38,14 +38,17 @@ function Login() {
           validated={validated}
           onSubmit={(e) => handleSubmit(e)}
         >
-          <Form.Group controlId="validationEmail" className="form-group">
-            <Form.Label>E-Mail</Form.Label>
+          <Form.Group
+            controlId="validationUserIdentification"
+            className="form-group"
+          >
+            <Form.Label>Username or E-mail</Form.Label>
             <Form.Control
               required
               type="text"
-              placeholder="E-Mail"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Username or E-mail"
+              value={userIdentification}
+              onChange={(e) => setUserIdentification(e.target.value)}
             />
             <Form.Control.Feedback type="invalid">
               Email required
