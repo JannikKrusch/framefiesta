@@ -1,14 +1,13 @@
 import React, { ReactNode, createContext, useState } from "react";
+import { UserService } from "../../services";
+import { Controllers } from "../constants/Api";
 
 interface ServiceContextType {
-  test: string;
-  // setError: Dispatch<SetStateAction<CustomError | undefined>>;
-  // loading: boolean;
-  // setLoading: Dispatch<SetStateAction<boolean>>;
+  userService: UserService | undefined;
 }
 
 const defaultStateContextValue: ServiceContextType = {
-  test: "",
+  userService: undefined,
   // setError: () => {},
   // loading: true,
   // setLoading: () => {},
@@ -22,9 +21,14 @@ interface ContextProviderProps {
 }
 
 export function ServiceConntextProvider(props: ContextProviderProps) {
-  const [error, setTest] = useState<string>("");
+  const userService = new UserService(Controllers.User);
+
+  const serviceValue = {
+    userService,
+  };
+
   return (
-    <ServiceContext.Provider value={{ test: error }}>
+    <ServiceContext.Provider value={serviceValue}>
       {props.children}
     </ServiceContext.Provider>
   );

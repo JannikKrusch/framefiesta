@@ -11,16 +11,18 @@ interface ButtonProps {
   href?: string;
   isSubit?: boolean;
   loading?: boolean;
-  method: () => void;
+  method?: () => void;
 }
 
 function CustomButton(props: ButtonProps) {
   const [loading, setLoading] = useState<boolean>(false);
 
   function handleClick() {
-    setLoading(true);
-    props.method();
-    setLoading(false);
+    if (props?.method) {
+      setLoading(true);
+      props.method();
+      setLoading(false);
+    }
   }
 
   const buttonClasses = classNames(

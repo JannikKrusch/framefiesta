@@ -1,22 +1,23 @@
 import React, { useContext, useState } from "react";
 import CustomButton from "../../components/shared/button/CustomButton";
-import { RouterPaths } from "../../utils";
+import { RouterPaths, ServiceContext } from "../../utils";
 import { Form } from "react-bootstrap";
 import "./Login.css";
-import { ServiceContext } from "../../utils/context/ServiceContext";
 
 function Login() {
   const [validated, setValidated] = useState(false);
   const [userIdentification, setUserIdentification] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [submitButtonLoading, setSubmitButtonLoading] =
+    useState<boolean>(false);
+  const { userService } = useContext(ServiceContext);
 
-  const { test } = useContext(ServiceContext);
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  async function handleSubmitAsync(
+    event: React.FormEvent<HTMLFormElement>
+  ): Promise<void> {
     event.preventDefault();
     event.stopPropagation();
 
-    // Überprüfen Sie, ob das Formular gültig ist
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       setValidated(true);
@@ -25,9 +26,13 @@ function Login() {
 
     // Hier können Sie den Validierungsprozess fortsetzen, wenn alles korrekt ist
     setValidated(true);
+    setSubmitButtonLoading((prev) => !prev);
     //TODO send data
-    // Zum Beispiel das Senden der Daten an einen Server
-  };
+    const user = await userService?.loginAsync(userIdentification, password);
+
+    console.warn("in handleSubmit", user);
+    setSubmitButtonLoading((prev) => !prev);
+  }
 
   return (
     <div className="d-flex justify-content-center login-container">
@@ -39,13 +44,13 @@ function Login() {
           className="text-start"
           noValidate
           validated={validated}
-          onSubmit={(e) => handleSubmit(e)}
+          onSubmit={async (e) => await handleSubmitAsync(e)}
         >
           <Form.Group
             controlId="validationUserIdentification"
             className="form-group"
           >
-            <Form.Label>{test}</Form.Label>
+            <Form.Label>User identification</Form.Label>
             <Form.Control
               required
               type="text"
@@ -78,7 +83,6 @@ function Login() {
               isActive={false}
               notLast={false}
               isSubit={false}
-              method={() => {}}
               href={RouterPaths.Register.path}
             />
             <CustomButton
@@ -86,8 +90,7 @@ function Login() {
               isActive={true}
               notLast={false}
               isSubit={true}
-              //TODO add function
-              method={() => {}}
+              loading={submitButtonLoading}
             />
           </div>
         </Form>

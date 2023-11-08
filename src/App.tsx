@@ -11,7 +11,7 @@ import {
 } from "./utils/context/StateContext";
 import { useErrorUpdate } from "./utils/hooks/UseErrorUpdate";
 import { DataContext, DataContextProvider } from "./utils/context/DataContext";
-import { CustomError } from "./utils";
+import { CustomError, ServiceConntextProvider } from "./utils";
 import Register from "./pages/register/Register";
 import Login from "./pages/login/Login";
 import PageNotFound from "./components/shared/error/PageNotFound";
@@ -20,31 +20,36 @@ function App() {
   return (
     <StateContextProvider>
       <DataContextProvider>
-        <BrowserRouter>
-          <div className="main-container">
-            <CustomNavbar />
-            <div className="content-container">
-              <Routes>
-                <Route
-                  path={`${RouterPaths.Default.path}`}
-                  element={<Home />}
-                />
-                <Route
-                  path={`${RouterPaths.Register.path}`}
-                  element={<Register />}
-                />
-                <Route path={`${RouterPaths.Login.path}`} element={<Login />} />
-                <Route
-                  path={`${RouterPaths.Error.path}`}
-                  element={<ErrorPage />}
-                />
-                <Route path={`*`} element={<PageNotFound />} />
-                <Route path={`/about`} element={<About />} />
-              </Routes>
+        <ServiceConntextProvider>
+          <BrowserRouter>
+            <div className="main-container">
+              <CustomNavbar />
+              <div className="content-container">
+                <Routes>
+                  <Route
+                    path={`${RouterPaths.Default.path}`}
+                    element={<Home />}
+                  />
+                  <Route
+                    path={`${RouterPaths.Register.path}`}
+                    element={<Register />}
+                  />
+                  <Route
+                    path={`${RouterPaths.Login.path}`}
+                    element={<Login />}
+                  />
+                  <Route
+                    path={`${RouterPaths.Error.path}`}
+                    element={<ErrorPage />}
+                  />
+                  <Route path={`*`} element={<PageNotFound />} />
+                  <Route path={`/about`} element={<About />} />
+                </Routes>
+              </div>
+              <Footer />
             </div>
-            <Footer />
-          </div>
-        </BrowserRouter>
+          </BrowserRouter>
+        </ServiceConntextProvider>
       </DataContextProvider>
     </StateContextProvider>
   );
