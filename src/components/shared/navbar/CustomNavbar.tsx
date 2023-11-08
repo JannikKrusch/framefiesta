@@ -6,11 +6,19 @@ import { DataContext } from "../../../utils/context/DataContext";
 
 import "./CustomNavbar.css";
 import { useContext, useEffect, useState } from "react";
-import { Navbar, Container, Nav } from "react-bootstrap";
+import {
+  Navbar,
+  Container,
+  Nav,
+  Popover,
+  PopoverBody,
+  OverlayTrigger,
+} from "react-bootstrap";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import { PersonCircle } from "react-bootstrap-icons";
 import { Search } from "../../../utils/models/Search";
 import { useLocation } from "react-router-dom";
+import CustomButton from "../button/CustomButton";
 
 export function CustomNavbar() {
   const { blogPosts, user } = useContext(DataContext);
@@ -97,11 +105,45 @@ export function CustomNavbar() {
           <Nav>
             <Nav.Link
               className="custom-navbar-link"
-              href={RouterPaths.Login.path}
+              // href={RouterPaths.Login.path}
             >
-              <PersonCircle
-                className={`user-icon ${user !== undefined ? "active" : ""}`}
-              />
+              <OverlayTrigger
+                trigger={"click"}
+                placement="bottom"
+                overlay={
+                  <Popover>
+                    <PopoverBody>Hello {user?.name}</PopoverBody>
+                    <PopoverBody>
+                      <div className="row">
+                        <CustomButton
+                          isActive={false}
+                          href={RouterPaths.Login.path}
+                          label={RouterPaths.Login.display}
+                          notLast={true}
+                        />
+
+                        <CustomButton
+                          isActive={false}
+                          href={RouterPaths.Register.path}
+                          label={RouterPaths.Register.display}
+                          notLast={true}
+                        />
+
+                        <CustomButton
+                          isActive={false}
+                          href={RouterPaths.Login.path}
+                          label={"Logout"}
+                          notLast={true}
+                        />
+                      </div>
+                    </PopoverBody>
+                  </Popover>
+                }
+              >
+                <PersonCircle
+                  className={`user-icon ${user !== undefined ? "active" : ""}`}
+                />
+              </OverlayTrigger>
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
