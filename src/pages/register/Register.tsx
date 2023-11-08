@@ -1,18 +1,23 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./Register.css";
 import { Button, Form } from "react-bootstrap";
 import CustomButton from "../../components/shared/button/CustomButton";
-import { RouterPaths } from "../../utils";
+import { RouterPaths, ServiceContext } from "../../utils";
 
 function Register() {
   const [validated, setValidated] = useState(false);
 
-  const [username, setUsername] = useState<string>("");
+  const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const { userService } = useContext(ServiceContext);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const [isInvalid, setIsValid] = useState<boolean | undefined>(undefined);
+
+  async function handleSubmitAsync(
+    event: React.FormEvent<HTMLFormElement>
+  ): Promise<void> {
     event.preventDefault();
     event.stopPropagation();
 
@@ -29,9 +34,13 @@ function Register() {
 
     // Hier können Sie den Validierungsprozess fortsetzen, wenn alles korrekt ist
     setValidated(true);
-    //TODO send data
-    // Zum Beispiel das Senden der Daten an einen Server
-  };
+    const user = await userService?.registerAsync(name, password, email);
+    if (user) {
+      setIsValid(false);
+    } else {
+      setIsValid(true);
+    }
+  }
 
   return (
     <div className="d-flex justify-content-center register-container">
@@ -43,7 +52,7 @@ function Register() {
           className="text-start"
           noValidate
           validated={validated}
-          onSubmit={(e) => handleSubmit(e)}
+          onSubmit={async (e) => await handleSubmitAsync(e)}
         >
           <Form.Group controlId="validationUsername" className="form-group">
             <Form.Label>Username</Form.Label>
@@ -51,11 +60,14 @@ function Register() {
               required
               type="text"
               placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              isInvalid={isInvalid}
             />
             <Form.Control.Feedback type="invalid">
-              Username required
+              {isInvalid === undefined
+                ? "Username required"
+                : "Username might be invalid"}
             </Form.Control.Feedback>
           </Form.Group>
 
@@ -67,9 +79,12 @@ function Register() {
               placeholder="E-Mail"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              isInvalid={isInvalid}
             />
             <Form.Control.Feedback type="invalid">
-              Email required
+              {isInvalid === undefined
+                ? "E-Mail required"
+                : "E-Mail might be invalid"}
             </Form.Control.Feedback>
           </Form.Group>
 
@@ -81,10 +96,12 @@ function Register() {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              isInvalid={password !== confirmPassword && validated}
+              isInvalid={validated}
             />
             <Form.Control.Feedback type="invalid">
-              Password required
+              {isInvalid === undefined
+                ? "Password required"
+                : "Password might be invalid"}
             </Form.Control.Feedback>
           </Form.Group>
 
@@ -99,6 +116,7 @@ function Register() {
               placeholder="Repeat Password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
+              isInvalid={password !== confirmPassword}
             />
             <Form.Control.Feedback type="invalid">
               Password must be identical
@@ -118,8 +136,6 @@ function Register() {
               isActive={true}
               notLast={false}
               isSubit={true}
-              //TODO add function
-              method={() => {}}
             />
           </div>
         </Form>

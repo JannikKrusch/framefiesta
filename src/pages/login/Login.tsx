@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import CustomButton from "../../components/shared/button/CustomButton";
-import { RouterPaths, ServiceContext } from "../../utils";
+import { DataContext, RouterPaths, ServiceContext } from "../../utils";
 import { Form } from "react-bootstrap";
 import "./Login.css";
 
@@ -10,7 +10,9 @@ function Login() {
   const [password, setPassword] = useState<string>("");
   const [submitButtonLoading, setSubmitButtonLoading] =
     useState<boolean>(false);
+  const { setUser } = useContext(DataContext);
   const { userService } = useContext(ServiceContext);
+  const [isInvalid, setIsValid] = useState<boolean | undefined>(undefined);
 
   async function handleSubmitAsync(
     event: React.FormEvent<HTMLFormElement>
@@ -29,9 +31,12 @@ function Login() {
     setSubmitButtonLoading((prev) => !prev);
     //TODO send data
     const user = await userService?.loginAsync(userIdentification, password);
-
-    console.warn("in handleSubmit", user);
-    setSubmitButtonLoading((prev) => !prev);
+    if (user) {
+      setUser((prev) => user);
+      setIsValid((prev) => false);
+    } else {
+      setIsValid((prev) => true);
+    }
   }
 
   return (
@@ -57,9 +62,12 @@ function Login() {
               placeholder="Username or E-mail"
               value={userIdentification}
               onChange={(e) => setUserIdentification(e.target.value)}
+              isInvalid={isInvalid}
             />
             <Form.Control.Feedback type="invalid">
-              Email required
+              {isInvalid === undefined
+                ? "Username or E-mail required"
+                : "User identification or password invalid"}
             </Form.Control.Feedback>
           </Form.Group>
 
@@ -71,9 +79,12 @@ function Login() {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              isInvalid={isInvalid}
             />
             <Form.Control.Feedback type="invalid">
-              Password required
+              {isInvalid === undefined
+                ? "Password required"
+                : "User identification or password invalid"}
             </Form.Control.Feedback>
           </Form.Group>
 
@@ -90,7 +101,7 @@ function Login() {
               isActive={true}
               notLast={false}
               isSubit={true}
-              loading={submitButtonLoading}
+              loading={true}
             />
           </div>
         </Form>
