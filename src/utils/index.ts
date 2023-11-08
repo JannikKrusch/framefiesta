@@ -17,3 +17,5 @@ export * from "./context/DataContext";
 export * from "./context/ServiceContext";
 export * from "./models/RegisterBody";
 export * from "./models/LoginBody";
+export * from "./models/AddCommentBody";
+export * from "./models/DeleteCommentBody";

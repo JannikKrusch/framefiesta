@@ -13,23 +13,13 @@ export const enum Method {
 }
 
 export enum BlogEndPoints {
-  //returns list
-  GetMotionPictures = "/motionPictures",
-  GetFilms = "/getFilms",
-  GetSeries = "/getSeries",
-  //returns single item
-  GetFilmBy = "/getFilmById",
-  GetSeriesById = "/getSeriesById",
-}
-
-export enum AdminEndpoints {
-  DeleteUser = "/deleteUser",
-  DeleteBlog = "/deleteBlog",
+  GetBlogPosts = "/getBlogPosts",
 }
 
 export enum UserEndpoints {
   Register = "/register",
   LogIn = "/login",
+  AddComment = "/addComment",
   DeleteComment = "/deleteComment",
 }
 

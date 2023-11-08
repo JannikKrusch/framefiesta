@@ -2,8 +2,7 @@ import { useContext, useEffect } from "react";
 import { Loader } from "../../components/shared";
 import { DummyBlogPosts } from "../../utils/helper/DummyData";
 import DetailPost from "../../components/modules/home/detailPost/DetailPost";
-import { DataContext } from "../../utils/context/DataContext";
-import { StateContext } from "../../utils/context/StateContext";
+import { DataContext, StateContext } from "../../utils";
 
 function Home() {
   const { setBlogPosts, selectedBlogPostId, setSelectedBlogPostId, setUser } =
