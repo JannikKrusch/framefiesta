@@ -1,8 +1,7 @@
-export const DEFAULT_URL: string = "";
+export const DEFAULT_URL: string = ""; //! Add your backend url here
 
 export enum Controllers {
   Blogs = "blogs",
-  Admin = "admin",
   User = "user",
 }
 
