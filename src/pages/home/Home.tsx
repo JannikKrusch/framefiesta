@@ -1,5 +1,4 @@
 import { useContext, useEffect } from "react";
-import { User } from "../../utils";
 import { Loader } from "../../components/shared";
 import { DummyBlogPosts } from "../../utils/helper/DummyData";
 import DetailPost from "../../components/modules/home/detailPost/DetailPost";
@@ -20,11 +19,6 @@ function Home() {
     if (dummyPosts.length > 0) {
       setLoading((prev) => false);
     }
-    // let user: User = new User();
-    // user.id = "0";
-    // user.isAdmin = true;
-    // user.name = "Jannik";
-    // setUser(user);
     setBlogPosts(dummyPosts);
   }, []);
 
