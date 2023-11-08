@@ -14,5 +14,6 @@ export * from "./constants/RouterPaths";
 export * from "./constants/Names";
 export * from "./context/StateContext";
 export * from "./context/DataContext";
+export * from "./context/ServiceContext";
 export * from "./models/RegisterBody";
 export * from "./models/LoginBody";

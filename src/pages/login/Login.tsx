@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import CustomButton from "../../components/shared/button/CustomButton";
 import { RouterPaths } from "../../utils";
 import { Form } from "react-bootstrap";
 import "./Login.css";
+import { ServiceContext } from "../../utils/context/ServiceContext";
 
 function Login() {
   const [validated, setValidated] = useState(false);
   const [userIdentification, setUserIdentification] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
+  const { test } = useContext(ServiceContext);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -42,7 +45,7 @@ function Login() {
             controlId="validationUserIdentification"
             className="form-group"
           >
-            <Form.Label>Username or E-mail</Form.Label>
+            <Form.Label>{test}</Form.Label>
             <Form.Control
               required
               type="text"
