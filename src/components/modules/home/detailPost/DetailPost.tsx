@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { DataContext } from "../../../../utils/context/DataContext";
 import { convertSelectedIdToBlogPost } from "../../../../utils/helper/BlogPost";
 import { StateContext } from "../../../../utils/context/StateContext";
+import { CustomError } from "../../../../utils";
 
 //https://dribbble.com/shots/2623175-MediaMe-Film-Card/attachments/524445?mode=media
 function DetailPost() {
@@ -16,7 +17,10 @@ function DetailPost() {
   );
 
   if (!selectedBlogPost) {
-    setError(new Error("Cannot find post"));
+    const customError = new CustomError();
+    customError.message = "New Error";
+    customError.statusCode = 500;
+    setError(customError);
     return <></>;
   }
 

@@ -1,12 +1,18 @@
 import { useContext } from "react";
-import { Controllers, DEFAULT_URL, HttpStatusCodes, Method } from "../utils";
+import {
+  Controllers,
+  CustomError,
+  DEFAULT_URL,
+  HttpStatusCodes,
+  Method,
+} from "../utils";
 import { StateContext } from "../utils/context/StateContext";
 import { isInstanceOfResponse } from "../utils/helper/InstanceOf";
 
 export class DataService {
   public controller: Controllers;
   private _url: String = DEFAULT_URL;
-  private _setError: (error: Error | undefined) => void =
+  private _setError: (error: CustomError | undefined) => void =
     useContext(StateContext).setError;
 
   constructor(controller: Controllers) {
@@ -43,29 +49,29 @@ export class DataService {
           return data;
         } else {
           //TODO update ERROR
-          this._setError(this.convertToError(response));
+          this._setError(this.convertToCustomError(response));
           return null;
         }
       }
       //TODO update ERROR
-      this._setError(this.convertToError(response));
+      this._setError(this.convertToCustomError(response));
       return null;
     } catch (ex) {
-      this._setError(this.convertToError(ex));
+      this._setError(this.convertToCustomError(ex));
       return null;
     }
   }
 
-  private convertToError(input: Response | unknown): Error {
-    const error = new Error();
+  private convertToCustomError(input: Response | unknown): CustomError {
+    const error = new CustomError();
     if (isInstanceOfResponse(input)) {
       error.message = input.statusText;
-      error.name = input.status.toString();
+      error.statusCode = input.status;
       return error;
     } else {
       const parsed = input as Error;
       error.message = parsed.message;
-      error.name = HttpStatusCodes.InternalServerError.toString();
+      error.statusCode = HttpStatusCodes.InternalServerError;
       return error;
     }
   }

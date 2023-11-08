@@ -1,4 +1,5 @@
 export * from "./models/User";
+export * from "./models/CustomError";
 export * from "./models/Series";
 export * from "./models/Search";
 export * from "./models/MotionPicture";

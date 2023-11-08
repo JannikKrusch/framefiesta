@@ -1,8 +1,9 @@
 import React, { Dispatch, SetStateAction, createContext } from "react";
+import { CustomError } from "../models/CustomError";
 
 interface StateContextType {
-  error: Error | undefined;
-  setError: Dispatch<SetStateAction<Error | undefined>>;
+  error: CustomError | undefined;
+  setError: Dispatch<SetStateAction<CustomError | undefined>>;
   loading: boolean;
   setLoading: Dispatch<SetStateAction<boolean>>;
 }

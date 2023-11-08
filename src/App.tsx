@@ -8,12 +8,13 @@ import { ErrorPage } from "./components/shared/error/ErrorPage";
 import { StateContext } from "./utils/context/StateContext";
 import { useErrorUpdate } from "./utils/hooks/UseErrorUpdate";
 import { DataContext } from "./utils/context/DataContext";
-import { BlogPost, User } from "./utils";
+import { BlogPost, CustomError, User } from "./utils";
 import Register from "./pages/register/Register";
 import Login from "./pages/login/Login";
+import PageNotFound from "./components/shared/error/PageNotFound";
 
 function App() {
-  const [error, setError] = useState<Error | undefined>(undefined);
+  const [error, setError] = useState<CustomError | undefined>(undefined);
   const [loading, setLoading] = useState<boolean>(true);
   const [user, setUser] = useState<User | undefined>(undefined);
   const [selectedBlogPostId, setSelectedBlogPostId] = useState<string>("");
@@ -54,6 +55,7 @@ function App() {
                   path={`${RouterPaths.Error.path}`}
                   element={<ErrorPage />}
                 />
+                <Route path={`*`} element={<PageNotFound />} />
                 <Route path={`/about`} element={<About />} />
               </Routes>
             </div>
@@ -73,7 +75,10 @@ function About(): JSX.Element {
 
   useErrorUpdate();
   function buttonClick() {
-    const newError = new Error("Test NEW ERROR");
+    const newError = new CustomError();
+    newError.message = "Test Internal Server Error";
+    newError.statusCode = 500;
+
     setError((prev) => newError);
   }
   return (
