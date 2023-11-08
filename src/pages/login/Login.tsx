@@ -1,30 +1,43 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import CustomButton from "../../components/shared/button/CustomButton";
-import { RouterPaths } from "../../utils";
+import { DataContext, RouterPaths, ServiceContext } from "../../utils";
 import { Form } from "react-bootstrap";
 import "./Login.css";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [validated, setValidated] = useState(false);
-  const [email, setEmail] = useState<string>("");
+  const [userIdentification, setUserIdentification] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const { setUser } = useContext(DataContext);
+  const { userService } = useContext(ServiceContext);
+  const [isInvalid, setIsValid] = useState<boolean | undefined>(undefined);
+  const navigate = useNavigate();
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  async function handleSubmitAsync(
+    event: React.FormEvent<HTMLFormElement>
+  ): Promise<void> {
     event.preventDefault();
     event.stopPropagation();
 
-    // Überprüfen Sie, ob das Formular gültig ist
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       setValidated(true);
       return;
     }
 
-    // Hier können Sie den Validierungsprozess fortsetzen, wenn alles korrekt ist
     setValidated(true);
     //TODO send data
-    // Zum Beispiel das Senden der Daten an einen Server
-  };
+    const user = await userService?.loginAsync(userIdentification, password);
+    if (user) {
+      setUser((prev) => user);
+      setIsValid((prev) => false);
+      setUser((prev) => user);
+      navigate(RouterPaths.Default.path);
+    } else {
+      setIsValid((prev) => true);
+    }
+  }
 
   return (
     <div className="d-flex justify-content-center login-container">
@@ -36,19 +49,25 @@ function Login() {
           className="text-start"
           noValidate
           validated={validated}
-          onSubmit={(e) => handleSubmit(e)}
+          onSubmit={async (e) => await handleSubmitAsync(e)}
         >
-          <Form.Group controlId="validationEmail" className="form-group">
-            <Form.Label>E-Mail</Form.Label>
+          <Form.Group
+            controlId="validationUserIdentification"
+            className="form-group"
+          >
+            <Form.Label>User identification</Form.Label>
             <Form.Control
               required
               type="text"
-              placeholder="E-Mail"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Username or E-mail"
+              value={userIdentification}
+              onChange={(e) => setUserIdentification(e.target.value)}
+              isInvalid={isInvalid}
             />
             <Form.Control.Feedback type="invalid">
-              Email required
+              {isInvalid === undefined
+                ? "Username or E-mail required"
+                : "User identification or password invalid"}
             </Form.Control.Feedback>
           </Form.Group>
 
@@ -60,9 +79,12 @@ function Login() {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              isInvalid={isInvalid}
             />
             <Form.Control.Feedback type="invalid">
-              Password required
+              {isInvalid === undefined
+                ? "Password required"
+                : "User identification or password invalid"}
             </Form.Control.Feedback>
           </Form.Group>
 
@@ -72,7 +94,6 @@ function Login() {
               isActive={false}
               notLast={false}
               isSubit={false}
-              method={() => {}}
               href={RouterPaths.Register.path}
             />
             <CustomButton
@@ -80,8 +101,7 @@ function Login() {
               isActive={true}
               notLast={false}
               isSubit={true}
-              //TODO add function
-              method={() => {}}
+              loading={true}
             />
           </div>
         </Form>

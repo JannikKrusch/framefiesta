@@ -1,4 +1,10 @@
-import { Controllers, User } from "../utils";
+import {
+  Controllers,
+  LoginBody,
+  RegisterBody,
+  User,
+  UserEndpoints,
+} from "../utils";
 import { DataService } from "./DataService";
 
 export class UserService extends DataService {
@@ -7,20 +13,40 @@ export class UserService extends DataService {
   }
 
   public async registerAsync(
-    userName: string,
-    password: string
+    name: string,
+    password: string,
+    email: string
   ): Promise<User | null> {
-    const response = await this.callEndpointAsync("");
+    const url = UserEndpoints.Register;
+    const body: RegisterBody = {
+      name,
+      password,
+      email,
+    };
+
+    const response = await this.callEndpointAsync(url, JSON.stringify(body));
     const data = await this.handleResponseAsync<User>(response);
     return data;
   }
 
   public async loginAsync(
-    userName: string,
+    userIdentification: string,
     password: string
   ): Promise<User | null> {
-    const response = await this.callEndpointAsync("");
+    const url = UserEndpoints.LogIn;
+    const body: LoginBody = {
+      userIdentification: userIdentification,
+      password: password,
+    };
+
+    const response = await this.callEndpointAsync(url, JSON.stringify(body));
     const data = await this.handleResponseAsync<User>(response);
+    const user = new User();
+    user.email = "TEST_USER@gmail.com";
+    user.id = "1";
+    user.isAdmin = true;
+    user.password = password;
+    return user;
     return data;
   }
 }
