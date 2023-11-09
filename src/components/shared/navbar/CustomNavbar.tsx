@@ -45,7 +45,6 @@ export function CustomNavbar() {
         >
           <Film className="custom-navbar-logo-icon" />
           <span>{COMPANY_NAME}</span>
-          {/* {COMPANY_NAME} */}
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" className="ms-auto" />
         <Navbar.Collapse id="navbarScroll">
