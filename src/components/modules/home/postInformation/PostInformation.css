@@ -1,8 +1,22 @@
 .post-information-container {
   text-align: left;
   padding: 2rem;
+  width: 50%;
+  margin: auto;
 }
 
 .information-options {
   padding-bottom: 1rem;
+}
+
+@media only screen and (max-width: 1080px) {
+  .post-information-container r {
+    width: 75%;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .post-information-container {
+    width: 100%;
+  }
 }

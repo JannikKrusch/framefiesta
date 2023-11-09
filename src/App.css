@@ -20,7 +20,7 @@
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  background-color: var(--page-background-color);
+  background-color: var(--background-color-black);
   color: var(--text-color-default) !important;
   font-size: var(--text-size) !important;
   font-family: "Roboto", sans-serif;
@@ -28,5 +28,6 @@
 
 .content-container {
   min-height: calc(100vh - 128px - 72px);
+  background-color: var(--page-background-color);
   text-align: center;
 }

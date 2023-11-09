@@ -21,8 +21,7 @@ export function DummyBlogPosts(amount: number): BlogPost[] {
       "Drama",
       "Romance",
     ];
-    motionPicture.image =
-      "https://de.web.img2.acsta.net/r_1280_720/newsv7/20/04/28/09/51/1944619.jpg";
+    motionPicture.image = "https://images7.alphacoders.com/693/693715.jpg";
     motionPicture.initialRelease = 1994;
     motionPicture.rating = 8.9;
     motionPicture.ageRating = 18;
