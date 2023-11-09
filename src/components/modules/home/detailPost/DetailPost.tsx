@@ -29,7 +29,7 @@ function DetailPost() {
       <FullSizeImage
         title={selectedBlogPost.relatedMotionPicture.title}
         image={selectedBlogPost.relatedMotionPicture.image}
-        rating={selectedBlogPost.relatedMotionPicture.rating}
+        rating={selectedBlogPost.rating}
       />
       <PostInformation selectedBlogPost={selectedBlogPost} />
       <div></div>

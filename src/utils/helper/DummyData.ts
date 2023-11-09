@@ -23,12 +23,12 @@ export function DummyBlogPosts(amount: number): BlogPost[] {
     ];
     motionPicture.image = "https://images7.alphacoders.com/693/693715.jpg";
     motionPicture.initialRelease = 1994;
-    motionPicture.rating = 8.9;
     motionPicture.ageRating = 18;
     motionPicture.budget = 10000000;
     motionPicture.title = `Pulp Fiction ${i}`;
 
     blogPost.id = i.toString();
+    blogPost.rating = 8.9;
     blogPost.relatedMotionPicture = motionPicture;
     blogPost.review =
       "Excepteur cupidatat duis cupidatat exercitation cupidatat Lorem adipisicing pariatur minim enim in. Eu occaecat elit aliquip labore excepteur ea eiusmod nisi deserunt duis in. Proident sit ut dolor cupidatat duis pariatur ex. Quis mollit ex qui labore voluptate amet anim culpa sunt ut laborum culpa culpa ea. Voluptate minim magna mollit amet ad est aute. Do aute et cupidatat do incididunt.d" +

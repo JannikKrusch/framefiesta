@@ -63,7 +63,7 @@ function PostInformation(props: PostInformationProps) {
         return (
           <Review
             review={selectedBlogPost.review}
-            rating={selectedBlogPost.relatedMotionPicture.rating}
+            rating={selectedBlogPost.rating}
             comments={selectedBlogPost.comments}
           />
         );
