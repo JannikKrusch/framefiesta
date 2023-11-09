@@ -50,8 +50,8 @@ function CommentSection(props: CommentProps) {
           return (
             <CustomButton
               label={label.toString()}
-              isActive={label === activeCommentPage}
-              notLast={index < buttonLabels.length}
+              active={label === activeCommentPage}
+              notLast={index < buttonLabels.length - 1}
               href={"#comment-section-start"}
               method={() => setActiveCommentPage((prev) => label)}
             />
@@ -69,8 +69,8 @@ function CommentSection(props: CommentProps) {
           <ButtonGroup>
             <CustomButton
               label={"Oldest"}
-              isActive={filteredState === 0}
-              notLast={true}
+              active={filteredState === 0}
+              notLast
               method={() => {
                 setFilteredState(0);
                 filterOldest();
@@ -78,8 +78,7 @@ function CommentSection(props: CommentProps) {
             />
             <CustomButton
               label={"Newst"}
-              isActive={filteredState === 1}
-              notLast={false}
+              active={filteredState === 1}
               method={() => {
                 setFilteredState(1);
                 filterNewest();
@@ -117,14 +116,14 @@ function CommentSection(props: CommentProps) {
             <ButtonGroup>
               <CustomButton
                 label={"Cancel"}
-                isActive={false}
-                notLast={true}
-                onlyText={true}
+                active={false}
+                notLast
+                onlyText
                 method={() => {}}
               />
               <CustomButton
                 label={"Comment"}
-                isActive={true}
+                active
                 notLast={false}
                 method={() => {}}
               />

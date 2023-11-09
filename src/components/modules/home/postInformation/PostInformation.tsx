@@ -6,6 +6,7 @@ import Description from "./Description";
 import Review from "./Review";
 import Recommended from "./Recommended";
 import { DataContext } from "../../../../utils/context/DataContext";
+import CustomButton from "../../../shared/button/CustomButton";
 
 interface PostInformationProps {
   selectedBlogPost: BlogPost;
@@ -94,14 +95,13 @@ function PostInformation(props: PostInformationProps) {
       <div className="information-options d-flex flex-wrap">
         {INFORMATION_OPTIONS.map((option: string, index: number) => {
           return (
-            <span
-              onClick={() => setselectedInformation(index)}
-              className={`information-option ${
-                selectedInformation == index ? "active" : ""
-              }`}
-            >
-              {option}
-            </span>
+            <CustomButton
+              label={option}
+              onlyText
+              notLast={index < INFORMATION_OPTIONS.length - 1}
+              active={selectedInformation === index}
+              method={() => setselectedInformation(index)}
+            />
           );
         })}
       </div>

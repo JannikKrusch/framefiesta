@@ -126,7 +126,7 @@ function Register() {
           <div className="d-flex justify-content-between">
             <CustomButton
               label={`Got an account already? ${RouterPaths.Login.display}`}
-              isActive={false}
+              active={false}
               notLast={false}
               isSubit={false}
               method={() => {}}
@@ -134,7 +134,7 @@ function Register() {
             />
             <CustomButton
               label={`${RouterPaths.Register.display}`}
-              isActive={true}
+              active={true}
               notLast={false}
               isSubit={true}
             />

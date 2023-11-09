@@ -32,6 +32,17 @@
   background-color: var(--text-color-purple) !important;
 }
 
+.user-icon-popover {
+  background-color: var(--background-color-black) !important;
+  border-color: var(--border-color) !important;
+  max-width: 15rem !important;
+}
+
+.user-icon-popover-header {
+  color: var(--text-color-default) !important;
+  font-size: var(--text-size) !important;
+}
+
 .user-icon {
   width: 2rem;
   height: 2rem;

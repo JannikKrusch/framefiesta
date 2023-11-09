@@ -5,12 +5,13 @@ import { useState } from "react";
 
 interface ButtonProps {
   label: string;
-  notLast: boolean;
-  isActive: boolean;
+  notLast?: boolean;
+  active?: boolean;
   onlyText?: boolean;
   href?: string;
   isSubit?: boolean;
   loading?: boolean;
+  hidden?: boolean;
   method?: () => void;
 }
 
@@ -27,10 +28,11 @@ function CustomButton(props: ButtonProps) {
 
   const buttonClasses = classNames(
     "button",
-    { active: props.isActive },
+    { active: props.active },
     { notLast: props.notLast },
     { last: !props.notLast },
-    { text: props.onlyText }
+    { text: props.onlyText },
+    { hidden: props.hidden }
   );
 
   return (

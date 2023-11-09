@@ -19,10 +19,12 @@ import { PersonCircle } from "react-bootstrap-icons";
 import { Search } from "../../../utils/models/Search";
 import { useLocation } from "react-router-dom";
 import CustomButton from "../button/CustomButton";
+import { useTime } from "../../../utils/hooks/UserTime";
 
 export function CustomNavbar() {
   const { blogPosts, user } = useContext(DataContext);
   const { setSearchQuery } = useContext(DataContext);
+  const { greeting } = useTime();
   const { selectedBlogPostId, setSelectedBlogPostId } = useContext(DataContext);
   const [selected, setSelected] = useState<Search[]>([]);
   const options: Search[] = blogPosts.map((post) => {
@@ -103,37 +105,40 @@ export function CustomNavbar() {
             )}
           </div>
           <Nav>
-            <Nav.Link
-              className="custom-navbar-link"
-              // href={RouterPaths.Login.path}
-            >
+            <Nav.Link className="custom-navbar-link">
               <OverlayTrigger
                 trigger={"click"}
-                placement="bottom"
+                placement={"bottom"}
+                rootClose={true}
                 overlay={
-                  <Popover>
-                    <PopoverBody>Hello {user?.name}</PopoverBody>
+                  <Popover className="user-icon-popover">
+                    <PopoverBody className="user-icon-popover-header">
+                      <span>{greeting}</span> {user?.name}
+                    </PopoverBody>
                     <PopoverBody>
                       <div className="row">
                         <CustomButton
-                          isActive={false}
+                          active
                           href={RouterPaths.Login.path}
                           label={RouterPaths.Login.display}
                           notLast={true}
+                          hidden={user !== undefined}
                         />
 
                         <CustomButton
-                          isActive={false}
+                          active
                           href={RouterPaths.Register.path}
                           label={RouterPaths.Register.display}
                           notLast={true}
+                          hidden={user !== undefined}
                         />
 
                         <CustomButton
-                          isActive={false}
-                          href={RouterPaths.Login.path}
+                          active
+                          href={RouterPaths.Default.path}
                           label={"Logout"}
                           notLast={true}
+                          hidden={user === undefined}
                         />
                       </div>
                     </PopoverBody>

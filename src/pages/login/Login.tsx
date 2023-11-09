@@ -91,14 +91,14 @@ function Login() {
           <div className="d-flex justify-content-between">
             <CustomButton
               label={`Don't have an account? ${RouterPaths.Register.display}`}
-              isActive={false}
+              active={false}
               notLast={false}
               isSubit={false}
               href={RouterPaths.Register.path}
             />
             <CustomButton
               label={`${RouterPaths.Login.display}`}
-              isActive={true}
+              active={true}
               notLast={false}
               isSubit={true}
               loading={true}
