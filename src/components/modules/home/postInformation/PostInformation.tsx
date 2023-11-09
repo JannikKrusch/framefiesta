@@ -25,32 +25,29 @@ function PostInformation(props: PostInformationProps) {
       .filter(
         (blogPost) =>
           blogPost.relatedMotionPicture.title !== selectedMovie.title
-      ) // Den ausgewählten Film von den Empfehlungen ausschließen
+      )
       .map((blogPost) => ({
         ...blogPost,
         score: getScore(selectedMovie, blogPost.relatedMotionPicture),
       }))
-      .sort((a, b) => b.score - a.score) // Sortieren nach Score in absteigender Reihenfolge
-      .map((movieWithScore) => movieWithScore) // Entferne den Score und gib nur die Filme zurück
-      .slice(0, 10); // Zum Beispiel die Top 10 Empfehlungen zurückgeben
+      .sort((a, b) => b.score - a.score)
+      .map((movieWithScore) => movieWithScore)
+      .slice(0, 10);
   }
 
   function getScore(movie1: MotionPicture, movie2: MotionPicture): number {
     let score = 0;
 
-    // Für jedes übereinstimmende Genre, erhöhe den Score
     for (const genre of movie1.genres) {
       if (movie2.genres.includes(genre)) {
         score += 1;
       }
     }
 
-    // Wenn sie denselben Regisseur haben, erhöhe den Score
     if (movie1.director === movie2.director) {
       score += 2;
     }
 
-    // Für jeden gemeinsamen Schauspieler, erhöhe den Score
     for (const actor of movie1.actors) {
       if (movie2.actors.includes(actor)) {
         score += 1;

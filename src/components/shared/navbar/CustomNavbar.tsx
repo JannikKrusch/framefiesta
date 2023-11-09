@@ -20,7 +20,8 @@ import { useLocation } from "react-router-dom";
 import CustomButton from "../button/CustomButton";
 import { useTime } from "../../../utils/hooks/UserTime";
 export function CustomNavbar() {
-  const { blogPosts, user, setSelectedBlogPostId } = useContext(DataContext);
+  const { blogPosts, user, setUser, setSelectedBlogPostId } =
+    useContext(DataContext);
   const { greeting } = useTime();
   const [selected, setSelected] = useState<Search[]>([]);
   const options: Search[] = blogPosts.map((post) => {
@@ -92,10 +93,11 @@ export function CustomNavbar() {
                 overlay={
                   <Popover className="user-icon-popover">
                     <PopoverBody className="user-icon-popover-header">
-                      <span>{greeting}</span> {user?.name}
+                      <span>{greeting}</span>{" "}
+                      {user?.name ? `, ${user.name}` : null}
                     </PopoverBody>
                     <PopoverBody>
-                      <div className="row">
+                      <div className="row g-3">
                         <CustomButton
                           active
                           href={RouterPaths.Login.path}
@@ -115,6 +117,7 @@ export function CustomNavbar() {
                         <CustomButton
                           active
                           href={RouterPaths.Default.path}
+                          method={() => setUser(undefined)}
                           label={"Logout"}
                           notLast={true}
                           hidden={user === undefined}

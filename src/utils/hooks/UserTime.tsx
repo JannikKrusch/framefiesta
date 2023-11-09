@@ -39,7 +39,6 @@ function getGreetingForTimeOfDay(date: Date): string {
       greetingForTime += "Night";
       break;
   }
-  greetingForTime += ", ";
 
   return greetingForTime;
 }

@@ -25,7 +25,7 @@ function DetailPost() {
   }
 
   return (
-    <div className="detail-post-container w-100">
+    <div className="detail-post-container">
       <FullSizeImage image={selectedBlogPost.relatedMotionPicture.image} />
       <PostInformation selectedBlogPost={selectedBlogPost} />
       <div></div>
