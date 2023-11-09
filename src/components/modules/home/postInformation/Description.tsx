@@ -36,7 +36,7 @@ function Description(props: DescriptionProps) {
       <>
         {factName.map((name, index) => {
           return (
-            <div className={`row ${index <= 2 ? "highlight" : ""}`}>
+            <div className={`row ${index <= 2 ? "highlight" : ""}`} key={index}>
               <div className="col-sm-12 col-md-4">{name}:</div>
               <div className="col-sm-12 col-md-8">{factValue[index]}</div>
             </div>

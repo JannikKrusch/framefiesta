@@ -31,7 +31,7 @@ function Teaser(props: TeaserProps) {
         <span className="col">
           {motionPicture.genres.map((genre, index) => {
             return (
-              <span>
+              <span key={index}>
                 {genre}
                 {index >= 0 && index < motionPicture.genres.length - 1
                   ? " | "

@@ -22,9 +22,10 @@ function Recommended(props: RecommendedProps) {
         If you like {props.selectedName}, you like:
       </div>
       <div className="card-container d-flex flex-wrap justify-content-between justify-content-sm-start">
-        {props.recommendations.map((blogPost) => {
+        {props.recommendations.map((blogPost: BlogPost, index: number) => {
           return (
             <div
+              key={index}
               className="recommend-card text-center"
               onClick={() => changeID(blogPost.id)}
             >

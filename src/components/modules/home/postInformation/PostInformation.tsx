@@ -93,6 +93,7 @@ function PostInformation(props: PostInformationProps) {
         {INFORMATION_OPTIONS.map((option: string, index: number) => {
           return (
             <CustomButton
+              key={index}
               label={option}
               onlyText
               notLast={index < INFORMATION_OPTIONS.length - 1}

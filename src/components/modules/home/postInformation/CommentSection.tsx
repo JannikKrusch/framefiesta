@@ -49,6 +49,7 @@ function CommentSection(props: CommentProps) {
         {buttonLabels.map((label, index) => {
           return (
             <CustomButton
+              key={index}
               label={label.toString()}
               active={label === activeCommentPage}
               notLast={index < buttonLabels.length - 1}
@@ -139,9 +140,9 @@ function CommentSection(props: CommentProps) {
           (activeCommentPage - 1) * itemsPerPage,
           activeCommentPage * itemsPerPage
         )
-        .map((comment: Comment) => {
+        .map((comment: Comment, index: number) => {
           return (
-            <div className="comment-container g-0 row">
+            <div className="comment-container g-0 row" key={index}>
               <div className="row">
                 <div className="col-auto">
                   <PersonCircle className="comment-author-icon" size={"3rem"} />
