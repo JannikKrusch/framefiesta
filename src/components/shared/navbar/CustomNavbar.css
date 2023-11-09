@@ -3,12 +3,15 @@
   color: var(--text-color-default) !important;
 }
 
-.custom-navbar-link {
-  color: var(--text-color-default) !important;
+.custom-navbar-logo {
+  color: var(--text-color-purple) !important;
+}
+.custom-navbar-logo-icon {
+  margin-right: 0.5rem;
 }
 
-.custom-navbar-link:hover {
-  color: var(--text-color-purple) !important;
+.custom-navbar-logo:hover {
+  color: var(--text-color-light-purple) !important;
 }
 
 .search-box {
@@ -40,7 +43,7 @@
 
 .user-icon-popover-header {
   color: var(--text-color-default) !important;
-  font-size: var(--text-size) !important;
+  font-size: var(--text-size);
 }
 
 .user-icon {

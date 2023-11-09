@@ -22,7 +22,7 @@
   min-height: 100vh;
   background-color: var(--page-background-color);
   color: var(--text-color-default) !important;
-  font-size: var(--text-size);
+  font-size: var(--text-size) !important;
   font-family: "Roboto", sans-serif;
 }
 

@@ -47,7 +47,7 @@ function Register() {
 
   return (
     <div className="d-flex justify-content-center register-container">
-      <div className="col-sm-12 col-md-6 col-lg-4 col-12">
+      <div className="col-sm-12 col-md-8 col-lg-4 col-12">
         <h1 className="headline">Registration</h1>
         <span className="subtext">Register for free</span>
 

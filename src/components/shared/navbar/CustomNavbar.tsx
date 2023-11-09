@@ -1,11 +1,10 @@
 import { Typeahead } from "react-bootstrap-typeahead";
-import { BlogPost } from "../../../utils";
 import { COMPANY_NAME } from "../../../utils/constants/Names";
 import { RouterPaths } from "../../../utils/constants/RouterPaths";
 import { DataContext } from "../../../utils/context/DataContext";
 
 import "./CustomNavbar.css";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import {
   Navbar,
   Container,
@@ -15,17 +14,14 @@ import {
   OverlayTrigger,
 } from "react-bootstrap";
 import "react-bootstrap-typeahead/css/Typeahead.css";
-import { PersonCircle } from "react-bootstrap-icons";
+import { Film, PersonCircle } from "react-bootstrap-icons";
 import { Search } from "../../../utils/models/Search";
 import { useLocation } from "react-router-dom";
 import CustomButton from "../button/CustomButton";
 import { useTime } from "../../../utils/hooks/UserTime";
-
 export function CustomNavbar() {
-  const { blogPosts, user } = useContext(DataContext);
-  const { setSearchQuery } = useContext(DataContext);
+  const { blogPosts, user, setSelectedBlogPostId } = useContext(DataContext);
   const { greeting } = useTime();
-  const { selectedBlogPostId, setSelectedBlogPostId } = useContext(DataContext);
   const [selected, setSelected] = useState<Search[]>([]);
   const options: Search[] = blogPosts.map((post) => {
     return {
@@ -35,7 +31,6 @@ export function CustomNavbar() {
     };
   });
   const location = useLocation();
-
   return (
     <Navbar
       expand="sm"
@@ -45,31 +40,16 @@ export function CustomNavbar() {
     >
       <Container fluid>
         <Navbar.Brand
-          className="custom-navbar-link"
+          className="custom-navbar-logo"
           href={RouterPaths.Default.path}
         >
-          {COMPANY_NAME}
+          <Film className="custom-navbar-logo-icon" />
+          <span>{COMPANY_NAME}</span>
+          {/* {COMPANY_NAME} */}
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" className="ms-auto" />
         <Navbar.Collapse id="navbarScroll">
-          <Nav
-            className="me-auto my-2 my-lg-0"
-            style={{ maxHeight: "100px" }}
-            navbarScroll
-          >
-            {Object.values(RouterPaths)
-              .slice(2)
-              .map((route) => (
-                <Nav.Link
-                  key={route.path}
-                  className="custom-navbar-link"
-                  href={route.path}
-                >
-                  {route.display}
-                </Nav.Link>
-              ))}
-          </Nav>
-          <div className=" ms-auto">
+          <div className="ms-auto">
             {location.pathname === RouterPaths.Default.path ? (
               <Typeahead
                 id="blog-post-search"
