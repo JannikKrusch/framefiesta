@@ -3,7 +3,7 @@
   margin: auto;
 }
 
-@media only screen and (max-width: 1080px) {
+/* @media only screen and (max-width: 1080px) {
   .detail-post-container {
     width: 75%;
   }
@@ -13,4 +13,4 @@
   .detail-post-container {
     width: 100%;
   }
-}
+} */

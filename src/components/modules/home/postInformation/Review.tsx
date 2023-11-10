@@ -20,7 +20,7 @@ function Review(props: ReviewProps) {
   return (
     <>
       <div className="row">
-        <div className="col-sm-12 col-md-6 col-lg-4 mb-4 mb-md-0">
+        {/* <div className="col-sm-12 col-md-6 col-lg-4 mb-4 mb-md-0">
           <span>Fiesta Rating</span>
           {showRating ? (
             <div className="clickable">
@@ -42,8 +42,8 @@ function Review(props: ReviewProps) {
               onClick={toggleRating}
             ></Placeholder>
           )}
-        </div>
-        <div className="col-sm-12 col-md-6 col-lg-8 mb-4">
+        </div> */}
+        <div className="col mb-4">
           <span className="review-text">{props.review}</span>
         </div>
       </div>

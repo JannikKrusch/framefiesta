@@ -2,6 +2,10 @@
   padding-bottom: 2rem;
 }
 
+.recommended-title {
+  color: var(--text-color-purple);
+}
+
 .card-container {
   gap: 1rem;
 }

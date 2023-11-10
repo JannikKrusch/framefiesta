@@ -17,9 +17,11 @@ function Recommended(props: RecommendedProps) {
   }
 
   return (
-    <div className="recommended-container">
+    <div>
       <div className="recommended-headline">
-        If you like {props.selectedName}, you like:
+        If you like{" "}
+        <span className="recommended-title">{props.selectedName}</span>, you
+        like:
       </div>
       <div className="card-container d-flex flex-wrap justify-content-between justify-content-sm-start">
         {props.recommendations.map((blogPost: BlogPost, index: number) => {

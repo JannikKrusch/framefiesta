@@ -9,13 +9,35 @@
   display: block;
 }
 
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 .title-overlay {
   position: absolute;
   top: 50%;
   left: 0;
   transform: translateY(-50%);
   padding-left: 1rem;
-  color: var(--text-color-default);
+  background-image: linear-gradient(
+    to right,
+    var(--text-color-default),
+    var(--text-color-purple)
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--text-color-purple);
+  animation: gradient-animation 5s linear infinite;
   font-size: 5rem;
   text-align: left;
 }
@@ -24,18 +46,19 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  padding: 0.5rem;
+  padding: 1rem;
 }
 
 .stars-and-rating {
   display: flex;
   align-items: center;
-  color: gold;
+  color: var(--text-color-gold);
   font-size: 1.5rem;
 }
 
 .stars-and-rating span {
   margin-left: 0.5rem;
+  color: var(--text-color-default);
 }
 
 .star-icon {
