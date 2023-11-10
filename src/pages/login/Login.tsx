@@ -1,6 +1,12 @@
 import React, { useContext, useState } from "react";
 import CustomButton from "../../components/shared/button/CustomButton";
-import { DataContext, RouterPaths, ServiceContext } from "../../utils";
+import {
+  DataContext,
+  HttpStatusCodes,
+  RouterPaths,
+  ServiceContext,
+  StateContext,
+} from "../../utils";
 import { Form } from "react-bootstrap";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +17,7 @@ function Login() {
   const [password, setPassword] = useState<string>("");
   const { setUser } = useContext(DataContext);
   const { userService, sessionStorageService } = useContext(ServiceContext);
+  const { error } = useContext(StateContext);
   const [isInvalid, setIsValid] = useState<boolean | undefined>(undefined);
   const navigate = useNavigate();
 
@@ -37,6 +44,9 @@ function Login() {
       navigate(RouterPaths.Default.path);
     } else {
       setIsValid((prev) => true);
+      if (error?.statusCode === HttpStatusCodes.InternalServerError) {
+        navigate(RouterPaths.Error.path);
+      }
     }
   }
 
@@ -56,11 +66,11 @@ function Login() {
             controlId="validationUserIdentification"
             className="form-group"
           >
-            <Form.Label>User identification</Form.Label>
+            <Form.Label>Email</Form.Label>
             <Form.Control
               required
-              type="text"
-              placeholder="Username or E-mail"
+              type="email"
+              placeholder="E-mail"
               value={userIdentification}
               onChange={(e) => setUserIdentification(e.target.value)}
               isInvalid={isInvalid}

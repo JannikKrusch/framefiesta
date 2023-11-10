@@ -49,12 +49,14 @@ export class DataService {
   ): Promise<Response | Error> {
     this._abortController.abort();
     this._abortController = new AbortController();
-
     const response = await fetch(`${this._url}${url}`, {
       signal: this._abortController.signal,
       mode: "cors",
-      method: method ? method : Method.Get,
+      method: method ?? Method.Get,
       body: body,
+      headers: {
+        "Content-Type": "application/json",
+      },
     })
       .then((response) => {
         return response;

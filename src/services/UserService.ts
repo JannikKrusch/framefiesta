@@ -28,7 +28,11 @@ export class UserService extends DataService {
       email,
     };
 
-    return await this.callEndpointGenericAsync<User>(url, JSON.stringify(body));
+    return await this.callEndpointGenericAsync<User>(
+      url,
+      JSON.stringify(body),
+      Method.Post
+    );
   }
 
   public async loginAsync(
@@ -41,7 +45,11 @@ export class UserService extends DataService {
       password,
     };
 
-    return await this.callEndpointGenericAsync<User>(url, JSON.stringify(body));
+    return await this.callEndpointGenericAsync<User>(
+      url,
+      JSON.stringify(body),
+      Method.Post
+    );
   }
 
   public async addCommentAsync(

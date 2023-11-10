@@ -2,8 +2,15 @@ import React, { useContext, useState } from "react";
 import "./Register.css";
 import { Form } from "react-bootstrap";
 import CustomButton from "../../components/shared/button/CustomButton";
-import { DataContext, RouterPaths, ServiceContext } from "../../utils";
+import {
+  DataContext,
+  HttpStatusCodes,
+  RouterPaths,
+  ServiceContext,
+  StateContext,
+} from "../../utils";
 import { useNavigate } from "react-router-dom";
+import { error } from "console";
 
 function Register() {
   const [validated, setValidated] = useState(false);
@@ -14,6 +21,7 @@ function Register() {
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const { userService, sessionStorageService } = useContext(ServiceContext);
   const { setUser } = useContext(DataContext);
+  const { error } = useContext(StateContext);
   const [isInvalid, setIsInValid] = useState<boolean | undefined>(undefined);
   const navigate = useNavigate();
 
@@ -43,6 +51,9 @@ function Register() {
       navigate(RouterPaths.Default.path);
     } else {
       setIsInValid(true);
+      if (error?.statusCode === HttpStatusCodes.InternalServerError) {
+        navigate(RouterPaths.Error.path);
+      }
     }
   }
 
