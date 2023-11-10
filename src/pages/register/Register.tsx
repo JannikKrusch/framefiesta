@@ -123,7 +123,7 @@ function Register() {
               Password must be identical
             </Form.Control.Feedback>
           </Form.Group>
-          <div className="d-flex justify-content-between">
+          <div className="d-flex justify-content-between flex-sm-row flex-column">
             <CustomButton
               label={`Got an account already? ${RouterPaths.Login.display}`}
               active={false}

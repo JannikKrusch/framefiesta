@@ -23,7 +23,7 @@ function Home() {
     user.email = "jannik.test@gmail.com";
     user.id = "1";
     user.password = "jannik@test.password";
-    setUser(user);
+    //setUser(user);
     setBlogPosts(dummyPosts);
   }, []);
 

@@ -16,7 +16,7 @@ import {
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import { Film, PersonCircle } from "react-bootstrap-icons";
 import { Search } from "../../../utils/models/Search";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import CustomButton from "../button/CustomButton";
 import { useTime } from "../../../utils/hooks/UserTime";
 export function CustomNavbar() {
@@ -32,6 +32,8 @@ export function CustomNavbar() {
     };
   });
   const location = useLocation();
+  const navigate = useNavigate();
+
   return (
     <Navbar
       expand="sm"
@@ -100,24 +102,30 @@ export function CustomNavbar() {
                       <div className="row g-3">
                         <CustomButton
                           active
-                          href={RouterPaths.Login.path}
                           label={RouterPaths.Login.display}
                           notLast={true}
                           hidden={user !== undefined}
+                          method={() => {
+                            navigate(RouterPaths.Login.path);
+                          }}
                         />
 
                         <CustomButton
                           active
-                          href={RouterPaths.Register.path}
                           label={RouterPaths.Register.display}
                           notLast={true}
                           hidden={user !== undefined}
+                          method={() => {
+                            navigate(RouterPaths.Register.path);
+                          }}
                         />
 
                         <CustomButton
                           active
-                          href={RouterPaths.Default.path}
-                          method={() => setUser(undefined)}
+                          method={() => {
+                            setUser(undefined);
+                            navigate(RouterPaths.Default.path);
+                          }}
                           label={"Logout"}
                           notLast={true}
                           hidden={user === undefined}

@@ -88,7 +88,7 @@ function Login() {
             </Form.Control.Feedback>
           </Form.Group>
 
-          <div className="d-flex justify-content-between">
+          <div className="d-flex justify-content-between flex-sm-row flex-column">
             <CustomButton
               label={`Don't have an account? ${RouterPaths.Register.display}`}
               active={false}
