@@ -24,7 +24,8 @@
   background-color: var(--background-color-black);
   color: var(--text-color-default) !important;
   font-size: var(--text-size) !important;
-  font-family: "Roboto", sans-serif;
+
+  font-family: "Roboto", sans-serif !important;
 }
 
 .content-container {

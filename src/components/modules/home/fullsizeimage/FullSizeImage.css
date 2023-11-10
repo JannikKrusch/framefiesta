@@ -38,6 +38,7 @@
   -webkit-text-fill-color: transparent;
   color: var(--text-color-purple);
   animation: gradient-animation 5s linear infinite;
+  font-family: "Bebas Neue", sans-serif !important;
   font-size: 5rem;
   text-align: left;
 }

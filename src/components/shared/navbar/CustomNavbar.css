@@ -7,7 +7,13 @@
 }
 
 .custom-navbar-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: var(--text-color-purple) !important;
+}
+.custom-navbar-logo > span {
+  font-family: "Prisma", sans-serif !important;
 }
 
 .custom-navbar-logo-icon {
