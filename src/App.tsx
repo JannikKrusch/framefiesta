@@ -23,8 +23,8 @@ function App() {
         <ServiceConntextProvider>
           <BrowserRouter>
             <div className="main-container">
-              <CustomNavbar />
               <div className="content-container">
+                <CustomNavbar />
                 <Routes>
                   <Route
                     path={`${RouterPaths.Default.path}`}
