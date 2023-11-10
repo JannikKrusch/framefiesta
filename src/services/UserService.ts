@@ -1,5 +1,6 @@
 import {
   AddCommentBody,
+  Comment,
   Controllers,
   DeleteCommentBody,
   LoginBody,
@@ -48,8 +49,8 @@ export class UserService extends DataService {
     password: string,
     comment: string,
     blogPostId: string
-  ): Promise<boolean> {
-    const url = UserEndpoints.Register;
+  ): Promise<Comment | null> {
+    const url = UserEndpoints.AddComment;
     const body: AddCommentBody = {
       userIdentification,
       password,
@@ -57,10 +58,9 @@ export class UserService extends DataService {
       blogPostId,
     };
 
-    return await this.callEndpointBooleanAsync(
+    return await this.callEndpointGenericAsync<Comment>(
       url,
-      JSON.stringify(body),
-      Method.Post
+      JSON.stringify(body)
     );
   }
 
@@ -70,7 +70,7 @@ export class UserService extends DataService {
     commentId: string,
     blogPostId: string
   ): Promise<boolean> {
-    const url = UserEndpoints.Register;
+    const url = UserEndpoints.DeleteComment;
     const body: DeleteCommentBody = {
       userIdentification,
       password,

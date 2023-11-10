@@ -60,14 +60,7 @@ function PostInformation(props: PostInformationProps) {
   function displayInformation(): ReactNode {
     switch (selectedInformation) {
       case 1:
-        return (
-          <Review
-            review={selectedBlogPost.review}
-            rating={selectedBlogPost.rating}
-            comments={selectedBlogPost.comments}
-            blogId={selectedBlogPost.id}
-          />
-        );
+        return <Review blogPost={selectedBlogPost} />;
       case 2:
         return (
           <Recommended

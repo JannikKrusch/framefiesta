@@ -5,15 +5,19 @@ import { useContext } from "react";
 import { DataContext } from "../../../../utils/context/DataContext";
 import { convertSelectedIdToBlogPost } from "../../../../utils/helper/BlogPost";
 import { StateContext } from "../../../../utils/context/StateContext";
-import { CustomError } from "../../../../utils";
+import { BlogPost, CustomError } from "../../../../utils";
 
 //https://dribbble.com/shots/2623175-MediaMe-Film-Card/attachments/524445?mode=media
-function DetailPost() {
+interface DetailPostProps {
+  blogPosts: BlogPost[];
+}
+
+function DetailPost(props: DetailPostProps) {
   const { setError } = useContext(StateContext);
-  const { blogPosts, selectedBlogPostId } = useContext(DataContext);
+  const { selectedBlogPostId } = useContext(DataContext);
   const selectedBlogPost = convertSelectedIdToBlogPost(
     selectedBlogPostId,
-    blogPosts
+    props.blogPosts
   );
 
   if (!selectedBlogPost) {

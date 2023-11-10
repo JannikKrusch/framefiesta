@@ -5,8 +5,13 @@ import DetailPost from "../../components/modules/home/detailPost/DetailPost";
 import { DataContext, ServiceContext, StateContext, User } from "../../utils";
 
 function Home() {
-  const { setBlogPosts, selectedBlogPostId, setSelectedBlogPostId, setUser } =
-    useContext(DataContext);
+  const {
+    blogPosts,
+    setBlogPosts,
+    selectedBlogPostId,
+    setSelectedBlogPostId,
+    setUser,
+  } = useContext(DataContext);
   const { setLoading, loading } = useContext(StateContext);
   const { sessionStorageService } = useContext(ServiceContext);
 
@@ -32,7 +37,7 @@ function Home() {
     setBlogPosts(dummyPosts);
   }, []);
 
-  return <>{loading ? <Loader /> : <DetailPost />}</>;
+  return <>{loading ? <Loader /> : <DetailPost blogPosts={blogPosts} />}</>;
 }
 
 export default Home;

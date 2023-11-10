@@ -16,13 +16,9 @@ interface ButtonProps {
 }
 
 function CustomButton(props: ButtonProps) {
-  const [loading, setLoading] = useState<boolean>(false);
-
   function handleClick() {
     if (props?.method) {
-      setLoading(true);
       props.method();
-      setLoading(false);
     }
   }
 
@@ -42,7 +38,7 @@ function CustomButton(props: ButtonProps) {
       className={buttonClasses}
       onClick={handleClick}
     >
-      {props.loading && loading ? "Loading" : props.label}
+      {props.loading ? "Loading" : props.label}
     </Button>
   );
 }

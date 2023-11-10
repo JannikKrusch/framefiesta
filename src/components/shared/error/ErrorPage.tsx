@@ -11,7 +11,6 @@ export function ErrorPage(): JSX.Element {
 
   useEffect(() => {
     if (error === undefined) {
-      console.warn("error is undefined");
       navigate(RouterPaths.Default.path);
     }
   }, [error]);
