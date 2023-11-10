@@ -5,6 +5,7 @@ import {
   currencyCompactFormat,
   listConjunctionFormat,
 } from "../../../../utils/helper/DataFormatting";
+import { Table } from "react-bootstrap";
 
 interface DescriptionProps {
   description: string;
@@ -14,14 +15,7 @@ interface DescriptionProps {
 function Description(props: DescriptionProps) {
   const motionPicture = props.motionPicture;
 
-  const factName = [
-    "Year",
-    "Age Rating",
-    "Genre",
-    "Budget",
-    "Director",
-    "Cast",
-  ];
+  const factName = ["Year", "Age", "Genre", "Budget", "Director", "Cast"];
   const factValue = [
     motionPicture.initialRelease,
     motionPicture.ageRating,
@@ -33,16 +27,22 @@ function Description(props: DescriptionProps) {
 
   function displayFacts(): ReactNode {
     return (
-      <>
-        {factName.map((name, index) => {
-          return (
-            <div className={`row ${index <= 2 ? "highlight" : ""}`} key={index}>
-              <div className="col-sm-12 col-md-4">{name}:</div>
-              <div className="col-sm-12 col-md-8">{factValue[index]}</div>
-            </div>
-          );
-        })}
-      </>
+      <Table responsive borderless>
+        <tbody>
+          {factName.map((name, index) => {
+            return (
+              <tr>
+                <td className={`cell-left ${index <= 2 ? "highlight" : ""}`}>
+                  {name}
+                </td>
+                <td className={`cell-right ${index <= 2 ? "highlight" : ""}`}>
+                  {factValue[index]}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </Table>
     );
   }
 

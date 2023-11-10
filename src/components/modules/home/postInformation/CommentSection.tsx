@@ -232,7 +232,7 @@ function CommentSection(props: CommentProps) {
               <div hidden={!isUserComment} className="comment-input-buttons">
                 <ButtonGroup>
                   <CustomButton
-                    label={"Delete"}
+                    label={"Delete comment"}
                     active
                     notLast={false}
                     loading={deleteCommentLoading}
