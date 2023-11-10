@@ -2,12 +2,10 @@ import React, { ReactNode, useContext, useEffect, useState } from "react";
 import { Comment } from "../../../../utils/models/Comment";
 import { PersonCircle } from "react-bootstrap-icons";
 import "./CommentSection.css";
-import { Button, ButtonGroup, Form, InputGroup } from "react-bootstrap";
+import { ButtonGroup, Form, InputGroup } from "react-bootstrap";
 import { DataContext } from "../../../../utils/context/DataContext";
 import CustomButton from "../../../shared/button/CustomButton";
-import { BlogPost, RouterPaths, ServiceContext } from "../../../../utils";
-import { convertSelectedIdToBlogPost } from "../../../../utils/helper/BlogPost";
-import { useNavigate } from "react-router-dom";
+import { BlogPost, ServiceContext } from "../../../../utils";
 
 interface CommentProps {
   blogPost: BlogPost;
@@ -28,7 +26,6 @@ function CommentSection(props: CommentProps) {
   const [addCommentLoading, setAddCommentLoading] = useState<boolean>(false);
   const [deleteCommentLoading, setDeleteCommentLoading] =
     useState<boolean>(false);
-  const navigate = useNavigate();
 
   function filterNewest(): void {
     const sortedComments = [...props.blogPost.comments].sort(
@@ -74,8 +71,6 @@ function CommentSection(props: CommentProps) {
         );
         tempBlogPosts[index] = tempBlogPost;
         setBlogPosts(tempBlogPosts);
-      } else {
-        navigate(RouterPaths.Error.path);
       }
     }
   }
@@ -107,8 +102,6 @@ function CommentSection(props: CommentProps) {
         );
         tempBlogPosts[index] = tempBlogPost;
         setBlogPosts(tempBlogPosts);
-      } else {
-        navigate(RouterPaths.Error.path);
       }
     }
   }

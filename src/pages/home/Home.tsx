@@ -3,6 +3,7 @@ import { Loader } from "../../components/shared";
 import { DummyBlogPosts } from "../../utils/helper/DummyData";
 import DetailPost from "../../components/modules/home/detailPost/DetailPost";
 import { DataContext, ServiceContext, StateContext, User } from "../../utils";
+import { useErrorUpdate } from "../../utils/hooks/UseErrorUpdate";
 
 function Home() {
   const {
@@ -14,6 +15,7 @@ function Home() {
   } = useContext(DataContext);
   const { setLoading, loading } = useContext(StateContext);
   const { sessionStorageService } = useContext(ServiceContext);
+  useErrorUpdate();
 
   useEffect(() => {
     setLoading((prev) => true);
