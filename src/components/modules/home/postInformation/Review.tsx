@@ -8,6 +8,7 @@ interface ReviewProps {
   review: string;
   rating: number;
   comments: Comment[];
+  blogId: string;
 }
 
 function Review(props: ReviewProps) {
@@ -48,7 +49,7 @@ function Review(props: ReviewProps) {
         </div>
       </div>
 
-      <CommentSection comments={props.comments} />
+      <CommentSection comments={props.comments} blogId={props.blogId} />
     </>
   );
 }

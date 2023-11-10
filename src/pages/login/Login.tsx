@@ -10,7 +10,7 @@ function Login() {
   const [userIdentification, setUserIdentification] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const { setUser } = useContext(DataContext);
-  const { userService } = useContext(ServiceContext);
+  const { userService, sessionStorageService } = useContext(ServiceContext);
   const [isInvalid, setIsValid] = useState<boolean | undefined>(undefined);
   const navigate = useNavigate();
 
@@ -33,6 +33,7 @@ function Login() {
       setUser((prev) => user);
       setIsValid((prev) => false);
       setUser((prev) => user);
+      sessionStorageService?.setUser(user);
       navigate(RouterPaths.Default.path);
     } else {
       setIsValid((prev) => true);

@@ -19,9 +19,11 @@ import { Search } from "../../../utils/models/Search";
 import { useLocation, useNavigate } from "react-router-dom";
 import CustomButton from "../button/CustomButton";
 import { useTime } from "../../../utils/hooks/UserTime";
+import { ServiceContext } from "../../../utils";
 export function CustomNavbar() {
   const { blogPosts, user, setUser, setSelectedBlogPostId } =
     useContext(DataContext);
+  const { sessionStorageService } = useContext(ServiceContext);
   const { greeting } = useTime();
   const [selected, setSelected] = useState<Search[]>([]);
   const options: Search[] = blogPosts.map((post) => {
@@ -124,6 +126,7 @@ export function CustomNavbar() {
                           active
                           method={() => {
                             setUser(undefined);
+                            sessionStorageService?.deleteUser();
                             navigate(RouterPaths.Default.path);
                           }}
                           label={"Logout"}

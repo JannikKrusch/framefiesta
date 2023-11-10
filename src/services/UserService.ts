@@ -27,9 +27,7 @@ export class UserService extends DataService {
       email,
     };
 
-    const response = await this.callEndpointAsync(url, JSON.stringify(body));
-    const data = await this.handleResponseAsync<User>(response);
-    return data;
+    return await this.callEndpointGenericAsync<User>(url, JSON.stringify(body));
   }
 
   public async loginAsync(
@@ -42,22 +40,15 @@ export class UserService extends DataService {
       password,
     };
 
-    const response = await this.callEndpointAsync(url, JSON.stringify(body));
-    const data = await this.handleResponseAsync<User>(response);
-    const user = new User();
-    user.email = "TEST_USER@gmail.com";
-    user.id = "1";
-    user.isAdmin = true;
-    user.password = password;
-    return user;
+    return await this.callEndpointGenericAsync<User>(url, JSON.stringify(body));
   }
 
   public async addCommentAsync(
     userIdentification: string,
     password: string,
-    comment: Comment,
+    comment: string,
     blogPostId: string
-  ): Promise<void | null> {
+  ): Promise<boolean> {
     const url = UserEndpoints.Register;
     const body: AddCommentBody = {
       userIdentification,
@@ -66,13 +57,11 @@ export class UserService extends DataService {
       blogPostId,
     };
 
-    const response = await this.callEndpointAsync(
+    return await this.callEndpointBooleanAsync(
       url,
       JSON.stringify(body),
       Method.Post
     );
-    const data = await this.handleResponseAsync<void>(response);
-    return data;
   }
 
   public async deleteCommentAsync(
@@ -80,7 +69,7 @@ export class UserService extends DataService {
     password: string,
     commentId: string,
     blogPostId: string
-  ): Promise<void | null> {
+  ): Promise<boolean> {
     const url = UserEndpoints.Register;
     const body: DeleteCommentBody = {
       userIdentification,
@@ -89,12 +78,10 @@ export class UserService extends DataService {
       blogPostId,
     };
 
-    const response = await this.callEndpointAsync(
+    return await this.callEndpointBooleanAsync(
       url,
       JSON.stringify(body),
       Method.Post
     );
-    const data = await this.handleResponseAsync<void>(response);
-    return data;
   }
 }

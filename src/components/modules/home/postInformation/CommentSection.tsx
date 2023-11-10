@@ -5,9 +5,11 @@ import "./CommentSection.css";
 import { Button, ButtonGroup, Form, InputGroup } from "react-bootstrap";
 import { DataContext } from "../../../../utils/context/DataContext";
 import CustomButton from "../../../shared/button/CustomButton";
+import { ServiceContext } from "../../../../utils";
 
 interface CommentProps {
   comments: Comment[];
+  blogId: string;
 }
 
 function CommentSection(props: CommentProps) {
@@ -18,7 +20,7 @@ function CommentSection(props: CommentProps) {
   const [activeCommentPage, setActiveCommentPage] = useState(1);
   const [isFocused, setIsFocused] = useState(false);
   const { user } = useContext(DataContext);
-  //! filter
+  const { userService } = useContext(ServiceContext);
 
   function filterNewest(): void {
     const sortedComments = [...props.comments].sort((commentA, commentB) => {
@@ -36,6 +38,28 @@ function CommentSection(props: CommentProps) {
 
     console.warn("filterOldest");
     setfiltered((prev) => sortedComments);
+  }
+
+  async function addCommentAsync(): Promise<void> {
+    if (user) {
+      const response = await userService?.addCommentAsync(
+        user?.email,
+        user?.password,
+        comment,
+        props.blogId
+      );
+    }
+  }
+
+  async function deleteCommentAsync(commentId: string): Promise<void> {
+    if (user) {
+      const response = await userService?.deleteCommentAsync(
+        user.email,
+        user.password,
+        commentId,
+        props.blogId
+      );
+    }
   }
 
   function displayCommentPages(): ReactNode {
@@ -126,7 +150,7 @@ function CommentSection(props: CommentProps) {
                 label={"Comment"}
                 active
                 notLast={false}
-                method={() => {}}
+                method={async () => await addCommentAsync()}
               />
             </ButtonGroup>
           </div>

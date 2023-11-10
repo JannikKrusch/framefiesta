@@ -12,9 +12,9 @@ function Register() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
-  const { userService } = useContext(ServiceContext);
+  const { userService, sessionStorageService } = useContext(ServiceContext);
   const { setUser } = useContext(DataContext);
-  const [isInvalid, setIsValid] = useState<boolean | undefined>(undefined);
+  const [isInvalid, setIsInValid] = useState<boolean | undefined>(undefined);
   const navigate = useNavigate();
 
   async function handleSubmitAsync(
@@ -37,11 +37,12 @@ function Register() {
     setValidated(true);
     const user = await userService?.registerAsync(name, password, email);
     if (user) {
-      setIsValid(false);
+      setIsInValid(false);
       setUser((prev) => user);
+      sessionStorageService?.setUser(user);
       navigate(RouterPaths.Default.path);
     } else {
-      setIsValid(true);
+      setIsInValid(true);
     }
   }
 

@@ -65,6 +65,7 @@ function PostInformation(props: PostInformationProps) {
             review={selectedBlogPost.review}
             rating={selectedBlogPost.rating}
             comments={selectedBlogPost.comments}
+            blogId={selectedBlogPost.id}
           />
         );
       case 2:
