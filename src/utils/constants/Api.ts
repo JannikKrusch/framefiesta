@@ -1,4 +1,4 @@
-export const DEFAULT_URL: string = ""; //! Add your backend url here
+export const DEFAULT_URL: string = "http://localhost:5000"; //! Add your backend url here
 
 export enum Controllers {
   Blogs = "blogs",

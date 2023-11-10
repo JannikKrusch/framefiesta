@@ -5,8 +5,9 @@ import "./CommentSection.css";
 import { Button, ButtonGroup, Form, InputGroup } from "react-bootstrap";
 import { DataContext } from "../../../../utils/context/DataContext";
 import CustomButton from "../../../shared/button/CustomButton";
-import { BlogPost, ServiceContext } from "../../../../utils";
+import { BlogPost, RouterPaths, ServiceContext } from "../../../../utils";
 import { convertSelectedIdToBlogPost } from "../../../../utils/helper/BlogPost";
+import { useNavigate } from "react-router-dom";
 
 interface CommentProps {
   blogPost: BlogPost;
@@ -27,6 +28,7 @@ function CommentSection(props: CommentProps) {
   const [addCommentLoading, setAddCommentLoading] = useState<boolean>(false);
   const [deleteCommentLoading, setDeleteCommentLoading] =
     useState<boolean>(false);
+  const navigate = useNavigate();
 
   function filterNewest(): void {
     const sortedComments = [...props.blogPost.comments].sort(
@@ -72,6 +74,8 @@ function CommentSection(props: CommentProps) {
         );
         tempBlogPosts[index] = tempBlogPost;
         setBlogPosts(tempBlogPosts);
+      } else {
+        navigate(RouterPaths.Error.path);
       }
     }
   }
@@ -103,6 +107,8 @@ function CommentSection(props: CommentProps) {
         );
         tempBlogPosts[index] = tempBlogPost;
         setBlogPosts(tempBlogPosts);
+      } else {
+        navigate(RouterPaths.Error.path);
       }
     }
   }
