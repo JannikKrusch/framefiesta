@@ -21,11 +21,16 @@ export function DummyBlogPosts(amount: number): BlogPost[] {
       "Drama",
       "Romance",
     ];
-    motionPicture.image = "https://wallpapercave.com/wp/wp3390444.jpg";
+    motionPicture.image =
+      i % 2 == 0
+        ? "https://wallpapercave.com/wp/wp3390444.jpg"
+        : i % 3 == 0
+        ? "https://i.pinimg.com/originals/3b/a7/22/3ba72273aebd42a5f8ba882cf85b1232.jpg"
+        : "https://images3.alphacoders.com/133/1337297.jpeg";
     motionPicture.initialRelease = 1994;
     motionPicture.ageRating = 18;
     motionPicture.budget = 10000000;
-    motionPicture.title = `Pulp Fiction ${i}`;
+    motionPicture.title = `Pulp Fiction hjfd fhdjf d dfjhfj djf abc xyz ${i}`;
 
     blogPost.id = i.toString();
     blogPost.rating = 8.9;

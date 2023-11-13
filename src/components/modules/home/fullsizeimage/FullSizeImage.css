@@ -37,7 +37,7 @@
   top: 50%;
   left: 0;
   transform: translateY(-50%);
-  padding-left: 1rem;
+  padding: 0 1rem 0 1rem;
   background-image: linear-gradient(
     to right,
     var(--text-color-default),
@@ -50,7 +50,7 @@
   color: var(--text-color-purple);
   animation: gradient-animation 5s linear infinite;
   font-family: "Kdam Thmor Pro", sans-serif !important;
-  font-size: 5rem;
+  font-size: clamp(1.5rem, 4vw, 5rem);
   text-align: left;
 }
 
@@ -65,7 +65,7 @@
   display: flex;
   align-items: center;
   color: var(--text-color-gold);
-  font-size: 1.5rem;
+  font-size: clamp(1rem, 3vw, 2rem);
 }
 
 .stars-and-rating span {

@@ -1,29 +1,64 @@
 .recommended-headline {
   padding-bottom: 2rem;
 }
-
-.recommended-title {
-  color: var(--text-color-purple);
+.recommended-headline > span {
+  color: var(--text-color-purple) !important;
 }
 
-.card-container {
-  gap: 1rem;
+.recommended-title,
+.recommended-card-title {
+  font-family: "Kdam Thmor Pro", sans-serif !important;
 }
 
 .recommend-card {
   cursor: pointer;
+  height: 100%;
+  width: 100%;
+  /* padding-bottom: 1.5rem; */
 }
 
-.recommend-card:hover .film-icon {
-  color: var(--text-color-purple) !important;
+.recommended-card-title:hover {
+  color: var(--text-color-light-purple) !important;
 }
 
-.recommend-icon {
-  display: flex;
-  justify-content: center;
+.recommended-grid {
+  display: grid;
+  gap: 1.5rem;
+  margin-inline: auto;
+  grid-template-columns: repeat(1, 1fr);
+  padding-bottom: 1rem;
 }
 
-.film-icon {
-  width: 7rem;
-  height: 7rem;
+.recommended-image {
+  object-fit: fill;
+  height: 90%;
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+.recommended-card-title {
+  padding-top: 0.5rem;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  text-overflow: ellipsis;
+}
+
+@media only screen and (min-width: 800px) {
+  .recommended-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .recommended-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .recommended-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
