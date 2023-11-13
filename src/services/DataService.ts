@@ -11,7 +11,7 @@ import { isInstanceOfResponse } from "../utils/helper/InstanceOf";
 
 export class DataService {
   public controller: Controllers;
-  private _url: String = DEFAULT_URL;
+  private _url: string = DEFAULT_URL;
   private _abortController: AbortController;
   private _setError: (error: CustomError | undefined) => void =
     useContext(StateContext).setError;

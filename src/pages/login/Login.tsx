@@ -20,6 +20,7 @@ function Login() {
   const { error } = useContext(StateContext);
   const [isInvalid, setIsValid] = useState<boolean | undefined>(undefined);
   const navigate = useNavigate();
+  const [submitLoading, setSubmitLoading] = useState<boolean>(false);
 
   async function handleSubmitAsync(
     event: React.FormEvent<HTMLFormElement>
@@ -35,15 +36,18 @@ function Login() {
 
     setValidated(true);
     //TODO send data
+    setSubmitLoading(true);
     const user = await userService?.loginAsync(userIdentification, password);
     if (user) {
       setUser((prev) => user);
       setIsValid((prev) => false);
       setUser((prev) => user);
       sessionStorageService?.setUser(user);
+      setSubmitLoading(false);
       navigate(RouterPaths.Default.path);
     } else {
       setIsValid((prev) => true);
+      setSubmitLoading(false);
       if (error?.statusCode === HttpStatusCodes.InternalServerError) {
         navigate(RouterPaths.Error.path);
       }
@@ -66,11 +70,11 @@ function Login() {
             controlId="validationUserIdentification"
             className="form-group"
           >
-            <Form.Label>Email</Form.Label>
+            <Form.Label>User identification</Form.Label>
             <Form.Control
               required
-              type="email"
-              placeholder="E-mail"
+              type="text"
+              placeholder="Name or E-mail"
               value={userIdentification}
               onChange={(e) => setUserIdentification(e.target.value)}
               isInvalid={isInvalid}
@@ -112,7 +116,7 @@ function Login() {
               active={true}
               notLast={false}
               isSubit={true}
-              loading={true}
+              loading={submitLoading}
             />
           </div>
         </Form>

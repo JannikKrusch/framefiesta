@@ -21,7 +21,7 @@ export function DummyBlogPosts(amount: number): BlogPost[] {
       "Drama",
       "Romance",
     ];
-    motionPicture.image = "https://images7.alphacoders.com/693/693715.jpg";
+    motionPicture.image = "https://wallpapercave.com/wp/wp3390444.jpg";
     motionPicture.initialRelease = 1994;
     motionPicture.ageRating = 18;
     motionPicture.budget = 10000000;

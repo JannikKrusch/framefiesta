@@ -30,6 +30,7 @@ function FullSizeImage(props: FullSizeImageProps) {
   return (
     <div className="image-wrapper">
       <img src={image} alt="Motion picture" className="full-size-image" />
+      <div className="image-overlay"></div>
       <div className="title-overlay">{title}</div>
       <div className="rating-overlay">
         <div className="stars-and-rating">

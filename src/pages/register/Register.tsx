@@ -90,7 +90,7 @@ function Register() {
             <Form.Label>E-Mail</Form.Label>
             <Form.Control
               required
-              type="text"
+              type="email"
               placeholder="E-Mail"
               value={email}
               onChange={(e) => setEmail(e.target.value)}

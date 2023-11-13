@@ -48,7 +48,7 @@ export function CustomNavbar() {
           className="custom-navbar-logo"
           href={RouterPaths.Default.path}
         >
-          <Film className="custom-navbar-logo-icon" />
+          {/* <Film className="custom-navbar-logo-icon" /> */}
           <span>{COMPANY_NAME}</span>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" className="ms-auto" />
