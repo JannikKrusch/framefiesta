@@ -32,7 +32,7 @@ export function Description(props: DescriptionProps): JSX.Element {
         <tbody>
           {factName.map((name, index) => {
             return (
-              <tr>
+              <tr key={index}>
                 <td className={`cell-left ${index <= 2 ? "highlight" : ""}`}>
                   {name}
                 </td>
