@@ -36,13 +36,40 @@ export function DummyBlogPosts(amount: number): BlogPost[] {
     blogPost.rating = 8.9;
     blogPost.relatedMotionPicture = motionPicture;
     blogPost.review =
-      "Excepteur cupidatat duis cupidatat exercitation cupidatat Lorem adipisicing pariatur minim enim in. Eu occaecat elit aliquip labore excepteur ea eiusmod nisi deserunt duis in. Proident sit ut dolor cupidatat duis pariatur ex. Quis mollit ex qui labore voluptate amet anim culpa sunt ut laborum culpa culpa ea. Voluptate minim magna mollit amet ad est aute. Do aute et cupidatat do incididunt.d" +
-      "Consequat fugiat et irure proident. Cupidatat voluptate officia ad voluptate consequat non reprehenderit aliquip veniam magna consequat ullamco. Commodo pariatur nostrud in fugiat exercitation ipsum consequat duis ea ex magna anim voluptate veniam. Commodo pariatur enim eiusmod in est id. Eu minim reprehenderit qui do officia minim sunt." +
-      "In occaecat velit sint ea sint ex officia reprehenderit. Elit enim et officia esse excepteur reprehenderit ipsum sit. Ut adipisicing laboris nostrud voluptate mollit deserunt in irure ullamco labore et sunt aliqua labore. Culpa ipsum cupidatat et do mollit dolor ullamco et." +
-      "Magna adipisicing duis cupidatat consequat. Aute commodo occaecat sint deserunt laborum et dolore laboris anim aliqua tempor dolore. Anim commodo magna pariatur minim in nostrud cillum cillum duis." +
-      "Commodo pariatur velit anim pariatur labore laborum nostrud. Ad irure amet occaecat laboris ad laboris do et. Incididunt ullamco quis minim in esse laborum labore.";
+      " Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia," +
+      "molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum" +
+      "numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium" +
+      "optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis" +
+      "obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam" +
+      "nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit," +
+      "tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit," +
+      "quia. Quo neque error repudiandae fuga? Ipsa laudantium molestias eos " +
+      "sapiente officiis modi at sunt excepturi expedita sint? Sed quibusdam" +
+      "recusandae alias error harum maxime adipisci amet laborum. Perspiciatis " +
+      "minima nesciunt dolorem! Officiis iure rerum voluptates a cumque velit " +
+      "quibusdam sed amet tempora. Sit laborum ab, eius fugit doloribus tenetur " +
+      "fugiat, temporibus enim commodi iusto libero magni deleniti quod quam" +
+      "consequuntur! Commodi minima excepturi repudiandae velit hic maxime" +
+      "doloremque. Quaerat provident commodi consectetur veniam similique ad " +
+      "earum omnis ipsum saepe, voluptas, hic voluptates pariatur est explicabo " +
+      "fugiat, dolorum eligendi quam cupiditate excepturi mollitia maiores labore " +
+      "suscipit quas? Nulla, placeat. Voluptatem quaerat non architecto ab laudantium" +
+      "modi minima sunt esse temporibus sint culpa, recusandae aliquam numquam " +
+      "totam ratione voluptas quod exercitationem fuga. Possimus quis earum veniam" +
+      "quasi aliquam eligendi, placeat qui corporis!";
     blogPost.description =
-      "Ullamco fugiat irure officia adipisicing dolore consectetur cupidatat reprehenderit adipisicing dolor et ex. Reprehenderit fugiat do aliquip pariatur. Nostrud esse anim exercitation in anim ex.";
+      " Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia," +
+      "molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum" +
+      "numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium" +
+      "optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis" +
+      "obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam" +
+      "nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit," +
+      "tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit," +
+      "quia. Quo neque error repudiandae fuga? Ipsa laudantium molestias eos " +
+      "sapiente officiis modi at sunt excepturi expedita sint? Sed quibusdam" +
+      "recusandae alias error harum maxime adipisci amet laborum. Perspiciatis " +
+      "minima nesciunt dolorem! Officiis iure rerum voluptates a cumque velit " +
+      "quibusdam sed amet tempora. Sit laborum ab, eius fugit doloribus tenetur ";
 
     const min = 1;
     const max = blogPost.review.length;

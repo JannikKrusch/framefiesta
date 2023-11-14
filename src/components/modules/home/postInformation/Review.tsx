@@ -9,7 +9,7 @@ interface ReviewProps {
   blogPost: BlogPost;
 }
 
-function Review(props: ReviewProps) {
+function Review(props: ReviewProps): JSX.Element {
   const [showRating, setshowRating] = useState<boolean>(false);
 
   function toggleRating() {

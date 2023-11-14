@@ -11,7 +11,7 @@ import { Form } from "react-bootstrap";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 
-function Login() {
+function Login(): JSX.Element {
   const [validated, setValidated] = useState(false);
   const [userIdentification, setUserIdentification] = useState<string>("");
   const [password, setPassword] = useState<string>("");

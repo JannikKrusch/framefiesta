@@ -5,7 +5,7 @@ import DetailPost from "../../components/modules/home/detailPost/DetailPost";
 import { DataContext, ServiceContext, StateContext, User } from "../../utils";
 import { useErrorUpdate } from "../../utils/hooks/UseErrorUpdate";
 
-function Home() {
+function Home(): JSX.Element {
   const {
     blogPosts,
     setBlogPosts,
@@ -21,7 +21,7 @@ function Home() {
     setLoading((prev) => true);
     const dummyPosts = DummyBlogPosts(10);
     if (selectedBlogPostId === "") {
-      setSelectedBlogPostId(dummyPosts[0].id);
+      setSelectedBlogPostId(dummyPosts[dummyPosts.length - 1].id);
     }
     if (dummyPosts.length > 0) {
       setLoading((prev) => false);

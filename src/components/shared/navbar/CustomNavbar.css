@@ -13,7 +13,7 @@
   color: var(--text-color-purple) !important;
 }
 .custom-navbar-logo > span {
-  font-family: "Bebas Neue", sans-serif !important;
+  font-family: "Prisma", sans-serif !important;
 }
 
 .custom-navbar-logo-icon {
@@ -25,24 +25,7 @@
 }
 
 .search-box {
-  padding-left: 10px;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  font-size: 1rem;
-  border: 1px solid white;
-  border-radius: 4px;
-}
-
-.dropdown-item {
-  color: var(--text-color-default) !important;
-}
-
-.dropdown-item.active {
-  background-color: var(--text-color-purple);
-}
-
-.dropdown-item:hover {
-  background-color: var(--text-color-purple) !important;
+  min-width: 19.1875rem;
 }
 
 .user-icon-popover {

@@ -12,7 +12,7 @@ interface PostInformationProps {
   selectedBlogPost: BlogPost;
 }
 
-function PostInformation(props: PostInformationProps) {
+function PostInformation(props: PostInformationProps): JSX.Element {
   const selectedBlogPost = props.selectedBlogPost;
   const { blogPosts } = useContext(DataContext);
   const [selectedInformation, setselectedInformation] = useState<number>(0);

@@ -4,7 +4,7 @@ import { RouterPaths } from "../../../utils/constants/RouterPaths";
 import { DataContext } from "../../../utils/context/DataContext";
 
 import "./CustomNavbar.css";
-import { useContext, useState } from "react";
+import { ReactNode, useContext, useEffect, useState } from "react";
 import {
   Navbar,
   Container,
@@ -20,6 +20,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import CustomButton from "../button/CustomButton";
 import { useTime } from "../../../utils/hooks/UserTime";
 import { ServiceContext } from "../../../utils";
+
 export function CustomNavbar() {
   const { blogPosts, user, setUser, setSelectedBlogPostId } =
     useContext(DataContext);
@@ -31,10 +32,14 @@ export function CustomNavbar() {
       id: post.id,
       title: post.relatedMotionPicture.title,
       actors: post.relatedMotionPicture.actors.join(","),
+      genres: post.relatedMotionPicture.genres.join(", "),
+      rating: post.rating,
     };
   });
   const location = useLocation();
   const navigate = useNavigate();
+
+  const seachBoxPlaceholder = "Search for a title, actor, genre or rating...";
 
   return (
     <Navbar
@@ -48,7 +53,6 @@ export function CustomNavbar() {
           className="custom-navbar-logo"
           href={RouterPaths.Default.path}
         >
-          {/* <Film className="custom-navbar-logo-icon" /> */}
           <span>{COMPANY_NAME}</span>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" className="ms-auto" />
@@ -56,7 +60,8 @@ export function CustomNavbar() {
           <div className="ms-auto">
             {location.pathname === RouterPaths.Default.path ? (
               <Typeahead
-                id="blog-post-search"
+                id="search-box"
+                className="search-box"
                 onChange={(selected) => {
                   if (selected.length > 0) {
                     const parsedSelected = selected as Search[];
@@ -79,8 +84,8 @@ export function CustomNavbar() {
                 }}
                 options={options}
                 labelKey={"title"}
-                filterBy={["title", "actors"]}
-                placeholder="Search for a title..."
+                filterBy={["title", "actors", "genres", "rating"]}
+                placeholder={seachBoxPlaceholder}
                 selected={selected}
                 clearButton
               />
@@ -89,7 +94,7 @@ export function CustomNavbar() {
             )}
           </div>
           <Nav>
-            <Nav.Link className="custom-navbar-link">
+            <Nav.Link>
               <OverlayTrigger
                 trigger={"click"}
                 placement={"bottom"}

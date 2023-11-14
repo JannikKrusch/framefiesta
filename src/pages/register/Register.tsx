@@ -10,9 +10,8 @@ import {
   StateContext,
 } from "../../utils";
 import { useNavigate } from "react-router-dom";
-import { error } from "console";
 
-function Register() {
+function Register(): JSX.Element {
   const [validated, setValidated] = useState(false);
 
   const [name, setName] = useState<string>("");

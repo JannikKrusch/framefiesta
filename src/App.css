@@ -33,3 +33,14 @@
   background-color: var(--page-background-color);
   text-align: center;
 }
+
+@font-face {
+  font-family: "Prisma";
+  src: url("./assets/fonts/prisma/Prisma.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Cinema";
+  src: url("./assets/fonts/cinematic_language/Cinematic-Language.ttf")
+    format("truetype");
+}

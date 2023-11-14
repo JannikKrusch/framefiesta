@@ -19,7 +19,9 @@ interface ContextProviderProps {
   children: ReactNode;
 }
 
-export function ServiceConntextProvider(props: ContextProviderProps) {
+export function ServiceConntextProvider(
+  props: ContextProviderProps
+): JSX.Element {
   const userService = new UserService(Controllers.User);
   const sessionStorageService = new SessionStorageService();
 

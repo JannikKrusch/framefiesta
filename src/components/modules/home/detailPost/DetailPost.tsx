@@ -12,7 +12,7 @@ interface DetailPostProps {
   blogPosts: BlogPost[];
 }
 
-function DetailPost(props: DetailPostProps) {
+function DetailPost(props: DetailPostProps): JSX.Element {
   const { setError } = useContext(StateContext);
   const { selectedBlogPostId } = useContext(DataContext);
   const selectedBlogPost = convertSelectedIdToBlogPost(

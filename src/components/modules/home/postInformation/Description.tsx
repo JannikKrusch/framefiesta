@@ -12,7 +12,7 @@ interface DescriptionProps {
   motionPicture: MotionPicture;
 }
 
-function Description(props: DescriptionProps) {
+function Description(props: DescriptionProps): JSX.Element {
   const motionPicture = props.motionPicture;
 
   const factName = ["Year", "Age", "Genre", "Budget", "Director", "Cast"];

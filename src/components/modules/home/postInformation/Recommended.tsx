@@ -8,7 +8,7 @@ interface RecommendedProps {
   recommendations: BlogPost[];
 }
 
-function Recommended(props: RecommendedProps) {
+function Recommended(props: RecommendedProps): JSX.Element {
   const { setSelectedBlogPostId } = useContext(DataContext);
 
   function changeID(id: string) {

@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { TimerInterval } from "../constants/Timer";
 
-export function useTime() {
+export function useTime(): {
+  greeting: string;
+} {
   const [greeting, setGreeting] = useState<string>("");
 
   useEffect(() => {

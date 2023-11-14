@@ -15,7 +15,7 @@ interface ButtonProps {
   method?: () => void;
 }
 
-function CustomButton(props: ButtonProps) {
+function CustomButton(props: ButtonProps): JSX.Element {
   function handleClick() {
     if (props?.method) {
       props.method();

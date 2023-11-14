@@ -11,7 +11,7 @@ interface CommentProps {
   blogPost: BlogPost;
 }
 
-function CommentSection(props: CommentProps) {
+function CommentSection(props: CommentProps): JSX.Element {
   const [filtered, setFiltered] = useState<Comment[]>([
     ...props.blogPost.comments,
   ]);
