@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./Register.css";
 import { Form } from "react-bootstrap";
-import CustomButton from "../../components/shared/button/CustomButton";
 import {
   DataContext,
   HttpStatusCodes,

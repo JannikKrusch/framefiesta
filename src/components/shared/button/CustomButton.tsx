@@ -15,7 +15,7 @@ interface ButtonProps {
   method?: () => void;
 }
 
-function CustomButton(props: ButtonProps): JSX.Element {
+export function CustomButton(props: ButtonProps): JSX.Element {
   function handleClick() {
     if (props?.method) {
       props.method();
@@ -42,5 +42,3 @@ function CustomButton(props: ButtonProps): JSX.Element {
     </Button>
   );
 }
-
-export default CustomButton;

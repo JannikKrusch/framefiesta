@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import CustomButton from "../../components/shared/button/CustomButton";
 import {
   DataContext,
   HttpStatusCodes,
@@ -10,6 +9,7 @@ import {
 import { Form } from "react-bootstrap";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
+import { CustomButton } from "../../components/shared";
 
 function Login(): JSX.Element {
   const [validated, setValidated] = useState(false);

@@ -2,11 +2,11 @@ import React, { ReactNode, useContext, useState } from "react";
 import { BlogPost, MotionPicture } from "../../../../utils";
 import "./PostInformation.css";
 import { INFORMATION_OPTIONS } from "../../../../utils/constants/DetailPost";
-import Description from "./Description";
-import Review from "./Review";
-import Recommended from "./Recommended";
+import Description from "../description/Description";
+import Review from "../review/Review";
+import Recommended from "../recommended/Recommended";
 import { DataContext } from "../../../../utils/context/DataContext";
-import CustomButton from "../../../shared/button/CustomButton";
+import { CustomButton } from "../../../shared";
 
 interface PostInformationProps {
   selectedBlogPost: BlogPost;

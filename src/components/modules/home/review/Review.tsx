@@ -2,7 +2,7 @@ import { Card, Placeholder, ProgressBar } from "react-bootstrap";
 import "./Review.css";
 import { useState } from "react";
 import { Comment } from "../../../../utils/models/Comment";
-import CommentSection from "./CommentSection";
+import CommentSection from "../commentSection/CommentSection";
 import { BlogPost } from "../../../../utils";
 
 interface ReviewProps {

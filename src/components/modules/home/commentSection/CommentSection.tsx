@@ -4,8 +4,8 @@ import { PersonCircle } from "react-bootstrap-icons";
 import "./CommentSection.css";
 import { ButtonGroup, Form, InputGroup } from "react-bootstrap";
 import { DataContext } from "../../../../utils/context/DataContext";
-import CustomButton from "../../../shared/button/CustomButton";
 import { BlogPost, ServiceContext } from "../../../../utils";
+import { CustomButton } from "../../../shared";
 
 interface CommentProps {
   blogPost: BlogPost;
