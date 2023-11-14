@@ -3,7 +3,7 @@ import "./Loader.css";
 import { useContext } from "react";
 import { StateContext } from "../../../utils/context/StateContext";
 
-export function Loader() {
+export function Loader(): JSX.Element {
   const { loading } = useContext(StateContext);
   return (
     <>

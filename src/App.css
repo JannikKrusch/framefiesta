@@ -10,6 +10,7 @@
   --text-color-grey: rgb(147, 145, 154);
   --text-color-purple: rgb(88, 71, 208);
   --text-color-light-purple: rgb(105, 84, 248);
+  --text-color-gold: rgb(255, 215, 0);
   --text-size: 1rem;
 
   --teaser-max-width: 400px;
@@ -20,13 +21,26 @@
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  background-color: var(--page-background-color);
+  background-color: var(--background-color-black);
   color: var(--text-color-default) !important;
-  font-size: var(--text-size);
-  font-family: "Roboto", sans-serif;
+  font-size: var(--text-size) !important;
+
+  font-family: "Roboto", sans-serif !important;
 }
 
 .content-container {
   min-height: calc(100vh - 128px - 72px);
+  background-color: var(--page-background-color);
   text-align: center;
+}
+
+@font-face {
+  font-family: "Prisma";
+  src: url("./assets/fonts/prisma/Prisma.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Cinema";
+  src: url("./assets/fonts/cinematic_language/Cinematic-Language.ttf")
+    format("truetype");
 }

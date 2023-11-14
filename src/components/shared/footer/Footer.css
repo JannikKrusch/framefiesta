@@ -11,6 +11,11 @@ body > footer {
   font-size: var(--text-size);
 }
 
+.company-name {
+  font-family: "Prisma", sans-serif !important;
+  color: var(--text-color-purple);
+}
+
 .social-media-icons {
   cursor: pointer;
 }

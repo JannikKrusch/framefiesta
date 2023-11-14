@@ -11,10 +11,9 @@ export function ErrorPage(): JSX.Element {
 
   useEffect(() => {
     if (error === undefined) {
-      console.warn("error is undefined");
       navigate(RouterPaths.Default.path);
     }
-  }, [error]);
+  }, [error, navigate]);
 
   return (
     <div className="row m-auto error-container">

@@ -6,12 +6,13 @@ import Description from "./Description";
 import Review from "./Review";
 import Recommended from "./Recommended";
 import { DataContext } from "../../../../utils/context/DataContext";
+import CustomButton from "../../../shared/button/CustomButton";
 
 interface PostInformationProps {
   selectedBlogPost: BlogPost;
 }
 
-function PostInformation(props: PostInformationProps) {
+function PostInformation(props: PostInformationProps): JSX.Element {
   const selectedBlogPost = props.selectedBlogPost;
   const { blogPosts } = useContext(DataContext);
   const [selectedInformation, setselectedInformation] = useState<number>(0);
@@ -24,32 +25,29 @@ function PostInformation(props: PostInformationProps) {
       .filter(
         (blogPost) =>
           blogPost.relatedMotionPicture.title !== selectedMovie.title
-      ) // Den ausgewählten Film von den Empfehlungen ausschließen
+      )
       .map((blogPost) => ({
         ...blogPost,
         score: getScore(selectedMovie, blogPost.relatedMotionPicture),
       }))
-      .sort((a, b) => b.score - a.score) // Sortieren nach Score in absteigender Reihenfolge
-      .map((movieWithScore) => movieWithScore) // Entferne den Score und gib nur die Filme zurück
-      .slice(0, 10); // Zum Beispiel die Top 10 Empfehlungen zurückgeben
+      .sort((a, b) => b.score - a.score)
+      .map((movieWithScore) => movieWithScore)
+      .slice(0, 10);
   }
 
   function getScore(movie1: MotionPicture, movie2: MotionPicture): number {
     let score = 0;
 
-    // Für jedes übereinstimmende Genre, erhöhe den Score
     for (const genre of movie1.genres) {
       if (movie2.genres.includes(genre)) {
         score += 1;
       }
     }
 
-    // Wenn sie denselben Regisseur haben, erhöhe den Score
     if (movie1.director === movie2.director) {
       score += 2;
     }
 
-    // Für jeden gemeinsamen Schauspieler, erhöhe den Score
     for (const actor of movie1.actors) {
       if (movie2.actors.includes(actor)) {
         score += 1;
@@ -62,13 +60,7 @@ function PostInformation(props: PostInformationProps) {
   function displayInformation(): ReactNode {
     switch (selectedInformation) {
       case 1:
-        return (
-          <Review
-            review={selectedBlogPost.review}
-            rating={selectedBlogPost.relatedMotionPicture.rating}
-            comments={selectedBlogPost.comments}
-          />
-        );
+        return <Review blogPost={selectedBlogPost} />;
       case 2:
         return (
           <Recommended
@@ -94,14 +86,14 @@ function PostInformation(props: PostInformationProps) {
       <div className="information-options d-flex flex-wrap">
         {INFORMATION_OPTIONS.map((option: string, index: number) => {
           return (
-            <span
-              onClick={() => setselectedInformation(index)}
-              className={`information-option ${
-                selectedInformation == index ? "active" : ""
-              }`}
-            >
-              {option}
-            </span>
+            <CustomButton
+              key={index}
+              label={option}
+              onlyText
+              notLast={index < INFORMATION_OPTIONS.length - 1}
+              active={selectedInformation === index}
+              method={() => setselectedInformation(index)}
+            />
           );
         })}
       </div>

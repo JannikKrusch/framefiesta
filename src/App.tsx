@@ -16,15 +16,15 @@ import Register from "./pages/register/Register";
 import Login from "./pages/login/Login";
 import PageNotFound from "./components/shared/error/PageNotFound";
 
-function App() {
+function App(): JSX.Element {
   return (
     <StateContextProvider>
       <DataContextProvider>
         <ServiceConntextProvider>
           <BrowserRouter>
             <div className="main-container">
-              <CustomNavbar />
               <div className="content-container">
+                <CustomNavbar />
                 <Routes>
                   <Route
                     path={`${RouterPaths.Default.path}`}

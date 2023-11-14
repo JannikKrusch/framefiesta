@@ -1,6 +1,10 @@
 import {
+  AddCommentBody,
+  Comment,
   Controllers,
+  DeleteCommentBody,
   LoginBody,
+  Method,
   RegisterBody,
   User,
   UserEndpoints,
@@ -24,9 +28,11 @@ export class UserService extends DataService {
       email,
     };
 
-    const response = await this.callEndpointAsync(url, JSON.stringify(body));
-    const data = await this.handleResponseAsync<User>(response);
-    return data;
+    return await this.callEndpointGenericAsync<User>(
+      url,
+      JSON.stringify(body),
+      Method.Post
+    );
   }
 
   public async loginAsync(
@@ -35,18 +41,55 @@ export class UserService extends DataService {
   ): Promise<User | null> {
     const url = UserEndpoints.LogIn;
     const body: LoginBody = {
-      userIdentification: userIdentification,
-      password: password,
+      userIdentification,
+      password,
     };
 
-    const response = await this.callEndpointAsync(url, JSON.stringify(body));
-    const data = await this.handleResponseAsync<User>(response);
-    const user = new User();
-    user.email = "TEST_USER@gmail.com";
-    user.id = "1";
-    user.isAdmin = true;
-    user.password = password;
-    return user;
-    return data;
+    return await this.callEndpointGenericAsync<User>(
+      url,
+      JSON.stringify(body),
+      Method.Post
+    );
+  }
+
+  public async addCommentAsync(
+    userIdentification: string,
+    password: string,
+    comment: string,
+    blogPostId: string
+  ): Promise<Comment | null> {
+    const url = UserEndpoints.AddComment;
+    const body: AddCommentBody = {
+      userIdentification,
+      password,
+      comment,
+      blogPostId,
+    };
+
+    return await this.callEndpointGenericAsync<Comment>(
+      url,
+      JSON.stringify(body)
+    );
+  }
+
+  public async deleteCommentAsync(
+    userIdentification: string,
+    password: string,
+    commentId: string,
+    blogPostId: string
+  ): Promise<boolean> {
+    const url = UserEndpoints.DeleteComment;
+    const body: DeleteCommentBody = {
+      userIdentification,
+      password,
+      commentId,
+      blogPostId,
+    };
+
+    return await this.callEndpointBooleanAsync(
+      url,
+      JSON.stringify(body),
+      Method.Post
+    );
   }
 }

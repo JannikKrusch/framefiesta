@@ -12,6 +12,7 @@ const listFormat = new Intl.ListFormat("en-us", {
   style: "long",
   type: "conjunction",
 });
+
 export function listConjunctionFormat(input: string[]): string {
   return listFormat.format(input);
 }

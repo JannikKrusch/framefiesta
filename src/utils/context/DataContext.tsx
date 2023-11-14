@@ -37,7 +37,7 @@ interface ContextProviderProps {
   children: ReactNode;
 }
 
-export function DataContextProvider(props: ContextProviderProps) {
+export function DataContextProvider(props: ContextProviderProps): JSX.Element {
   const [user, setUser] = useState<User | undefined>(undefined);
   const [selectedBlogPostId, setSelectedBlogPostId] = useState<string>("");
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);

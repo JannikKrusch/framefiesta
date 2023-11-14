@@ -1,35 +1,42 @@
 .custom-navbar {
-  background-color: var(--background-color-black) !important;
+  background-color: transparent !important;
   color: var(--text-color-default) !important;
+  position: fixed !important;
+  top: 0 !important;
+  width: 100% !important;
 }
 
-.custom-navbar-link {
-  color: var(--text-color-default) !important;
-}
-
-.custom-navbar-link:hover {
+.custom-navbar-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: var(--text-color-purple) !important;
+}
+.custom-navbar-logo > span {
+  font-family: "Prisma", sans-serif !important;
+}
+
+.custom-navbar-logo-icon {
+  margin-right: 0.5rem;
+}
+
+.custom-navbar-logo:hover {
+  color: var(--text-color-light-purple) !important;
 }
 
 .search-box {
-  padding-left: 10px;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  font-size: 1rem;
-  border: 1px solid white;
-  border-radius: 4px;
+  min-width: 18.75rem;
 }
 
-.dropdown-item {
+.user-icon-popover {
+  background-color: var(--background-color-black) !important;
+  border-color: var(--border-color) !important;
+  max-width: 15rem !important;
+}
+
+.user-icon-popover-header {
   color: var(--text-color-default) !important;
-}
-
-.dropdown-item.active {
-  background-color: var(--text-color-purple);
-}
-
-.dropdown-item:hover {
-  background-color: var(--text-color-purple) !important;
+  font-size: var(--text-size);
 }
 
 .user-icon {

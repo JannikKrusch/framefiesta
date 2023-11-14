@@ -1,3 +1,14 @@
-.row.highlight {
-  color: var(--text-color-purple);
+.cell-left,
+.cell-right {
+  padding: 0 !important;
+  background: var(--page-background-color) !important;
+  color: var(--text-color-default) !important;
+}
+
+.cell-left {
+  padding-right: 1rem !important;
+}
+
+.highlight {
+  color: var(--text-color-purple) !important;
 }

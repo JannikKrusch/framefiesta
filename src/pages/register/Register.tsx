@@ -1,20 +1,27 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Register.css";
 import { Form } from "react-bootstrap";
 import CustomButton from "../../components/shared/button/CustomButton";
-import { DataContext, RouterPaths, ServiceContext } from "../../utils";
+import {
+  DataContext,
+  HttpStatusCodes,
+  RouterPaths,
+  ServiceContext,
+  StateContext,
+} from "../../utils";
 import { useNavigate } from "react-router-dom";
 
-function Register() {
+function Register(): JSX.Element {
   const [validated, setValidated] = useState(false);
 
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
-  const { userService } = useContext(ServiceContext);
+  const { userService, sessionStorageService } = useContext(ServiceContext);
   const { setUser } = useContext(DataContext);
-  const [isInvalid, setIsValid] = useState<boolean | undefined>(undefined);
+  const { error } = useContext(StateContext);
+  const [isInvalid, setIsInValid] = useState<boolean | undefined>(undefined);
   const navigate = useNavigate();
 
   async function handleSubmitAsync(
@@ -23,31 +30,37 @@ function Register() {
     event.preventDefault();
     event.stopPropagation();
 
-    // Überprüfen Sie, ob das Formular gültig ist
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       setValidated(true);
       return;
     }
 
-    if (password !== confirmPassword) {
+    if (password !== confirmPassword || password.includes(" ")) {
       return;
     }
 
     setValidated(true);
     const user = await userService?.registerAsync(name, password, email);
     if (user) {
-      setIsValid(false);
+      setIsInValid(false);
       setUser((prev) => user);
+      sessionStorageService?.setUser(user);
       navigate(RouterPaths.Default.path);
     } else {
-      setIsValid(true);
+      setIsInValid(true);
     }
   }
 
+  useEffect(() => {
+    if (error?.statusCode === HttpStatusCodes.InternalServerError) {
+      navigate(RouterPaths.Error.path);
+    }
+  }, [error, navigate]);
+
   return (
     <div className="d-flex justify-content-center register-container">
-      <div className="col-sm-12 col-md-6 col-lg-4 col-12">
+      <div className="col-sm-12 col-md-8 col-lg-4 col-12">
         <h1 className="headline">Registration</h1>
         <span className="subtext">Register for free</span>
 
@@ -78,7 +91,7 @@ function Register() {
             <Form.Label>E-Mail</Form.Label>
             <Form.Control
               required
-              type="text"
+              type="email"
               placeholder="E-Mail"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -95,6 +108,7 @@ function Register() {
             <Form.Label>Password</Form.Label>
             <Form.Control
               required
+              minLength={10}
               type="password"
               placeholder="Password"
               value={password}
@@ -102,7 +116,9 @@ function Register() {
               isInvalid={validated}
             />
             <Form.Control.Feedback type="invalid">
-              {isInvalid === undefined ? "Password required" : ""}
+              {isInvalid === undefined
+                ? "Password required (at least 10 chars)"
+                : ""}
             </Form.Control.Feedback>
           </Form.Group>
 
@@ -123,10 +139,10 @@ function Register() {
               Password must be identical
             </Form.Control.Feedback>
           </Form.Group>
-          <div className="d-flex justify-content-between">
+          <div className="d-flex justify-content-between flex-sm-row flex-column">
             <CustomButton
               label={`Got an account already? ${RouterPaths.Login.display}`}
-              isActive={false}
+              active={false}
               notLast={false}
               isSubit={false}
               method={() => {}}
@@ -134,7 +150,7 @@ function Register() {
             />
             <CustomButton
               label={`${RouterPaths.Register.display}`}
-              isActive={true}
+              active={true}
               notLast={false}
               isSubit={true}
             />

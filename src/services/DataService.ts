@@ -11,23 +11,52 @@ import { isInstanceOfResponse } from "../utils/helper/InstanceOf";
 
 export class DataService {
   public controller: Controllers;
-  private _url: String = DEFAULT_URL;
+  private _url: string = DEFAULT_URL;
+  private _abortController: AbortController;
   private _setError: (error: CustomError | undefined) => void =
     useContext(StateContext).setError;
 
   constructor(controller: Controllers) {
     this.controller = controller;
+    this._abortController = new AbortController();
   }
 
-  protected async callEndpointAsync(
+  protected async callEndpointGenericAsync<Type>(
+    url: string,
+    body?: BodyInit,
+    method?: Method
+  ): Promise<Type | null> {
+    const response = await this.callEndpointAsync(url, body, method);
+    const data = await this.handleResponseAsync<Type>(response);
+    return data;
+  }
+
+  protected async callEndpointBooleanAsync(
+    url: string,
+    body?: BodyInit,
+    method?: Method
+  ): Promise<boolean> {
+    const response = await this.callEndpointAsync(url, body, method);
+    await this.handleResponseAsync(response);
+    const successful = this.isVoidCallSuccessful(response);
+    return successful;
+  }
+
+  private async callEndpointAsync(
     url: string,
     body?: BodyInit,
     method?: Method
   ): Promise<Response | Error> {
-    const response = await fetch(url, {
+    this._abortController.abort();
+    this._abortController = new AbortController();
+    const response = await fetch(`${this._url}${url}`, {
+      signal: this._abortController.signal,
       mode: "cors",
-      method: method ? method : Method.Get,
+      method: method ?? Method.Get,
       body: body,
+      headers: {
+        "Content-Type": "application/json",
+      },
     })
       .then((response) => {
         return response;
@@ -39,7 +68,7 @@ export class DataService {
     return response;
   }
 
-  protected async handleResponseAsync<Type>(
+  private async handleResponseAsync<Type>(
     response: Response | Error
   ): Promise<Type | null> {
     try {
@@ -48,12 +77,10 @@ export class DataService {
           const data = await response.json();
           return data;
         } else {
-          //TODO update ERROR
           this._setError(this.convertToCustomError(response));
           return null;
         }
       }
-      //TODO update ERROR
       this._setError(this.convertToCustomError(response));
       return null;
     } catch (ex) {
@@ -62,8 +89,13 @@ export class DataService {
     }
   }
 
+  private isVoidCallSuccessful(response: Response | Error): boolean {
+    return isInstanceOfResponse(response) && response.ok;
+  }
+
   private convertToCustomError(input: Response | unknown): CustomError {
     const error = new CustomError();
+    console.warn(input);
     if (isInstanceOfResponse(input)) {
       error.message = input.statusText;
       error.statusCode = input.status;

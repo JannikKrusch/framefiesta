@@ -1,35 +1,78 @@
+/* Basis-Stil für den Bild-Wrapper */
 .image-wrapper {
   position: relative;
-  height: 50vh;
+  width: 100%;
 }
 
-.background-container {
-  filter: blur(5px);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+/* Hintergrundbild- und Wrapper-Einstellungen */
+.full-size-image {
   width: 100%;
-  height: 100%;
+  height: auto;
+  display: block;
+}
+
+.image-overlay {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 1;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
-.centered-image {
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.title-overlay {
   position: absolute;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 2;
-  overflow: hidden;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  padding: 0 1rem 0 1rem;
+  background-image: linear-gradient(
+    to right,
+    var(--text-color-default),
+    var(--text-color-purple)
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--text-color-purple);
+  animation: gradient-animation 5s linear infinite;
+  font-family: "Kdam Thmor Pro", sans-serif !important;
+  font-size: clamp(1.5rem, 4vw, 5rem);
+  text-align: left;
 }
 
-.centered-image img {
-  object-fit: cover;
-  max-height: 100%;
-  max-width: 100%;
+.rating-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+}
+
+.stars-and-rating {
+  display: flex;
+  align-items: center;
+  color: var(--text-color-gold);
+  font-size: clamp(1rem, 3vw, 2rem);
+}
+
+.stars-and-rating span {
+  margin-left: 0.5rem;
+  color: var(--text-color-default);
+}
+
+.star-icon {
+  vertical-align: middle;
 }

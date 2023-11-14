@@ -1,18 +1,26 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CustomButton from "../../components/shared/button/CustomButton";
-import { DataContext, RouterPaths, ServiceContext } from "../../utils";
+import {
+  DataContext,
+  HttpStatusCodes,
+  RouterPaths,
+  ServiceContext,
+  StateContext,
+} from "../../utils";
 import { Form } from "react-bootstrap";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 
-function Login() {
+function Login(): JSX.Element {
   const [validated, setValidated] = useState(false);
   const [userIdentification, setUserIdentification] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const { setUser } = useContext(DataContext);
-  const { userService } = useContext(ServiceContext);
+  const { userService, sessionStorageService } = useContext(ServiceContext);
+  const { error } = useContext(StateContext);
   const [isInvalid, setIsValid] = useState<boolean | undefined>(undefined);
   const navigate = useNavigate();
+  const [submitLoading, setSubmitLoading] = useState<boolean>(false);
 
   async function handleSubmitAsync(
     event: React.FormEvent<HTMLFormElement>
@@ -28,20 +36,30 @@ function Login() {
 
     setValidated(true);
     //TODO send data
+    setSubmitLoading(true);
     const user = await userService?.loginAsync(userIdentification, password);
     if (user) {
       setUser((prev) => user);
       setIsValid((prev) => false);
       setUser((prev) => user);
+      sessionStorageService?.setUser(user);
+      setSubmitLoading(false);
       navigate(RouterPaths.Default.path);
     } else {
       setIsValid((prev) => true);
+      setSubmitLoading(false);
     }
   }
 
+  useEffect(() => {
+    if (error?.statusCode === HttpStatusCodes.InternalServerError) {
+      navigate(RouterPaths.Error.path);
+    }
+  }, [error, navigate]);
+
   return (
     <div className="d-flex justify-content-center login-container">
-      <div className="col-sm-12 col-md-6 col-lg-4 col-12">
+      <div className="col-sm-12 col-md-8 col-lg-4 col-12">
         <h1 className="headline">Login</h1>
         <span className="subtext">Login with your account</span>
 
@@ -59,7 +77,7 @@ function Login() {
             <Form.Control
               required
               type="text"
-              placeholder="Username or E-mail"
+              placeholder="Name or E-mail"
               value={userIdentification}
               onChange={(e) => setUserIdentification(e.target.value)}
               isInvalid={isInvalid}
@@ -75,6 +93,7 @@ function Login() {
             <Form.Label>Password</Form.Label>
             <Form.Control
               required
+              minLength={10}
               type="password"
               placeholder="Password"
               value={password}
@@ -83,25 +102,25 @@ function Login() {
             />
             <Form.Control.Feedback type="invalid">
               {isInvalid === undefined
-                ? "Password required"
+                ? "Password required (at least 10 chars)"
                 : "User identification or password invalid"}
             </Form.Control.Feedback>
           </Form.Group>
 
-          <div className="d-flex justify-content-between">
+          <div className="d-flex justify-content-between flex-sm-row flex-column">
             <CustomButton
               label={`Don't have an account? ${RouterPaths.Register.display}`}
-              isActive={false}
+              active={false}
               notLast={false}
               isSubit={false}
               href={RouterPaths.Register.path}
             />
             <CustomButton
               label={`${RouterPaths.Login.display}`}
-              isActive={true}
+              active={true}
               notLast={false}
               isSubit={true}
-              loading={true}
+              loading={submitLoading}
             />
           </div>
         </Form>

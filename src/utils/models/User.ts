@@ -1,3 +1,5 @@
+import { Comment } from "./Comment";
+
 export class User {
   public id: string = "";
   public isAdmin: boolean = false;

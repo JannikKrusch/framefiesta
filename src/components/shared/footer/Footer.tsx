@@ -2,7 +2,7 @@ import { Instagram, Twitter, Youtube } from "react-bootstrap-icons";
 import { COMPANY_NAME } from "../../../utils/constants/Names";
 import "./Footer.css";
 
-export function Footer() {
+export function Footer(): JSX.Element {
   function iconClick(): void {
     window.open("https://t.ly/UcFH_", "_blank");
   }
@@ -11,7 +11,9 @@ export function Footer() {
     <footer className="footer">
       <div className="row g-0">
         <span>
-          © {new Date().getFullYear()} by {COMPANY_NAME} All rights reserved.
+          © {new Date().getFullYear()} by{" "}
+          <span className="company-name">{COMPANY_NAME}</span> - All rights
+          reserved.
         </span>
         <span className="p">Follow us on</span>
       </div>

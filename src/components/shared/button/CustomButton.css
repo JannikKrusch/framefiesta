@@ -6,6 +6,7 @@
   cursor: pointer;
   padding: 0.5rem 1rem !important;
   text-decoration: none !important;
+  font-size: var(--text-size) !important;
   margin-right: 1rem !important;
 }
 
@@ -32,6 +33,14 @@
   color: var(--text-color-default) !important;
 }
 
+.button.text.active {
+  color: var(--text-color-purple) !important;
+}
+
 .button.text:hover {
   color: var(--text-color-purple) !important;
+}
+
+.button.hidden {
+  display: none;
 }

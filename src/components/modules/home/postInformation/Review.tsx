@@ -3,14 +3,13 @@ import "./Review.css";
 import { useState } from "react";
 import { Comment } from "../../../../utils/models/Comment";
 import CommentSection from "./CommentSection";
+import { BlogPost } from "../../../../utils";
 
 interface ReviewProps {
-  review: string;
-  rating: number;
-  comments: Comment[];
+  blogPost: BlogPost;
 }
 
-function Review(props: ReviewProps) {
+function Review(props: ReviewProps): JSX.Element {
   const [showRating, setshowRating] = useState<boolean>(false);
 
   function toggleRating() {
@@ -20,35 +19,12 @@ function Review(props: ReviewProps) {
   return (
     <>
       <div className="row">
-        <div className="col-sm-12 col-md-6 col-lg-4 mb-4 mb-md-0">
-          <span>Fiesta Rating</span>
-          {showRating ? (
-            <div className="clickable">
-              <ProgressBar
-                className="review-progressbar"
-                animated
-                min={0}
-                max={10}
-                now={props.rating}
-                label={`${props.rating}`}
-                onClick={toggleRating}
-              />
-            </div>
-          ) : (
-            <Placeholder
-              className="review-placeholder"
-              as={ProgressBar}
-              animation="glow"
-              onClick={toggleRating}
-            ></Placeholder>
-          )}
-        </div>
-        <div className="col-sm-12 col-md-6 col-lg-8 mb-4">
-          <span className="review-text">{props.review}</span>
+        <div className="col mb-4">
+          <span className="review-text">{props.blogPost.review}</span>
         </div>
       </div>
 
-      <CommentSection comments={props.comments} />
+      <CommentSection blogPost={props.blogPost} />
     </>
   );
 }

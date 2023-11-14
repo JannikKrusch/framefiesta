@@ -23,7 +23,7 @@ interface ContextProviderProps {
   children: ReactNode;
 }
 
-export function StateContextProvider(props: ContextProviderProps) {
+export function StateContextProvider(props: ContextProviderProps): JSX.Element {
   const [error, setError] = useState<CustomError | undefined>(undefined);
   const [loading, setLoading] = useState<boolean>(true);
 

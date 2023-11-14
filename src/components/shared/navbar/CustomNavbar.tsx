@@ -1,30 +1,45 @@
 import { Typeahead } from "react-bootstrap-typeahead";
-import { BlogPost } from "../../../utils";
 import { COMPANY_NAME } from "../../../utils/constants/Names";
 import { RouterPaths } from "../../../utils/constants/RouterPaths";
 import { DataContext } from "../../../utils/context/DataContext";
 
 import "./CustomNavbar.css";
-import { useContext, useEffect, useState } from "react";
-import { Navbar, Container, Nav } from "react-bootstrap";
+import { ReactNode, useContext, useEffect, useState } from "react";
+import {
+  Navbar,
+  Container,
+  Nav,
+  Popover,
+  PopoverBody,
+  OverlayTrigger,
+} from "react-bootstrap";
 import "react-bootstrap-typeahead/css/Typeahead.css";
-import { PersonCircle } from "react-bootstrap-icons";
+import { Film, PersonCircle } from "react-bootstrap-icons";
 import { Search } from "../../../utils/models/Search";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import CustomButton from "../button/CustomButton";
+import { useTime } from "../../../utils/hooks/UserTime";
+import { ServiceContext } from "../../../utils";
 
 export function CustomNavbar() {
-  const { blogPosts, user } = useContext(DataContext);
-  const { setSearchQuery } = useContext(DataContext);
-  const { selectedBlogPostId, setSelectedBlogPostId } = useContext(DataContext);
+  const { blogPosts, user, setUser, setSelectedBlogPostId } =
+    useContext(DataContext);
+  const { sessionStorageService } = useContext(ServiceContext);
+  const { greeting } = useTime();
   const [selected, setSelected] = useState<Search[]>([]);
   const options: Search[] = blogPosts.map((post) => {
     return {
       id: post.id,
       title: post.relatedMotionPicture.title,
       actors: post.relatedMotionPicture.actors.join(","),
+      genres: post.relatedMotionPicture.genres.join(", "),
+      year: post.relatedMotionPicture.initialRelease,
     };
   });
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const seachBoxPlaceholder = "Search for a title, actor, genre or year...";
 
   return (
     <Navbar
@@ -35,34 +50,18 @@ export function CustomNavbar() {
     >
       <Container fluid>
         <Navbar.Brand
-          className="custom-navbar-link"
+          className="custom-navbar-logo"
           href={RouterPaths.Default.path}
         >
-          {COMPANY_NAME}
+          <span>{COMPANY_NAME}</span>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" className="ms-auto" />
         <Navbar.Collapse id="navbarScroll">
-          <Nav
-            className="me-auto my-2 my-lg-0"
-            style={{ maxHeight: "100px" }}
-            navbarScroll
-          >
-            {Object.values(RouterPaths)
-              .slice(2)
-              .map((route) => (
-                <Nav.Link
-                  key={route.path}
-                  className="custom-navbar-link"
-                  href={route.path}
-                >
-                  {route.display}
-                </Nav.Link>
-              ))}
-          </Nav>
-          <div className=" ms-auto">
+          <div className="ms-auto">
             {location.pathname === RouterPaths.Default.path ? (
               <Typeahead
-                id="blog-post-search"
+                id="search-box"
+                className="search-box"
                 onChange={(selected) => {
                   if (selected.length > 0) {
                     const parsedSelected = selected as Search[];
@@ -85,8 +84,8 @@ export function CustomNavbar() {
                 }}
                 options={options}
                 labelKey={"title"}
-                filterBy={["title", "actors"]}
-                placeholder="Search for a title..."
+                filterBy={["title", "actors", "genres", "year"]}
+                placeholder={seachBoxPlaceholder}
                 selected={selected}
                 clearButton
               />
@@ -95,13 +94,59 @@ export function CustomNavbar() {
             )}
           </div>
           <Nav>
-            <Nav.Link
-              className="custom-navbar-link"
-              href={RouterPaths.Login.path}
-            >
-              <PersonCircle
-                className={`user-icon ${user !== undefined ? "active" : ""}`}
-              />
+            <Nav.Link>
+              <OverlayTrigger
+                trigger={"click"}
+                placement={"bottom"}
+                rootClose={true}
+                overlay={
+                  <Popover className="user-icon-popover">
+                    <PopoverBody className="user-icon-popover-header">
+                      <span>{greeting}</span>{" "}
+                      {user?.name ? `, ${user.name}` : null}
+                    </PopoverBody>
+                    <PopoverBody>
+                      <div className="row g-3">
+                        <CustomButton
+                          active
+                          label={RouterPaths.Login.display}
+                          notLast={true}
+                          hidden={user !== undefined}
+                          method={() => {
+                            navigate(RouterPaths.Login.path);
+                          }}
+                        />
+
+                        <CustomButton
+                          active
+                          label={RouterPaths.Register.display}
+                          notLast={true}
+                          hidden={user !== undefined}
+                          method={() => {
+                            navigate(RouterPaths.Register.path);
+                          }}
+                        />
+
+                        <CustomButton
+                          active
+                          method={() => {
+                            setUser(undefined);
+                            sessionStorageService?.deleteUser();
+                            navigate(RouterPaths.Default.path);
+                          }}
+                          label={"Logout"}
+                          notLast={true}
+                          hidden={user === undefined}
+                        />
+                      </div>
+                    </PopoverBody>
+                  </Popover>
+                }
+              >
+                <PersonCircle
+                  className={`user-icon ${user !== undefined ? "active" : ""}`}
+                />
+              </OverlayTrigger>
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

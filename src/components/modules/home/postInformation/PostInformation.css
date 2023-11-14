@@ -1,21 +1,23 @@
 .post-information-container {
   text-align: left;
-  padding: 2rem;
+  padding: 2rem 0 2rem 0;
+  width: 60%;
+  margin: auto;
 }
 
 .information-options {
   padding-bottom: 1rem;
 }
 
-.information-option {
-  margin-right: 2rem;
-  cursor: pointer;
+@media only screen and (max-width: 1440px) {
+  .post-information-container {
+    width: 75%;
+  }
 }
 
-.information-option.active {
-  color: var(--text-color-purple);
-}
-
-.information-option .information-option:last-child {
-  margin: 0;
+@media only screen and (max-width: 1024px) {
+  .post-information-container {
+    width: 100%;
+    padding: 2rem;
+  }
 }

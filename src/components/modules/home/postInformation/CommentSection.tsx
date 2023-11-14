@@ -1,41 +1,109 @@
-import React, { ReactNode, useContext, useState } from "react";
+import React, { ReactNode, useContext, useEffect, useState } from "react";
 import { Comment } from "../../../../utils/models/Comment";
 import { PersonCircle } from "react-bootstrap-icons";
 import "./CommentSection.css";
-import { Button, ButtonGroup, Form, InputGroup } from "react-bootstrap";
+import { ButtonGroup, Form, InputGroup } from "react-bootstrap";
 import { DataContext } from "../../../../utils/context/DataContext";
 import CustomButton from "../../../shared/button/CustomButton";
+import { BlogPost, ServiceContext } from "../../../../utils";
 
 interface CommentProps {
-  comments: Comment[];
+  blogPost: BlogPost;
 }
 
-function CommentSection(props: CommentProps) {
-  const [filtered, setfiltered] = useState<Comment[]>(props.comments);
+function CommentSection(props: CommentProps): JSX.Element {
+  const [filtered, setFiltered] = useState<Comment[]>([
+    ...props.blogPost.comments,
+  ]);
   const [filteredState, setFilteredState] = useState<number>(-1);
   const [comment, setComment] = useState("");
   const itemsPerPage = 10;
   const [activeCommentPage, setActiveCommentPage] = useState(1);
   const [isFocused, setIsFocused] = useState(false);
-  const { user } = useContext(DataContext);
-  //! filter
+  const { user, setUser, blogPosts, setBlogPosts, selectedBlogPostId } =
+    useContext(DataContext);
+  const { userService } = useContext(ServiceContext);
+  const [addCommentLoading, setAddCommentLoading] = useState<boolean>(false);
+  const [deleteCommentLoading, setDeleteCommentLoading] =
+    useState<boolean>(false);
 
   function filterNewest(): void {
-    const sortedComments = [...props.comments].sort((commentA, commentB) => {
-      return commentB.date.getTime() - commentA.date.getTime();
-    });
+    const sortedComments = [...props.blogPost.comments].sort(
+      (commentA, commentB) => {
+        return commentB.date.getTime() - commentA.date.getTime();
+      }
+    );
 
-    console.warn("filterNewest");
-    setfiltered((prev) => sortedComments);
+    setFiltered((prev) => sortedComments);
   }
 
   function filterOldest(): void {
-    const sortedComments = [...props.comments].sort((commentA, commentB) => {
-      return commentA.date.getTime() - commentB.date.getTime();
-    });
+    const sortedComments = [...props.blogPost.comments].sort(
+      (commentA, commentB) => {
+        return commentA.date.getTime() - commentB.date.getTime();
+      }
+    );
 
-    console.warn("filterOldest");
-    setfiltered((prev) => sortedComments);
+    setFiltered((prev) => sortedComments);
+  }
+
+  async function addCommentAsync(): Promise<void> {
+    const trimmedComment = comment.trim();
+    if (user && trimmedComment.length > 0) {
+      setAddCommentLoading((prev) => true);
+      const data = await userService?.addCommentAsync(
+        user?.email,
+        user?.password,
+        trimmedComment,
+        props.blogPost.id
+      );
+      setAddCommentLoading((prev) => false);
+      if (data) {
+        const tempUser = { ...user };
+        tempUser.comments.push(data);
+        setUser(tempUser);
+
+        const tempBlogPosts = blogPosts.map((item) => item);
+        const tempBlogPost = { ...props.blogPost };
+        tempBlogPost.comments.push(data);
+        const index = tempBlogPosts.findIndex(
+          (item) => item.id === tempBlogPost.id
+        );
+        tempBlogPosts[index] = tempBlogPost;
+        setBlogPosts(tempBlogPosts);
+      }
+    }
+  }
+
+  async function deleteCommentAsync(commentId: string): Promise<void> {
+    if (user) {
+      setAddCommentLoading((prev) => true);
+      const successful = await userService?.deleteCommentAsync(
+        user.email,
+        user.password,
+        commentId,
+        props.blogPost.id
+      );
+
+      if (successful) {
+        const tempUser = { ...user };
+        tempUser.comments = tempUser.comments.filter(
+          (comment) => comment.id !== commentId
+        );
+        setUser(tempUser);
+
+        const tempBlogPosts = blogPosts.map((item) => item);
+        const tempBlogPost = { ...props.blogPost };
+        tempBlogPost.comments = tempBlogPost.comments.filter(
+          (comment) => comment.id !== commentId
+        );
+        const index = tempBlogPosts.findIndex(
+          (item) => item.id === tempBlogPost.id
+        );
+        tempBlogPosts[index] = tempBlogPost;
+        setBlogPosts(tempBlogPosts);
+      }
+    }
   }
 
   function displayCommentPages(): ReactNode {
@@ -49,9 +117,10 @@ function CommentSection(props: CommentProps) {
         {buttonLabels.map((label, index) => {
           return (
             <CustomButton
+              key={index}
               label={label.toString()}
-              isActive={label === activeCommentPage}
-              notLast={index < buttonLabels.length}
+              active={label === activeCommentPage}
+              notLast={index < buttonLabels.length - 1}
               href={"#comment-section-start"}
               method={() => setActiveCommentPage((prev) => label)}
             />
@@ -61,16 +130,20 @@ function CommentSection(props: CommentProps) {
     );
   }
 
+  useEffect(() => {
+    setFiltered([...props.blogPost.comments]);
+  }, [props.blogPost.comments]);
+
   return (
     <div className="commentsection-container" id={"comment-section-start"}>
       <div className="commentsection-header">
-        <span>Comments ({props.comments.length})</span>
+        <span>Comments ({props.blogPost.comments.length})</span>
         <div className="">
           <ButtonGroup>
             <CustomButton
               label={"Oldest"}
-              isActive={filteredState === 0}
-              notLast={true}
+              active={filteredState === 0}
+              notLast
               method={() => {
                 setFilteredState(0);
                 filterOldest();
@@ -78,8 +151,7 @@ function CommentSection(props: CommentProps) {
             />
             <CustomButton
               label={"Newst"}
-              isActive={filteredState === 1}
-              notLast={false}
+              active={filteredState === 1}
               method={() => {
                 setFilteredState(1);
                 filterNewest();
@@ -101,7 +173,6 @@ function CommentSection(props: CommentProps) {
           value={comment}
           onChange={(e) => {
             setComment(e.target.value);
-            console.warn(e.target.value);
           }}
           onFocus={() => setIsFocused(true)}
           onBlur={() => {
@@ -112,25 +183,24 @@ function CommentSection(props: CommentProps) {
         />
       </InputGroup>
       {isFocused ? (
-        <>
-          <div className="comment-input-buttons">
-            <ButtonGroup>
-              <CustomButton
-                label={"Cancel"}
-                isActive={false}
-                notLast={true}
-                onlyText={true}
-                method={() => {}}
-              />
-              <CustomButton
-                label={"Comment"}
-                isActive={true}
-                notLast={false}
-                method={() => {}}
-              />
-            </ButtonGroup>
-          </div>
-        </>
+        <div className="comment-input-buttons">
+          <ButtonGroup>
+            <CustomButton
+              label={"Cancel"}
+              active={false}
+              notLast
+              onlyText
+              method={() => setIsFocused((prev) => false)}
+            />
+            <CustomButton
+              label={"Comment"}
+              active
+              notLast={false}
+              loading={addCommentLoading}
+              method={async () => await addCommentAsync()}
+            />
+          </ButtonGroup>
+        </div>
       ) : (
         <></>
       )}
@@ -140,9 +210,11 @@ function CommentSection(props: CommentProps) {
           (activeCommentPage - 1) * itemsPerPage,
           activeCommentPage * itemsPerPage
         )
-        .map((comment: Comment) => {
+        .map((comment: Comment, index: number) => {
+          const isUserComment = comment.userName === user?.name;
+
           return (
-            <div className="comment-container g-0 row">
+            <div className="comment-container g-0 row" key={index}>
               <div className="row">
                 <div className="col-auto">
                   <PersonCircle className="comment-author-icon" size={"3rem"} />
@@ -155,6 +227,18 @@ function CommentSection(props: CommentProps) {
                 </div>
               </div>
               <div className="row">{comment.text}</div>
+
+              <div hidden={!isUserComment} className="comment-input-buttons">
+                <ButtonGroup>
+                  <CustomButton
+                    label={"Delete comment"}
+                    active
+                    notLast={false}
+                    loading={deleteCommentLoading}
+                    method={async () => await deleteCommentAsync(comment.id)}
+                  />
+                </ButtonGroup>
+              </div>
             </div>
           );
         })}

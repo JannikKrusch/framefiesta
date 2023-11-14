@@ -1,13 +1,15 @@
 import React, { ReactNode, createContext, useState } from "react";
-import { UserService } from "../../services";
+import { UserService, SessionStorageService } from "../../services";
 import { Controllers } from "../constants/Api";
 
 interface ServiceContextType {
   userService: UserService | undefined;
+  sessionStorageService: SessionStorageService | undefined;
 }
 
 const defaultStateContextValue: ServiceContextType = {
   userService: undefined,
+  sessionStorageService: undefined,
 };
 export const ServiceContext = createContext<ServiceContextType>(
   defaultStateContextValue
@@ -17,11 +19,15 @@ interface ContextProviderProps {
   children: ReactNode;
 }
 
-export function ServiceConntextProvider(props: ContextProviderProps) {
+export function ServiceConntextProvider(
+  props: ContextProviderProps
+): JSX.Element {
   const userService = new UserService(Controllers.User);
+  const sessionStorageService = new SessionStorageService();
 
   const serviceValue = {
     userService,
+    sessionStorageService,
   };
 
   return (

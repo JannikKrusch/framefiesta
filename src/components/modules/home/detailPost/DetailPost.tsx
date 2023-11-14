@@ -5,15 +5,19 @@ import { useContext } from "react";
 import { DataContext } from "../../../../utils/context/DataContext";
 import { convertSelectedIdToBlogPost } from "../../../../utils/helper/BlogPost";
 import { StateContext } from "../../../../utils/context/StateContext";
-import { CustomError } from "../../../../utils";
+import { BlogPost, CustomError } from "../../../../utils";
 
 //https://dribbble.com/shots/2623175-MediaMe-Film-Card/attachments/524445?mode=media
-function DetailPost() {
+interface DetailPostProps {
+  blogPosts: BlogPost[];
+}
+
+function DetailPost(props: DetailPostProps): JSX.Element {
   const { setError } = useContext(StateContext);
-  const { blogPosts, selectedBlogPostId } = useContext(DataContext);
+  const { selectedBlogPostId } = useContext(DataContext);
   const selectedBlogPost = convertSelectedIdToBlogPost(
     selectedBlogPostId,
-    blogPosts
+    props.blogPosts
   );
 
   if (!selectedBlogPost) {
@@ -25,8 +29,12 @@ function DetailPost() {
   }
 
   return (
-    <div className="detail-post-container w-100">
-      <FullSizeImage image={selectedBlogPost.relatedMotionPicture.image} />
+    <div className="detail-post-container">
+      <FullSizeImage
+        title={selectedBlogPost.relatedMotionPicture.title}
+        image={selectedBlogPost.relatedMotionPicture.image}
+        rating={selectedBlogPost.rating}
+      />
       <PostInformation selectedBlogPost={selectedBlogPost} />
       <div></div>
     </div>
