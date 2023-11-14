@@ -1,8 +1,8 @@
 import "./ErrorPage.css";
-import { StateContext } from "../../../utils/context/StateContext";
+import { StateContext } from "../../utils/context/StateContext";
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { RouterPaths } from "../../../utils";
+import { RouterPaths } from "../../utils";
 import { EmojiFrownFill } from "react-bootstrap-icons";
 
 export function ErrorPage(): JSX.Element {

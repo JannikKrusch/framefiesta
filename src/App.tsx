@@ -4,7 +4,7 @@ import "./App.css";
 import { RouterPaths } from "./utils/constants/RouterPaths";
 import Home from "./pages/home/Home";
 import { CustomNavbar, Footer } from "./components/shared";
-import { ErrorPage } from "./components/shared/error/ErrorPage";
+import { ErrorPage } from "./pages/error/ErrorPage";
 import {
   StateContext,
   StateContextProvider,
@@ -14,7 +14,7 @@ import { DataContext, DataContextProvider } from "./utils/context/DataContext";
 import { CustomError, ServiceConntextProvider } from "./utils";
 import Register from "./pages/register/Register";
 import Login from "./pages/login/Login";
-import PageNotFound from "./components/shared/error/PageNotFound";
+import PageNotFound from "./pages/error/PageNotFound";
 
 function App(): JSX.Element {
   return (

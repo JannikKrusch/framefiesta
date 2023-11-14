@@ -1,7 +1,7 @@
 import { Spinner } from "react-bootstrap";
 import "./Loader.css";
 import { useContext } from "react";
-import { StateContext } from "../../../utils/context/StateContext";
+import { StateContext } from "../../../../utils/context/StateContext";
 
 export function Loader(): JSX.Element {
   const { loading } = useContext(StateContext);

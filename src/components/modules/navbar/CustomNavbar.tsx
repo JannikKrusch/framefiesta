@@ -17,7 +17,7 @@ import "react-bootstrap-typeahead/css/Typeahead.css";
 import { Film, PersonCircle } from "react-bootstrap-icons";
 import { Search } from "../../../utils/models/Search";
 import { useLocation, useNavigate } from "react-router-dom";
-import CustomButton from "../button/CustomButton";
+import CustomButton from "../../shared/button/CustomButton";
 import { useTime } from "../../../utils/hooks/UserTime";
 import { ServiceContext } from "../../../utils";
 
