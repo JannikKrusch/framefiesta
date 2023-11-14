@@ -4,7 +4,7 @@ import { RouterPaths } from "../../../utils/constants/RouterPaths";
 import { DataContext } from "../../../utils/context/DataContext";
 
 import "./CustomNavbar.css";
-import { ReactNode, useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import {
   Navbar,
   Container,
@@ -14,12 +14,10 @@ import {
   OverlayTrigger,
 } from "react-bootstrap";
 import "react-bootstrap-typeahead/css/Typeahead.css";
-import { Film, PersonCircle } from "react-bootstrap-icons";
-import { Search } from "../../../utils/models/Search";
+import { PersonCircle } from "react-bootstrap-icons";
 import { useLocation, useNavigate } from "react-router-dom";
-import CustomButton from "../../shared/button/CustomButton";
-import { useTime } from "../../../utils/hooks/UserTime";
-import { ServiceContext } from "../../../utils";
+import { Search, ServiceContext, useTime } from "../../../utils";
+import { CustomButton } from "../..";
 
 export function CustomNavbar() {
   const { blogPosts, user, setUser, setSelectedBlogPostId } =

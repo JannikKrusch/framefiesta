@@ -1,6 +1,6 @@
 import { Instagram, Twitter, Youtube } from "react-bootstrap-icons";
-import { COMPANY_NAME } from "../../../utils/constants/Names";
 import "./Footer.css";
+import { COMPANY_NAME } from "../../../utils";
 
 export function Footer(): JSX.Element {
   function iconClick(): void {

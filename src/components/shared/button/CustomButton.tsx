@@ -1,7 +1,6 @@
 import classNames from "classnames";
 import "./CustomButton.css";
 import { Button } from "react-bootstrap";
-import { useState } from "react";
 
 interface ButtonProps {
   label: string;

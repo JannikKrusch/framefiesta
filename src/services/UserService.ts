@@ -1,3 +1,4 @@
+import { DataService } from ".";
 import {
   AddCommentBody,
   Comment,
@@ -9,7 +10,6 @@ import {
   User,
   UserEndpoints,
 } from "../utils";
-import { DataService } from "./DataService";
 
 export class UserService extends DataService {
   constructor(controller: Controllers) {

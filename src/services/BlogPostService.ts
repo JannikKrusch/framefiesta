@@ -1,5 +1,5 @@
+import { DataService } from ".";
 import { BlogEndPoints, BlogPost, Controllers } from "../utils";
-import { DataService } from "./DataService";
 
 export class BlogPostService extends DataService {
   constructor(controller: Controllers) {

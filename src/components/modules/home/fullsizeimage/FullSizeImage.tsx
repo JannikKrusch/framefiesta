@@ -1,4 +1,3 @@
-import React from "react";
 import "./FullSizeImage.css";
 import { Star, StarFill, StarHalf } from "react-bootstrap-icons";
 
@@ -8,7 +7,7 @@ interface FullSizeImageProps {
   rating: number;
 }
 
-function FullSizeImage(props: FullSizeImageProps): JSX.Element {
+export function FullSizeImage(props: FullSizeImageProps): JSX.Element {
   const { image, title, rating } = props;
   const starRating = rating / 2;
   const fullStars = Math.floor(starRating);
@@ -39,5 +38,3 @@ function FullSizeImage(props: FullSizeImageProps): JSX.Element {
     </div>
   );
 }
-
-export default FullSizeImage;

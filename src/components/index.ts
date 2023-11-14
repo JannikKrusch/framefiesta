@@ -1,14 +1,14 @@
-export * from "../components/modules/footer/Footer";
+export * from "./modules/footer/Footer";
 
-export * from "../components/modules/home/commentSection/CommentSection";
-export * from "../components/modules/home/description/Description";
-export * from "../components/modules/home/detailPost/DetailPost";
-export * from "../components/modules/home/fullsizeimage/FullSizeImage";
-export * from "../components/modules/home/loader/Loader";
-export * from "../components/modules/home/postInformation/PostInformation";
-export * from "../components/modules/home/recommended/Recommended";
-export * from "../components/modules/home/review/Review";
+export * from "./modules/home/commentSection/CommentSection";
+export * from "./modules/home/description/Description";
+export * from "./modules/home/detailPost/DetailPost";
+export * from "./modules/home/fullsizeimage/FullSizeImage";
+export * from "./modules/home/loader/Loader";
+export * from "./modules/home/postInformation/PostInformation";
+export * from "./modules/home/recommended/Recommended";
+export * from "./modules/home/review/Review";
 
-export * from "../components/modules/navbar/CustomNavbar";
+export * from "./modules/navbar/CustomNavbar";
 
-export * from "../components/shared/button/CustomButton";
+export * from "./shared/button/CustomButton";

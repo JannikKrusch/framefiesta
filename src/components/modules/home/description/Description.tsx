@@ -1,18 +1,19 @@
 import React, { ReactNode } from "react";
-import { MotionPicture } from "../../../../utils";
 import "./Description.css";
+
+import { Table } from "react-bootstrap";
 import {
+  MotionPicture,
   currencyCompactFormat,
   listConjunctionFormat,
-} from "../../../../utils/helper/DataFormatting";
-import { Table } from "react-bootstrap";
+} from "../../../../utils";
 
 interface DescriptionProps {
   description: string;
   motionPicture: MotionPicture;
 }
 
-function Description(props: DescriptionProps): JSX.Element {
+export function Description(props: DescriptionProps): JSX.Element {
   const motionPicture = props.motionPicture;
 
   const factName = ["Year", "Age", "Genre", "Budget", "Director", "Cast"];
@@ -53,5 +54,3 @@ function Description(props: DescriptionProps): JSX.Element {
     </div>
   );
 }
-
-export default Description;

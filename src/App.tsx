@@ -1,20 +1,13 @@
-import React, { useContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import { RouterPaths } from "./utils/constants/RouterPaths";
-import Home from "./pages/home/Home";
-import { CustomNavbar, Footer } from "./components/shared";
-import { ErrorPage } from "./pages/error/ErrorPage";
 import {
-  StateContext,
+  DataContextProvider,
   StateContextProvider,
-} from "./utils/context/StateContext";
-import { useErrorUpdate } from "./utils/hooks/UseErrorUpdate";
-import { DataContext, DataContextProvider } from "./utils/context/DataContext";
-import { CustomError, ServiceConntextProvider } from "./utils";
-import Register from "./pages/register/Register";
-import Login from "./pages/login/Login";
-import PageNotFound from "./pages/error/PageNotFound";
+  ServiceConntextProvider,
+  RouterPaths,
+} from "./utils";
+import { CustomNavbar, Footer } from "./components";
+import { Home, Register, Login, ErrorPage, PageNotFound } from "./pages";
 
 function App(): JSX.Element {
   return (
@@ -43,7 +36,6 @@ function App(): JSX.Element {
                     element={<ErrorPage />}
                   />
                   <Route path={`*`} element={<PageNotFound />} />
-                  <Route path={`/about`} element={<About />} />
                 </Routes>
               </div>
               <Footer />
@@ -56,23 +48,3 @@ function App(): JSX.Element {
 }
 
 export default App;
-
-function About(): JSX.Element {
-  const { selectedBlogPostId, setSelectedBlogPostId } = useContext(DataContext);
-  const { setError } = useContext(StateContext);
-
-  useErrorUpdate();
-  function buttonClick() {
-    const newError = new CustomError();
-    newError.message = "Test Internal Server Error";
-    newError.statusCode = 500;
-
-    setError((prev) => newError);
-  }
-  return (
-    <>
-      <h2>About</h2>
-      <button onClick={buttonClick}>Click {selectedBlogPostId}</button>
-    </>
-  );
-}

@@ -9,8 +9,9 @@ import {
   StateContext,
 } from "../../utils";
 import { useNavigate } from "react-router-dom";
+import { CustomButton } from "../../components";
 
-function Register(): JSX.Element {
+export function Register(): JSX.Element {
   const [validated, setValidated] = useState(false);
 
   const [name, setName] = useState<string>("");
@@ -159,5 +160,3 @@ function Register(): JSX.Element {
     </div>
   );
 }
-
-export default Register;

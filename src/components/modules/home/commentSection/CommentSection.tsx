@@ -1,17 +1,20 @@
 import React, { ReactNode, useContext, useEffect, useState } from "react";
-import { Comment } from "../../../../utils/models/Comment";
 import { PersonCircle } from "react-bootstrap-icons";
 import "./CommentSection.css";
 import { ButtonGroup, Form, InputGroup } from "react-bootstrap";
-import { DataContext } from "../../../../utils/context/DataContext";
-import { BlogPost, ServiceContext } from "../../../../utils";
-import { CustomButton } from "../../../shared";
+import {
+  BlogPost,
+  DataContext,
+  ServiceContext,
+  Comment,
+} from "../../../../utils";
+import { CustomButton } from "../../..";
 
 interface CommentProps {
   blogPost: BlogPost;
 }
 
-function CommentSection(props: CommentProps): JSX.Element {
+export function CommentSection(props: CommentProps): JSX.Element {
   const [filtered, setFiltered] = useState<Comment[]>([
     ...props.blogPost.comments,
   ]);
@@ -247,5 +250,3 @@ function CommentSection(props: CommentProps): JSX.Element {
     </div>
   );
 }
-
-export default CommentSection;

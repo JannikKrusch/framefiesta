@@ -1,21 +1,12 @@
-import { Card, Placeholder, ProgressBar } from "react-bootstrap";
-import "./Review.css";
-import { useState } from "react";
-import { Comment } from "../../../../utils/models/Comment";
-import CommentSection from "../commentSection/CommentSection";
+import { CommentSection } from "../../..";
 import { BlogPost } from "../../../../utils";
+import "./Review.css";
 
 interface ReviewProps {
   blogPost: BlogPost;
 }
 
-function Review(props: ReviewProps): JSX.Element {
-  const [showRating, setshowRating] = useState<boolean>(false);
-
-  function toggleRating() {
-    setshowRating((prev) => !prev);
-  }
-
+export function Review(props: ReviewProps): JSX.Element {
   return (
     <>
       <div className="row">
@@ -28,5 +19,3 @@ function Review(props: ReviewProps): JSX.Element {
     </>
   );
 }
-
-export default Review;

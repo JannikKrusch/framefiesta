@@ -5,10 +5,9 @@ import {
   DEFAULT_URL,
   HttpStatusCodes,
   Method,
+  StateContext,
+  isInstanceOfResponse,
 } from "../utils";
-import { StateContext } from "../utils/context/StateContext";
-import { isInstanceOfResponse } from "../utils/helper/InstanceOf";
-
 export class DataService {
   public controller: Controllers;
   private _url: string = DEFAULT_URL;

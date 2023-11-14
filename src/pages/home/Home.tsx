@@ -1,11 +1,14 @@
 import { useContext, useEffect } from "react";
-import { Loader } from "../../components/shared";
 import { DummyBlogPosts } from "../../utils/helper/DummyData";
-import DetailPost from "../../components/modules/home/detailPost/DetailPost";
-import { DataContext, ServiceContext, StateContext, User } from "../../utils";
-import { useErrorUpdate } from "../../utils/hooks/UseErrorUpdate";
+import {
+  DataContext,
+  ServiceContext,
+  StateContext,
+  useErrorUpdate,
+} from "../../utils";
+import { DetailPost, Loader } from "../../components";
 
-function Home(): JSX.Element {
+export function Home(): JSX.Element {
   const {
     blogPosts,
     setBlogPosts,
@@ -26,12 +29,7 @@ function Home(): JSX.Element {
     if (dummyPosts.length > 0) {
       setLoading((prev) => false);
     }
-    // const user = new User();
-    // user.name = "Joe Mama der 3. von Among Us";
-    // user.email = "jannik.test@gmail.com";
-    // user.id = "1";
-    // user.password = "jannik@test.password";
-    // //setUser(user);
+
     const user = sessionStorageService?.getUser();
     if (user) {
       setUser((prev) => user);
@@ -41,5 +39,3 @@ function Home(): JSX.Element {
 
   return <>{loading ? <Loader /> : <DetailPost blogPosts={blogPosts} />}</>;
 }
-
-export default Home;

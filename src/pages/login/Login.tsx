@@ -9,9 +9,9 @@ import {
 import { Form } from "react-bootstrap";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
-import { CustomButton } from "../../components/shared";
+import { CustomButton } from "../../components";
 
-function Login(): JSX.Element {
+export function Login(): JSX.Element {
   const [validated, setValidated] = useState(false);
   const [userIdentification, setUserIdentification] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -33,9 +33,8 @@ function Login(): JSX.Element {
       setValidated(true);
       return;
     }
-
     setValidated(true);
-    //TODO send data
+
     setSubmitLoading(true);
     const user = await userService?.loginAsync(userIdentification, password);
     if (user) {
@@ -128,5 +127,3 @@ function Login(): JSX.Element {
     </div>
   );
 }
-
-export default Login;

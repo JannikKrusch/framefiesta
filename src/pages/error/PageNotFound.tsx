@@ -3,7 +3,7 @@ import "./ErrorPage.css";
 import "./PageNotFound.css";
 import { EmojiFrownFill } from "react-bootstrap-icons";
 
-function PageNotFound(): JSX.Element {
+export function PageNotFound(): JSX.Element {
   return (
     <div className="row g-0 error-container">
       <div className="col">
@@ -33,5 +33,3 @@ function PageNotFound(): JSX.Element {
     </div>
   );
 }
-
-export default PageNotFound;

@@ -1,18 +1,18 @@
 import React, { ReactNode, useContext, useState } from "react";
-import { BlogPost, MotionPicture } from "../../../../utils";
 import "./PostInformation.css";
-import { INFORMATION_OPTIONS } from "../../../../utils/constants/DetailPost";
-import Description from "../description/Description";
-import Review from "../review/Review";
-import Recommended from "../recommended/Recommended";
-import { DataContext } from "../../../../utils/context/DataContext";
-import { CustomButton } from "../../../shared";
+import {
+  BlogPost,
+  DataContext,
+  INFORMATION_OPTIONS,
+  MotionPicture,
+} from "../../../../utils";
+import { CustomButton, Description, Recommended, Review } from "../../..";
 
 interface PostInformationProps {
   selectedBlogPost: BlogPost;
 }
 
-function PostInformation(props: PostInformationProps): JSX.Element {
+export function PostInformation(props: PostInformationProps): JSX.Element {
   const selectedBlogPost = props.selectedBlogPost;
   const { blogPosts } = useContext(DataContext);
   const [selectedInformation, setselectedInformation] = useState<number>(0);
@@ -101,5 +101,3 @@ function PostInformation(props: PostInformationProps): JSX.Element {
     </div>
   );
 }
-
-export default PostInformation;
