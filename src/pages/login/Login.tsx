@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CustomButton from "../../components/shared/button/CustomButton";
 import {
   DataContext,
@@ -48,11 +48,14 @@ function Login(): JSX.Element {
     } else {
       setIsValid((prev) => true);
       setSubmitLoading(false);
-      if (error?.statusCode === HttpStatusCodes.InternalServerError) {
-        navigate(RouterPaths.Error.path);
-      }
     }
   }
+
+  useEffect(() => {
+    if (error?.statusCode === HttpStatusCodes.InternalServerError) {
+      navigate(RouterPaths.Error.path);
+    }
+  }, [error, navigate]);
 
   return (
     <div className="d-flex justify-content-center login-container">
@@ -90,6 +93,7 @@ function Login(): JSX.Element {
             <Form.Label>Password</Form.Label>
             <Form.Control
               required
+              minLength={10}
               type="password"
               placeholder="Password"
               value={password}
@@ -98,7 +102,7 @@ function Login(): JSX.Element {
             />
             <Form.Control.Feedback type="invalid">
               {isInvalid === undefined
-                ? "Password required"
+                ? "Password required (at least 10 chars)"
                 : "User identification or password invalid"}
             </Form.Control.Feedback>
           </Form.Group>

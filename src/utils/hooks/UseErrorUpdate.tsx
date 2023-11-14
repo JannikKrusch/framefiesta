@@ -11,5 +11,5 @@ export function useErrorUpdate(): void {
     if (error !== undefined) {
       navigate(RouterPaths.Error.path);
     }
-  }, [error]);
+  }, [error, navigate]);
 }

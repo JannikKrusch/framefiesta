@@ -13,7 +13,7 @@ export function ErrorPage(): JSX.Element {
     if (error === undefined) {
       navigate(RouterPaths.Default.path);
     }
-  }, [error]);
+  }, [error, navigate]);
 
   return (
     <div className="row m-auto error-container">

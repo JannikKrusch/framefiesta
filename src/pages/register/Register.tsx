@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Register.css";
 import { Form } from "react-bootstrap";
 import CustomButton from "../../components/shared/button/CustomButton";
@@ -30,14 +30,13 @@ function Register(): JSX.Element {
     event.preventDefault();
     event.stopPropagation();
 
-    // Überprüfen Sie, ob das Formular gültig ist
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       setValidated(true);
       return;
     }
 
-    if (password !== confirmPassword) {
+    if (password !== confirmPassword || password.includes(" ")) {
       return;
     }
 
@@ -50,11 +49,14 @@ function Register(): JSX.Element {
       navigate(RouterPaths.Default.path);
     } else {
       setIsInValid(true);
-      if (error?.statusCode === HttpStatusCodes.InternalServerError) {
-        navigate(RouterPaths.Error.path);
-      }
     }
   }
+
+  useEffect(() => {
+    if (error?.statusCode === HttpStatusCodes.InternalServerError) {
+      navigate(RouterPaths.Error.path);
+    }
+  }, [error, navigate]);
 
   return (
     <div className="d-flex justify-content-center register-container">
@@ -106,6 +108,7 @@ function Register(): JSX.Element {
             <Form.Label>Password</Form.Label>
             <Form.Control
               required
+              minLength={10}
               type="password"
               placeholder="Password"
               value={password}
@@ -113,7 +116,9 @@ function Register(): JSX.Element {
               isInvalid={validated}
             />
             <Form.Control.Feedback type="invalid">
-              {isInvalid === undefined ? "Password required" : ""}
+              {isInvalid === undefined
+                ? "Password required (at least 10 chars)"
+                : ""}
             </Form.Control.Feedback>
           </Form.Group>
 
