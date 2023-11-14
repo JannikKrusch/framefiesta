@@ -68,7 +68,8 @@ export class UserService extends DataService {
 
     return await this.callEndpointGenericAsync<Comment>(
       url,
-      JSON.stringify(body)
+      JSON.stringify(body),
+      Method.Put
     );
   }
 
@@ -89,7 +90,7 @@ export class UserService extends DataService {
     return await this.callEndpointBooleanAsync(
       url,
       JSON.stringify(body),
-      Method.Post
+      Method.Delete
     );
   }
 }
