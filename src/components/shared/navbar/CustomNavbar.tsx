@@ -33,13 +33,13 @@ export function CustomNavbar() {
       title: post.relatedMotionPicture.title,
       actors: post.relatedMotionPicture.actors.join(","),
       genres: post.relatedMotionPicture.genres.join(", "),
-      rating: post.rating,
+      year: post.relatedMotionPicture.initialRelease,
     };
   });
   const location = useLocation();
   const navigate = useNavigate();
 
-  const seachBoxPlaceholder = "Search for a title, actor, genre or rating...";
+  const seachBoxPlaceholder = "Search for a title, actor, genre or year...";
 
   return (
     <Navbar
@@ -84,7 +84,7 @@ export function CustomNavbar() {
                 }}
                 options={options}
                 labelKey={"title"}
-                filterBy={["title", "actors", "genres", "rating"]}
+                filterBy={["title", "actors", "genres", "year"]}
                 placeholder={seachBoxPlaceholder}
                 selected={selected}
                 clearButton
