@@ -7,6 +7,7 @@ import {
   RouterPaths,
   ServiceContext,
   StateContext,
+  convertUserToUserFE,
 } from "../../utils";
 import { useNavigate } from "react-router-dom";
 import { CustomButton } from "../../components";
@@ -44,8 +45,9 @@ export function Register(): JSX.Element {
     const user = await userService?.registerAsync(name, password, email);
     if (user) {
       setIsInValid(false);
-      setUser((prev) => user);
-      sessionStorageService?.setUser(user);
+      const userFE = convertUserToUserFE(user, password);
+      setUser((prev) => userFE);
+      sessionStorageService?.setUser(userFE);
       navigate(RouterPaths.Default.path);
     } else {
       setIsInValid(true);

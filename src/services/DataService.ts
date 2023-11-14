@@ -94,7 +94,6 @@ export class DataService {
 
   private convertToCustomError(input: Response | unknown): CustomError {
     const error = new CustomError();
-    console.warn(input);
     if (isInstanceOfResponse(input)) {
       error.message = input.statusText;
       error.statusCode = input.status;

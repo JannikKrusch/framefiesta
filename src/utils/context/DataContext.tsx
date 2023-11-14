@@ -5,11 +5,11 @@ import {
   createContext,
   useState,
 } from "react";
-import { BlogPost, User } from "..";
+import { BlogPost, UserFE } from "..";
 
 interface DataContextType {
-  user: User | undefined;
-  setUser: Dispatch<SetStateAction<User | undefined>>;
+  user: UserFE | undefined;
+  setUser: Dispatch<SetStateAction<UserFE | undefined>>;
   selectedBlogPostId: string;
   setSelectedBlogPostId: Dispatch<SetStateAction<string>>;
   blogPosts: BlogPost[];
@@ -38,7 +38,7 @@ interface ContextProviderProps {
 }
 
 export function DataContextProvider(props: ContextProviderProps): JSX.Element {
-  const [user, setUser] = useState<User | undefined>(undefined);
+  const [user, setUser] = useState<UserFE | undefined>(undefined);
   const [selectedBlogPostId, setSelectedBlogPostId] = useState<string>("");
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [searchQuery, setSearchQuery] = useState("");

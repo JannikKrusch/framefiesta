@@ -30,9 +30,9 @@ export function Home(): JSX.Element {
       setLoading((prev) => false);
     }
 
-    const user = sessionStorageService?.getUser();
-    if (user) {
-      setUser((prev) => user);
+    const userFE = sessionStorageService?.getUser();
+    if (userFE) {
+      setUser((prev) => userFE);
     }
     setBlogPosts(dummyPosts);
   }, []);

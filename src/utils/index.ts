@@ -12,6 +12,7 @@ export * from "./helper/BlogPost";
 export * from "./helper/DataFormatting";
 export * from "./helper/DummyData";
 export * from "./helper/InstanceOf";
+export * from "./helper/User";
 
 export * from "./hooks/UseErrorUpdate";
 export * from "./hooks/UserTime";
@@ -28,3 +29,4 @@ export * from "./models/RegisterBody";
 export * from "./models/Search";
 export * from "./models/Series";
 export * from "./models/User";
+export * from "./models/UserFE";

@@ -5,6 +5,7 @@ import {
   RouterPaths,
   ServiceContext,
   StateContext,
+  convertUserToUserFE,
 } from "../../utils";
 import { Form } from "react-bootstrap";
 import "./Login.css";
@@ -38,10 +39,10 @@ export function Login(): JSX.Element {
     setSubmitLoading(true);
     const user = await userService?.loginAsync(userIdentification, password);
     if (user) {
-      setUser((prev) => user);
+      const userFE = convertUserToUserFE(user, password);
+      setUser((prev) => userFE);
       setIsValid((prev) => false);
-      setUser((prev) => user);
-      sessionStorageService?.setUser(user);
+      sessionStorageService?.setUser(userFE);
       setSubmitLoading(false);
       navigate(RouterPaths.Default.path);
     } else {
