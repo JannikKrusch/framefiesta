@@ -17,11 +17,35 @@ export function Home(): JSX.Element {
     setUser,
   } = useContext(DataContext);
   const { setLoading, loading } = useContext(StateContext);
-  const { sessionStorageService } = useContext(ServiceContext);
+  const { blogPostService, sessionStorageService } = useContext(ServiceContext);
   useErrorUpdate();
 
-  useEffect(() => {
+  async function getBlogPostsAsync(): Promise<void> {
     setLoading((prev) => true);
+    const blogPosts = await blogPostService?.getBlogPostsAsync();
+
+    if (blogPosts === null || blogPosts === undefined) {
+      return;
+    }
+
+    if (selectedBlogPostId === "" && blogPosts.length > 0) {
+      setSelectedBlogPostId(blogPosts[blogPosts.length - 1].id);
+      setBlogPosts((prev) => blogPosts);
+      setLoading((prev) => false);
+    }
+  }
+
+  function getUserFromSessionStorage(): void {
+    const userFE = sessionStorageService?.getUser();
+    if (userFE) {
+      setUser((prev) => userFE);
+    }
+  }
+
+  useEffect(() => {
+    if (blogPostService === undefined) {
+      return;
+    }
     const dummyPosts = DummyBlogPosts(10);
     if (selectedBlogPostId === "") {
       setSelectedBlogPostId(dummyPosts[dummyPosts.length - 1].id);
@@ -29,13 +53,12 @@ export function Home(): JSX.Element {
     if (dummyPosts.length > 0) {
       setLoading((prev) => false);
     }
-
-    const userFE = sessionStorageService?.getUser();
-    if (userFE) {
-      setUser((prev) => userFE);
-    }
     setBlogPosts(dummyPosts);
-  }, []);
+    //!use this when backend is available
+    //getBlogPostsAsync();
+    getUserFromSessionStorage();
+  }, [blogPostService]);
 
   return <>{loading ? <Loader /> : <DetailPost blogPosts={blogPosts} />}</>;
+  return <></>;
 }

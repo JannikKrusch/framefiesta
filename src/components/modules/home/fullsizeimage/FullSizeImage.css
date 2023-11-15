@@ -1,10 +1,8 @@
-/* Basis-Stil für den Bild-Wrapper */
 .image-wrapper {
   position: relative;
   width: 100%;
 }
 
-/* Hintergrundbild- und Wrapper-Einstellungen */
 .full-size-image {
   width: 100%;
   height: auto;

@@ -9,8 +9,7 @@ import {
   isInstanceOfResponse,
 } from "../utils";
 export class DataService {
-  public controller: Controllers;
-  private _url: string = DEFAULT_URL;
+  private controller: Controllers;
   private _abortController: AbortController;
   private _setError: (error: CustomError | undefined) => void =
     useContext(StateContext).setError;
@@ -48,7 +47,7 @@ export class DataService {
   ): Promise<Response | Error> {
     this._abortController.abort();
     this._abortController = new AbortController();
-    const response = await fetch(`${this._url}${url}`, {
+    const response = await fetch(`${DEFAULT_URL}${this.controller}${url}`, {
       signal: this._abortController.signal,
       mode: "cors",
       method: method ?? Method.Get,
