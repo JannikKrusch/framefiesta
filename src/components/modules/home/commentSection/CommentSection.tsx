@@ -15,10 +15,8 @@ interface CommentProps {
 }
 
 export function CommentSection(props: CommentProps): JSX.Element {
-  const [filtered, setFiltered] = useState<Comment[]>([
-    ...props.blogPost.comments,
-  ]);
-  const [filteredState, setFilteredState] = useState<number>(-1);
+  const [sorted, setSorted] = useState<Comment[]>([...props.blogPost.comments]);
+  const [sortedState, setSortedState] = useState<number>(-1);
   const [comment, setComment] = useState("");
   const itemsPerPage = 10;
   const [activeCommentPage, setActiveCommentPage] = useState(1);
@@ -30,24 +28,24 @@ export function CommentSection(props: CommentProps): JSX.Element {
   const [deleteCommentLoading, setDeleteCommentLoading] =
     useState<boolean>(false);
 
-  function filterNewest(): void {
+  function sortNewest(): void {
     const sortedComments = [...props.blogPost.comments].sort(
       (commentA, commentB) => {
         return commentB.date.getTime() - commentA.date.getTime();
       }
     );
 
-    setFiltered((prev) => sortedComments);
+    setSorted((prev) => sortedComments);
   }
 
-  function filterOldest(): void {
+  function sortOldest(): void {
     const sortedComments = [...props.blogPost.comments].sort(
       (commentA, commentB) => {
         return commentA.date.getTime() - commentB.date.getTime();
       }
     );
 
-    setFiltered((prev) => sortedComments);
+    setSorted((prev) => sortedComments);
   }
 
   async function addCommentAsync(): Promise<void> {
@@ -110,7 +108,7 @@ export function CommentSection(props: CommentProps): JSX.Element {
   }
 
   function displayCommentPages(): ReactNode {
-    const amountCommentPages = Math.ceil(filtered.length / 10);
+    const amountCommentPages = Math.ceil(sorted.length / 10);
     let buttonLabels = [];
     for (let i = 1; i <= amountCommentPages; i++) {
       buttonLabels.push(i);
@@ -134,7 +132,12 @@ export function CommentSection(props: CommentProps): JSX.Element {
   }
 
   useEffect(() => {
-    setFiltered([...props.blogPost.comments]);
+    setSorted([...props.blogPost.comments]);
+
+    if (sortedState === -1) {
+      sortNewest();
+      setSortedState(1);
+    }
   }, [props.blogPost.comments]);
 
   return (
@@ -145,19 +148,19 @@ export function CommentSection(props: CommentProps): JSX.Element {
           <ButtonGroup>
             <CustomButton
               label={"Oldest"}
-              active={filteredState === 0}
+              active={sortedState === 0}
               notLast
               method={() => {
-                setFilteredState(0);
-                filterOldest();
+                setSortedState(0);
+                sortOldest();
               }}
             />
             <CustomButton
-              label={"Newst"}
-              active={filteredState === 1}
+              label={"Newest"}
+              active={sortedState === 1}
               method={() => {
-                setFilteredState(1);
-                filterNewest();
+                setSortedState(1);
+                sortNewest();
               }}
             />
           </ButtonGroup>
@@ -208,7 +211,7 @@ export function CommentSection(props: CommentProps): JSX.Element {
         <></>
       )}
 
-      {filtered
+      {sorted
         .slice(
           (activeCommentPage - 1) * itemsPerPage,
           activeCommentPage * itemsPerPage

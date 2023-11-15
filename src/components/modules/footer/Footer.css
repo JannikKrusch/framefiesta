@@ -12,7 +12,7 @@ body > footer {
 }
 
 .company-name {
-  font-family: "Prisma", sans-serif !important;
+  font-family: "Prisma", sans-serif;
   color: var(--text-color-purple);
 }
 
