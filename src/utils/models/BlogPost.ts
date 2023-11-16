@@ -1,5 +1,7 @@
 import { Comment } from "./Comment";
+import { Film } from "./Film";
 import { MotionPicture } from "./MotionPicture";
+import { Series } from "./Series";
 
 export class BlogPost {
   public id: string = "";
@@ -9,5 +11,6 @@ export class BlogPost {
   public review: string = "";
   public rating: number = 0;
   public comments: Comment[] = [];
-  public relatedMotionPicture: MotionPicture = new MotionPicture();
+  //public relatedMotionPicture: MotionPicture = new MotionPicture();
+  public relatedMotionPicture: Film | Series = new Film();
 }

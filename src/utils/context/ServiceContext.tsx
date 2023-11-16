@@ -28,8 +28,8 @@ interface ContextProviderProps {
 export function ServiceConntextProvider(
   props: ContextProviderProps
 ): JSX.Element {
-  const userService = new UserService(Controllers.User);
-  const blogPostService = new BlogPostService(Controllers.Blogs);
+  const userService = new UserService(Controllers.FrameFiesta);
+  const blogPostService = new BlogPostService(Controllers.FrameFiesta);
   const sessionStorageService = new SessionStorageService();
 
   const serviceValue = {

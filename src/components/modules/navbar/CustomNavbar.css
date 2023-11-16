@@ -31,7 +31,7 @@
 
 .search-box {
   min-width: 18.75rem;
-  height: clamp(2rem, 4vw, 4rem) !important;
+  height: clamp(2rem, 4vw, 3rem) !important;
 }
 
 .user-icon-popover {
@@ -46,8 +46,8 @@
 }
 
 .user-icon {
-  width: clamp(2rem, 4vw, 4rem) !important;
-  height: clamp(2rem, 4vw, 4rem) !important;
+  width: clamp(2rem, 4vw, 3rem) !important;
+  height: clamp(2rem, 4vw, 3rem) !important;
 }
 
 .user-icon.active {

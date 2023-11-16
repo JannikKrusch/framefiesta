@@ -45,8 +45,9 @@ export class DataService {
     body?: BodyInit,
     method?: Method
   ): Promise<Response | Error> {
-    this._abortController.abort();
+    // this._abortController.abort();
     this._abortController = new AbortController();
+    console.warn(`${DEFAULT_URL}${this.controller}${url}`);
     const response = await fetch(`${DEFAULT_URL}${this.controller}${url}`, {
       signal: this._abortController.signal,
       mode: "cors",

@@ -5,7 +5,10 @@ import { Table } from "react-bootstrap";
 import {
   MotionPicture,
   currencyCompactFormat,
+  isInstanceOfFilm,
+  isInstanceOfSeries,
   listConjunctionFormat,
+  timeFormat,
 } from "../../../../utils";
 
 interface DescriptionProps {
@@ -16,15 +19,29 @@ interface DescriptionProps {
 export function Description(props: DescriptionProps): JSX.Element {
   const motionPicture = props.motionPicture;
 
-  const factName = ["Year", "Age", "Genre", "Budget", "Director", "Cast"];
+  const factName = ["Year", "Age", "Genre", "Budget"];
   const factValue = [
     motionPicture.initialRelease,
     motionPicture.ageRating,
     listConjunctionFormat(motionPicture.genres),
     currencyCompactFormat(motionPicture.budget),
-    motionPicture.director,
-    listConjunctionFormat(motionPicture.actors),
   ];
+
+  if (isInstanceOfFilm(motionPicture)) {
+    factName.push("Time");
+    factValue.push(timeFormat(motionPicture.runTime));
+  }
+
+  if (isInstanceOfSeries(motionPicture)) {
+    factName.push("Seasons", "Episodes");
+    factValue.push(motionPicture.seasons, motionPicture.episodes);
+  }
+
+  factName.push("Director", "Cast");
+  factValue.push(
+    motionPicture.director,
+    listConjunctionFormat(motionPicture.actors)
+  );
 
   function displayFacts(): ReactNode {
     return (

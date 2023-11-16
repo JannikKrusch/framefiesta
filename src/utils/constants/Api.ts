@@ -1,8 +1,7 @@
-export const DEFAULT_URL: string = "http://localhost:5000"; //! Add your backend url here
+export const DEFAULT_URL: string = "https://localhost:44302"; //! Add your backend url here
 
 export enum Controllers {
-  Blogs = "/blogs",
-  User = "/user",
+  FrameFiesta = "/api/FrameFiesta",
 }
 
 export const enum Method {
@@ -13,14 +12,14 @@ export const enum Method {
 }
 
 export enum BlogEndPoints {
-  GetBlogPosts = "/getBlogPosts",
+  GetBlogPosts = "/blogPosts",
 }
 
 export enum UserEndpoints {
   Register = "/register",
   LogIn = "/login",
-  AddComment = "/addComment",
-  DeleteComment = "/deleteComment",
+  AddComment = "/comment",
+  DeleteComment = "/comment",
 }
 
 export enum HttpStatusCodes {

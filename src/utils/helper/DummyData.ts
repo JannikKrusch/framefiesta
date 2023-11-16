@@ -1,4 +1,4 @@
-import { BlogPost, MotionPicture } from "..";
+import { BlogPost, Film, MotionPicture, Series } from "..";
 import { Comment } from "../models/Comment";
 
 export function DummyBlogPosts(amount: number): BlogPost[] {
@@ -6,7 +6,7 @@ export function DummyBlogPosts(amount: number): BlogPost[] {
 
   for (let i = 1; i <= amount; i++) {
     const blogPost = new BlogPost();
-    const motionPicture = new MotionPicture();
+    const motionPicture = new Series();
     let actors = [];
     for (let actor = 1; actor < 5; actor++) {
       actors.push(`actor${i}${actor}`);
@@ -31,6 +31,8 @@ export function DummyBlogPosts(amount: number): BlogPost[] {
     motionPicture.ageRating = 18;
     motionPicture.budget = 10000000;
     motionPicture.title = `Pulp Fiction hjfd fhdjf d dfjhfj djf abc xyz ${i}`;
+    motionPicture.seasons = 1;
+    motionPicture.episodes = 10;
 
     blogPost.id = i.toString();
     blogPost.rating = 8.9;

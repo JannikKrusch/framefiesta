@@ -16,3 +16,10 @@ const listFormat = new Intl.ListFormat("en-us", {
 export function listConjunctionFormat(input: string[]): string {
   return listFormat.format(input);
 }
+
+export function timeFormat(input: number): string {
+  const hours = Math.floor(input / 60);
+  const minutes = input % 60;
+
+  return `${input} min / ${hours}:${minutes.toString().padStart(2, "0")} h`;
+}

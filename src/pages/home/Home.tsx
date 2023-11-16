@@ -23,7 +23,6 @@ export function Home(): JSX.Element {
   async function getBlogPostsAsync(): Promise<void> {
     setLoading((prev) => true);
     const blogPosts = await blogPostService?.getBlogPostsAsync();
-
     if (blogPosts === null || blogPosts === undefined) {
       return;
     }
@@ -43,19 +42,19 @@ export function Home(): JSX.Element {
   }
 
   useEffect(() => {
-    if (blogPostService === undefined) {
-      return;
-    }
-    const dummyPosts = DummyBlogPosts(10);
-    if (selectedBlogPostId === "") {
-      setSelectedBlogPostId(dummyPosts[dummyPosts.length - 1].id);
-    }
-    if (dummyPosts.length > 0) {
-      setLoading((prev) => false);
-    }
-    setBlogPosts(dummyPosts);
+    // if (blogPostService === undefined) {
+    //   return;
+    // }
+    // const dummyPosts = DummyBlogPosts(10);
+    // if (selectedBlogPostId === "") {
+    //   setSelectedBlogPostId(dummyPosts[dummyPosts.length - 1].id);
+    // }
+    // if (dummyPosts.length > 0) {
+    //   setLoading((prev) => false);
+    // }
+    // setBlogPosts(dummyPosts);
     //!use this when backend is available
-    //getBlogPostsAsync();
+    getBlogPostsAsync();
     getUserFromSessionStorage();
   }, [blogPostService]);
 
