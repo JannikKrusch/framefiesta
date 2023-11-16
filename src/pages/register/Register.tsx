@@ -3,11 +3,10 @@ import "./Register.css";
 import { Form } from "react-bootstrap";
 import {
   DataContext,
-  HttpStatusCodes,
   RouterPaths,
   ServiceContext,
-  StateContext,
   convertUserToUserFE,
+  useInternalServerErrorRedirect,
 } from "../../utils";
 import { useNavigate } from "react-router-dom";
 import { CustomButton } from "../../components";
@@ -21,8 +20,7 @@ export function Register(): JSX.Element {
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const { userService, sessionStorageService } = useContext(ServiceContext);
   const { setUser } = useContext(DataContext);
-  const { error } = useContext(StateContext);
-  const [isInvalid, setIsInValid] = useState<boolean | undefined>(undefined);
+  const [isInvalid, setIsInvalid] = useState<boolean | undefined>(undefined);
   const navigate = useNavigate();
 
   async function handleSubmitAsync(
@@ -44,21 +42,23 @@ export function Register(): JSX.Element {
     setValidated(true);
     const user = await userService?.registerAsync(name, password, email);
     if (user) {
-      setIsInValid(false);
+      setIsInvalid(false);
       const userFE = convertUserToUserFE(user, password);
       setUser((prev) => userFE);
       sessionStorageService?.setUser(userFE);
       navigate(RouterPaths.Default.path);
     } else {
-      setIsInValid(true);
+      setIsInvalid(true);
     }
   }
 
   useEffect(() => {
-    if (error?.statusCode === HttpStatusCodes.InternalServerError) {
-      navigate(RouterPaths.Error.path);
-    }
-  }, [error, navigate]);
+    return () => {
+      userService?.abortAllRequests();
+    };
+  }, []);
+
+  useInternalServerErrorRedirect();
 
   return (
     <div className="d-flex justify-content-center register-container">
@@ -144,17 +144,12 @@ export function Register(): JSX.Element {
           <div className="d-flex justify-content-between flex-sm-row flex-column">
             <CustomButton
               label={`Got an account already? ${RouterPaths.Login.display}`}
-              active={false}
-              notLast={false}
-              isSubit={false}
-              method={() => {}}
               href={RouterPaths.Login.path}
             />
             <CustomButton
               label={`${RouterPaths.Register.display}`}
-              active={true}
-              notLast={false}
-              isSubit={true}
+              active
+              isSubmit
             />
           </div>
         </Form>

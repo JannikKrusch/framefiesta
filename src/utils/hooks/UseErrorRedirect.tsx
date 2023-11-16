@@ -3,7 +3,7 @@ import { StateContext } from "../context/StateContext";
 import { useNavigate } from "react-router-dom";
 import { RouterPaths } from "../constants/RouterPaths";
 
-export function useErrorUpdate(): void {
+export function useErrorRedirect(): void {
   const navigate = useNavigate();
   const { error } = useContext(StateContext);
 

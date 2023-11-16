@@ -108,7 +108,7 @@ export function CustomNavbar() {
                         <CustomButton
                           active
                           label={RouterPaths.Login.display}
-                          notLast={true}
+                          notLast
                           hidden={user !== undefined}
                           method={() => {
                             navigate(RouterPaths.Login.path);
@@ -118,7 +118,7 @@ export function CustomNavbar() {
                         <CustomButton
                           active
                           label={RouterPaths.Register.display}
-                          notLast={true}
+                          notLast
                           hidden={user !== undefined}
                           method={() => {
                             navigate(RouterPaths.Register.path);
@@ -133,7 +133,7 @@ export function CustomNavbar() {
                             navigate(RouterPaths.Default.path);
                           }}
                           label={"Logout"}
-                          notLast={true}
+                          notLast
                           hidden={user === undefined}
                         />
                       </div>

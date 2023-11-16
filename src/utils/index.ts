@@ -14,7 +14,8 @@ export * from "./helper/DummyData";
 export * from "./helper/InstanceOf";
 export * from "./helper/User";
 
-export * from "./hooks/UseErrorUpdate";
+export * from "./hooks/UseErrorRedirect";
+export * from "./hooks/UserInternalServerErrorRedirect";
 export * from "./hooks/UserTime";
 
 export * from "./models/AddCommentBody";

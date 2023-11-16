@@ -239,7 +239,6 @@ export function CommentSection(props: CommentProps): JSX.Element {
                   <CustomButton
                     label={"Delete comment"}
                     active
-                    notLast={false}
                     loading={deleteCommentLoading}
                     method={async () => await deleteCommentAsync(comment.id)}
                   />

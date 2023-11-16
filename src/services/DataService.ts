@@ -19,6 +19,11 @@ export class DataService {
     this._abortController = new AbortController();
   }
 
+  public abortAllRequests(): void {
+    this._abortController.abort();
+    this._abortController = new AbortController();
+  }
+
   protected async callEndpointGenericAsync<Type>(
     url: string,
     body?: BodyInit,
@@ -45,9 +50,7 @@ export class DataService {
     body?: BodyInit,
     method?: Method
   ): Promise<Response | Error> {
-    // this._abortController.abort();
-    this._abortController = new AbortController();
-    console.warn(`${DEFAULT_URL}${this.controller}${url}`);
+    this.abortAllRequests();
     const response = await fetch(`${DEFAULT_URL}${this.controller}${url}`, {
       signal: this._abortController.signal,
       mode: "cors",
@@ -80,7 +83,13 @@ export class DataService {
           return null;
         }
       }
-      this._setError(this.convertToCustomError(response));
+      if (response.name !== "AbortError") {
+        // Fehlerbehandlung, falls nicht abgebrochen
+        this._setError(this.convertToCustomError(response));
+      } else {
+        console.warn("REQUEST ABORTED");
+      }
+
       return null;
     } catch (ex) {
       this._setError(this.convertToCustomError(ex));

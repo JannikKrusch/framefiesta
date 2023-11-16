@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
   DataContext,
-  HttpStatusCodes,
   RouterPaths,
   ServiceContext,
   StateContext,
   convertUserToUserFE,
+  useInternalServerErrorRedirect,
 } from "../../utils";
 import { Form } from "react-bootstrap";
 import "./Login.css";
@@ -18,8 +18,7 @@ export function Login(): JSX.Element {
   const [password, setPassword] = useState<string>("");
   const { setUser } = useContext(DataContext);
   const { userService, sessionStorageService } = useContext(ServiceContext);
-  const { error } = useContext(StateContext);
-  const [isInvalid, setIsValid] = useState<boolean | undefined>(undefined);
+  const [isInvalid, setIsvalid] = useState<boolean | undefined>(undefined);
   const navigate = useNavigate();
   const [submitLoading, setSubmitLoading] = useState<boolean>(false);
 
@@ -41,21 +40,23 @@ export function Login(): JSX.Element {
     if (user) {
       const userFE = convertUserToUserFE(user, password);
       setUser((prev) => userFE);
-      setIsValid((prev) => false);
+      setIsvalid((prev) => false);
       sessionStorageService?.setUser(userFE);
       setSubmitLoading(false);
       navigate(RouterPaths.Default.path);
     } else {
-      setIsValid((prev) => true);
+      setIsvalid((prev) => true);
       setSubmitLoading(false);
     }
   }
 
   useEffect(() => {
-    if (error?.statusCode === HttpStatusCodes.InternalServerError) {
-      navigate(RouterPaths.Error.path);
-    }
-  }, [error, navigate]);
+    return () => {
+      userService?.abortAllRequests();
+    };
+  }, []);
+
+  useInternalServerErrorRedirect();
 
   return (
     <div className="d-flex justify-content-center login-container">
@@ -110,16 +111,12 @@ export function Login(): JSX.Element {
           <div className="d-flex justify-content-between flex-sm-row flex-column">
             <CustomButton
               label={`Don't have an account? ${RouterPaths.Register.display}`}
-              active={false}
-              notLast={false}
-              isSubit={false}
               href={RouterPaths.Register.path}
             />
             <CustomButton
               label={`${RouterPaths.Login.display}`}
-              active={true}
-              notLast={false}
-              isSubit={true}
+              active
+              isSubmit
               loading={submitLoading}
             />
           </div>

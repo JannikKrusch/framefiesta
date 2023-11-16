@@ -23,7 +23,5 @@ export enum UserEndpoints {
 }
 
 export enum HttpStatusCodes {
-  Ok = 200,
-  NotFound = 404,
   InternalServerError = 500,
 }
