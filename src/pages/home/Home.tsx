@@ -61,7 +61,8 @@ export function Home(): JSX.Element {
     userFE.id = "1";
     userFE.name = "Joe Mama";
     userFE.email = "joemama@gmail.com";
-    userFE.comments = [blogPosts[0].comments[0]];
+    userFE.comments = [dummyPosts[0].comments[0]];
+    console.warn(dummyPosts[0].comments[0]);
     setUser(userFE);
 
     //!use this when backend is available

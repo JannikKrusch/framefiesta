@@ -29,7 +29,9 @@ export function DummyBlogPosts(amount: number): BlogPost[] {
         : "https://images3.alphacoders.com/133/1337297.jpeg";
     motionPicture.initialRelease = 1994;
     motionPicture.ageRating = 18;
-    motionPicture.budget = 10000000;
+    motionPicture.budget = Math.floor(
+      Math.random() * (200000000 - 100000) + 100000
+    );
     motionPicture.title = `Pulp Fiction hjfd fhdjf d dfjhfj djf abc xyz ${i}`;
     motionPicture.seasons = 1;
     motionPicture.episodes = 10;

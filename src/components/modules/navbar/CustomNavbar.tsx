@@ -16,7 +16,12 @@ import {
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import { PersonCircle } from "react-bootstrap-icons";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Search, ServiceContext, useTime } from "../../../utils";
+import {
+  Search,
+  ServiceContext,
+  listDisjunctionFormat,
+  useTime,
+} from "../../../utils";
 import { CustomButton } from "../..";
 
 export function CustomNavbar() {
@@ -37,7 +42,12 @@ export function CustomNavbar() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const seachBoxPlaceholder = "Search for a title, actor, genre or year...";
+  const seachBoxPlaceholder = `Search for ${listDisjunctionFormat([
+    "title",
+    "actor",
+    "genre",
+    "year",
+  ])} ...`;
 
   return (
     <Navbar

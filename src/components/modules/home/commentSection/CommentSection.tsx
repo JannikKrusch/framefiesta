@@ -15,7 +15,6 @@ interface CommentProps {
 }
 
 export function CommentSection(props: CommentProps): JSX.Element {
-  const [sorted, setSorted] = useState<Comment[]>([...props.blogPost.comments]);
   const [sortedState, setSortedState] = useState<number>(-1);
   const [comment, setComment] = useState("");
   const itemsPerPage = 10;
@@ -28,24 +27,30 @@ export function CommentSection(props: CommentProps): JSX.Element {
   const [deleteCommentLoading, setDeleteCommentLoading] =
     useState<boolean>(false);
 
-  function sortNewest(): void {
+  function sortNewest(): Comment[] {
     const sortedComments = [...props.blogPost.comments].sort(
       (commentA, commentB) => {
         return commentB.date.getTime() - commentA.date.getTime();
       }
     );
-
-    setSorted((prev) => sortedComments);
+    return sortedComments;
   }
 
-  function sortOldest(): void {
+  function sortOldest(): Comment[] {
     const sortedComments = [...props.blogPost.comments].sort(
       (commentA, commentB) => {
         return commentA.date.getTime() - commentB.date.getTime();
       }
     );
+    return sortedComments;
+  }
 
-    setSorted((prev) => sortedComments);
+  function sortComments(): Comment[] {
+    if (sortedState == 0) {
+      return sortOldest();
+    } else {
+      return sortNewest();
+    }
   }
 
   async function addCommentAsync(): Promise<void> {
@@ -132,13 +137,12 @@ export function CommentSection(props: CommentProps): JSX.Element {
   }
 
   useEffect(() => {
-    setSorted([...props.blogPost.comments]);
-
     if (sortedState === -1) {
-      sortNewest();
       setSortedState(1);
     }
   }, [props.blogPost.comments]);
+
+  const sorted = sortComments();
 
   return (
     <div className="commentsection-container" id={"comment-section-start"}>
@@ -152,7 +156,6 @@ export function CommentSection(props: CommentProps): JSX.Element {
               notLast
               method={() => {
                 setSortedState(0);
-                sortOldest();
               }}
             />
             <CustomButton
@@ -160,7 +163,6 @@ export function CommentSection(props: CommentProps): JSX.Element {
               active={sortedState === 1}
               method={() => {
                 setSortedState(1);
-                sortNewest();
               }}
             />
           </ButtonGroup>
@@ -175,16 +177,16 @@ export function CommentSection(props: CommentProps): JSX.Element {
           className="comment-inputgroup"
           rows={Math.min(comment.split("\n").length, 10)}
           as="textarea"
-          placeholder="Add Comment..."
+          placeholder="Add comment..."
           value={comment}
           onChange={(e) => {
+            console.warn(e.target.value);
             setComment(e.target.value);
           }}
           onFocus={() => setIsFocused(true)}
           onBlur={() => {
-            if (!comment.trim()) {
-              setIsFocused(false);
-            }
+            setComment("");
+            setIsFocused(false);
           }}
         />
       </InputGroup>

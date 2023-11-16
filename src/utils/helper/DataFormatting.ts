@@ -8,13 +8,22 @@ export function currencyCompactFormat(input: number): string {
   return currencyFormat.format(input);
 }
 
-const listFormat = new Intl.ListFormat("en-us", {
+const listFormatConjunction = new Intl.ListFormat("en-us", {
   style: "long",
   type: "conjunction",
 });
 
 export function listConjunctionFormat(input: string[]): string {
-  return listFormat.format(input);
+  return listFormatConjunction.format(input);
+}
+
+const listFormatDisjunction = new Intl.ListFormat("en", {
+  style: "long",
+  type: "disjunction",
+});
+
+export function listDisjunctionFormat(input: string[]): string {
+  return listFormatDisjunction.format(input);
 }
 
 export function timeFormat(input: number): string {
