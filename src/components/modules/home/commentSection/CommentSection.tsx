@@ -193,7 +193,6 @@ export function CommentSection(props: CommentProps): JSX.Element {
           <ButtonGroup>
             <CustomButton
               label={"Cancel"}
-              active={false}
               notLast
               onlyText
               method={() => setIsFocused((prev) => false)}
@@ -201,8 +200,8 @@ export function CommentSection(props: CommentProps): JSX.Element {
             <CustomButton
               label={"Comment"}
               active
-              notLast={false}
               loading={addCommentLoading}
+              disabled={comment.trim().length === 0}
               method={async () => await addCommentAsync()}
             />
           </ButtonGroup>

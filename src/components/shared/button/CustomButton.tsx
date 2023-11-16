@@ -11,6 +11,7 @@ interface ButtonProps {
   isSubmit?: boolean;
   loading?: boolean;
   hidden?: boolean;
+  disabled?: boolean;
   method?: () => void;
 }
 
@@ -32,6 +33,7 @@ export function CustomButton(props: ButtonProps): JSX.Element {
 
   return (
     <Button
+      disabled={props.disabled}
       type={props.isSubmit ? "submit" : "button"}
       href={props.href}
       className={buttonClasses}

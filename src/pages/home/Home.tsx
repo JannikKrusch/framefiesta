@@ -4,6 +4,7 @@ import {
   DataContext,
   ServiceContext,
   StateContext,
+  UserFE,
   useErrorRedirect,
 } from "../../utils";
 import { DetailPost, Loader } from "../../components";
@@ -55,9 +56,17 @@ export function Home(): JSX.Element {
       setLoading((prev) => false);
     }
     setBlogPosts(dummyPosts);
+
+    const userFE = new UserFE();
+    userFE.id = "1";
+    userFE.name = "Joe Mama";
+    userFE.email = "joemama@gmail.com";
+    userFE.comments = [blogPosts[0].comments[0]];
+    setUser(userFE);
+
     //!use this when backend is available
     // getBlogPostsAsync();
-    getUserFromSessionStorage();
+    //getUserFromSessionStorage();
 
     return () => {
       // Abbruch aller laufenden Anfragen beim Unmount
