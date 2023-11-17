@@ -32,7 +32,7 @@ export function PostInformation(props: PostInformationProps): JSX.Element {
       }))
       .sort((a, b) => b.score - a.score)
       .map((movieWithScore) => movieWithScore)
-      .slice(0, 10);
+      .slice(0, 12);
   }
 
   function getScore(movie1: MotionPicture, movie2: MotionPicture): number {

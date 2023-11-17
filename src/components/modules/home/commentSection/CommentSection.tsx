@@ -56,14 +56,14 @@ export function CommentSection(props: CommentProps): JSX.Element {
   async function addCommentAsync(): Promise<void> {
     const trimmedComment = comment.trim();
     if (user && trimmedComment.length > 0) {
-      setAddCommentLoading((prev) => true);
+      setAddCommentLoading((prev) => !prev);
       const data = await userService?.addCommentAsync(
         user?.email,
         user?.password,
         trimmedComment,
         props.blogPost.id
       );
-      setAddCommentLoading((prev) => false);
+
       if (data) {
         const tempUser = { ...user };
         tempUser.comments.push(data);
@@ -78,12 +78,14 @@ export function CommentSection(props: CommentProps): JSX.Element {
         tempBlogPosts[index] = tempBlogPost;
         setBlogPosts(tempBlogPosts);
       }
+      setAddCommentLoading((prev) => !prev);
+      setIsFocused((prev) => false);
     }
   }
 
   async function deleteCommentAsync(commentId: string): Promise<void> {
     if (user) {
-      setAddCommentLoading((prev) => true);
+      setDeleteCommentLoading((prev) => !prev);
       const successful = await userService?.deleteCommentAsync(
         user.email,
         user.password,
@@ -109,6 +111,7 @@ export function CommentSection(props: CommentProps): JSX.Element {
         tempBlogPosts[index] = tempBlogPost;
         setBlogPosts(tempBlogPosts);
       }
+      setDeleteCommentLoading((prev) => !prev);
     }
   }
 
@@ -180,16 +183,12 @@ export function CommentSection(props: CommentProps): JSX.Element {
           placeholder="Add comment..."
           value={comment}
           onChange={(e) => {
-            console.warn(e.target.value);
-            setComment(e.target.value);
+            setComment(e.target.value.trimStart());
           }}
           onFocus={() => setIsFocused(true)}
-          onBlur={() => {
-            setComment("");
-            setIsFocused(false);
-          }}
         />
       </InputGroup>
+
       {isFocused ? (
         <div className="comment-input-buttons">
           <ButtonGroup>
@@ -203,7 +202,7 @@ export function CommentSection(props: CommentProps): JSX.Element {
               label={"Comment"}
               active
               loading={addCommentLoading}
-              disabled={comment.trim().length === 0}
+              disabled={comment.trim().length === 0 || addCommentLoading}
               method={async () => await addCommentAsync()}
             />
           </ButtonGroup>

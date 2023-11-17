@@ -1,1 +1,5 @@
-export const INFORMATION_OPTIONS = ["Description", "Review", "Recommended"];
+export const INFORMATION_OPTIONS: string[] = [
+  "Description",
+  "Review",
+  "Recommended",
+];

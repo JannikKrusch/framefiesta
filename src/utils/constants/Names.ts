@@ -1,1 +1,1 @@
-export const COMPANY_NAME = "FrameFiesta";
+export const COMPANY_NAME: string = "FrameFiesta";

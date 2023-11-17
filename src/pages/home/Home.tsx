@@ -28,8 +28,6 @@ export function Home(): JSX.Element {
       return;
     }
 
-    console.warn(blogPosts);
-
     if (selectedBlogPostId === "" && blogPosts.length > 0) {
       setSelectedBlogPostId(blogPosts[blogPosts.length - 1].id);
       setBlogPosts((prev) => blogPosts);
@@ -48,7 +46,7 @@ export function Home(): JSX.Element {
     if (blogPostService === undefined) {
       return;
     }
-    const dummyPosts = DummyBlogPosts(10);
+    const dummyPosts = DummyBlogPosts(20);
     if (selectedBlogPostId === "") {
       setSelectedBlogPostId(dummyPosts[dummyPosts.length - 1].id);
     }
@@ -62,7 +60,6 @@ export function Home(): JSX.Element {
     userFE.name = "Joe Mama";
     userFE.email = "joemama@gmail.com";
     userFE.comments = [dummyPosts[0].comments[0]];
-    console.warn(dummyPosts[0].comments[0]);
     setUser(userFE);
 
     //!use this when backend is available

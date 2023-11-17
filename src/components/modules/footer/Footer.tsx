@@ -1,10 +1,10 @@
 import { Instagram, Twitter, Youtube } from "react-bootstrap-icons";
 import "./Footer.css";
-import { COMPANY_NAME } from "../../../utils";
+import { COMPANY_NAME, RICKROLL_YT_LINK } from "../../../utils";
 
 export function Footer(): JSX.Element {
   function iconClick(): void {
-    window.open("https://t.ly/UcFH_", "_blank");
+    window.open(RICKROLL_YT_LINK, "_blank");
   }
 
   return (
