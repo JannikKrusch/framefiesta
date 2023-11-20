@@ -173,11 +173,11 @@ export function CommentSection(props: CommentProps): JSX.Element {
       </div>
 
       <InputGroup data-bs-theme="dark" hidden={user === undefined}>
-        <InputGroup.Text className="comment-inputgroup">
+        <InputGroup.Text className="comment-inputgroup ps-0">
           <PersonCircle className="comment-author-icon" size={"3rem"} />
         </InputGroup.Text>
         <Form.Control
-          className="comment-inputgroup"
+          className="comment-inputgroup comment-input"
           rows={Math.min(comment.split("\n").length, 10)}
           as="textarea"
           placeholder="Add comment..."
@@ -222,7 +222,7 @@ export function CommentSection(props: CommentProps): JSX.Element {
           return (
             <div className="comment-container g-0 row" key={index}>
               <div className="row">
-                <div className="col-auto">
+                <div className="col-auto ps-0">
                   <PersonCircle className="comment-author-icon" size={"3rem"} />
                 </div>
                 <div className="col mb-2">

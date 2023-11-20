@@ -1,6 +1,11 @@
+html {
+  scroll-behavior: smooth;
+  scroll-padding: 5rem;
+}
+
 .comment-container {
   margin-bottom: 1rem;
-  padding-top: 1rem;
+  padding-top: 2rem;
   padding-bottom: 2rem;
   border-bottom: 1px solid var(--border-color);
   color: var(--text-color-default);
@@ -23,8 +28,12 @@
 
 .comment-inputgroup {
   background-color: var(--page-background-color) !important;
-  border-color: var(--border-color) !important;
+  border: none !important;
   color: var(--text-color-default) !important;
+}
+
+.comment-input {
+  border-bottom: 1px solid var(--border-color) !important;
 }
 
 .comment-input-buttons {

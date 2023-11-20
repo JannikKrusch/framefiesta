@@ -55,12 +55,12 @@ export function Home(): JSX.Element {
     }
     setBlogPosts(dummyPosts);
 
-    // const userFE = new UserFE();
-    // userFE.id = "1";
-    // userFE.name = "Joe Mama";
-    // userFE.email = "joemama@gmail.com";
-    // userFE.comments = [dummyPosts[0].comments[0]];
-    // setUser(userFE);
+    const userFE = new UserFE();
+    userFE.id = "1";
+    userFE.name = "Joe Mama";
+    userFE.email = "joemama@gmail.com";
+    userFE.comments = [dummyPosts[0].comments[0]];
+    setUser(userFE);
 
     //!use this when backend is available
     // getBlogPostsAsync();
