@@ -1,5 +1,3 @@
-import { LoginBody } from "./LoginBody";
-
 export interface RegisterBody {
   name: string;
   password: string;
