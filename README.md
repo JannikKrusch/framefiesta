@@ -4,8 +4,13 @@
 1. Node.js installieren
 2. Repository klonen
 3. Ins Stammverzeichnis wechseln
-4. `npm i` ausführen
-5. `npm start` ausführen
+4. Terminal aufmachen und folgende Befehle eingeben
+5. ```console
+   npm i
+   ```
+6. ```console
+   npm start
+   ```
 
 ## Anleitung
 
