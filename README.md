@@ -20,6 +20,9 @@ Das Projekt kann man nun starten `npm start`, das kann kurz dauern. Es sollte si
 
 ![grafik](https://github.com/JannikKrusch/framefiesta/assets/96232216/746b001e-6587-4daf-8398-9caeb1a90deb)
 
+# Node.js Version
+`20.9.0`
+
 # NPM Pakete
 | Paketname                 | Version |
 | ------------------------- | ------- |
