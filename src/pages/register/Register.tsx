@@ -10,6 +10,7 @@ import {
 } from "../../utils";
 import { useNavigate } from "react-router-dom";
 import { CustomButton } from "../../components";
+import { EyeFill, EyeSlashFill } from "react-bootstrap-icons";
 
 export function Register(): JSX.Element {
   const [validated, setValidated] = useState(false);
@@ -22,6 +23,11 @@ export function Register(): JSX.Element {
   const { setUser } = useContext(DataContext);
   const [isInvalid, setIsInvalid] = useState<boolean | undefined>(undefined);
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   async function handleSubmitAsync(
     event: React.FormEvent<HTMLFormElement>
@@ -106,17 +112,31 @@ export function Register(): JSX.Element {
             </Form.Control.Feedback>
           </Form.Group>
 
-          <Form.Group controlId="validationPassword" className="form-group">
+          <Form.Group
+            controlId="validationPassword"
+            className="form-group position-relative"
+          >
             <Form.Label>Password</Form.Label>
             <Form.Control
               required
               minLength={10}
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               isInvalid={validated}
             />
+            {showPassword ? (
+              <EyeSlashFill
+                className="password-icon"
+                onClick={togglePasswordVisibility}
+              />
+            ) : (
+              <EyeFill
+                className="password-icon"
+                onClick={togglePasswordVisibility}
+              />
+            )}
             <Form.Control.Feedback type="invalid">
               {isInvalid === undefined
                 ? "Password required (at least 10 chars)"

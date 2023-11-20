@@ -3,7 +3,6 @@ import {
   DataContext,
   RouterPaths,
   ServiceContext,
-  StateContext,
   convertUserToUserFE,
   useInternalServerErrorRedirect,
 } from "../../utils";
@@ -11,6 +10,7 @@ import { Form } from "react-bootstrap";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import { CustomButton } from "../../components";
+import { EyeFill, EyeSlashFill } from "react-bootstrap-icons";
 
 export function Login(): JSX.Element {
   const [validated, setValidated] = useState(false);
@@ -21,6 +21,11 @@ export function Login(): JSX.Element {
   const [isInvalid, setIsvalid] = useState<boolean | undefined>(undefined);
   const navigate = useNavigate();
   const [submitLoading, setSubmitLoading] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   async function handleSubmitAsync(
     event: React.FormEvent<HTMLFormElement>
@@ -90,17 +95,31 @@ export function Login(): JSX.Element {
             </Form.Control.Feedback>
           </Form.Group>
 
-          <Form.Group controlId="validationPassword" className="form-group">
+          <Form.Group
+            controlId="validationPassword"
+            className="form-group position-relative"
+          >
             <Form.Label>Password</Form.Label>
             <Form.Control
               required
               minLength={10}
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               isInvalid={isInvalid}
             />
+            {showPassword ? (
+              <EyeSlashFill
+                className="password-icon"
+                onClick={togglePasswordVisibility}
+              />
+            ) : (
+              <EyeFill
+                className="password-icon"
+                onClick={togglePasswordVisibility}
+              />
+            )}
             <Form.Control.Feedback type="invalid">
               {isInvalid === undefined
                 ? "Password required (at least 10 chars)"
