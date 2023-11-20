@@ -46,7 +46,7 @@ export function CommentSection(props: CommentProps): JSX.Element {
   }
 
   function sortComments(): Comment[] {
-    if (sortedState == 0) {
+    if (sortedState === 0) {
       return sortOldest();
     } else {
       return sortNewest();
