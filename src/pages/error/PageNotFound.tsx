@@ -1,7 +1,6 @@
 import "./ErrorPage.css";
 import "./PageNotFound.css";
 import { EmojiFrownFill } from "react-bootstrap-icons";
-import { RICKROLL_YT_LINK } from "../../utils";
 
 export function PageNotFound(): JSX.Element {
   return (
@@ -24,9 +23,10 @@ export function PageNotFound(): JSX.Element {
       <div>
         <iframe
           width="100%"
-          height="480"
-          src={RICKROLL_YT_LINK}
+          height="400px"
+          src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=tDL65ZKiRWVkBbJI"
           title="Rick Astley - Never Gonna Give You Up (Official Music Video)"
+          allowFullScreen
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         ></iframe>
       </div>

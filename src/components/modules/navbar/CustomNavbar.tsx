@@ -36,7 +36,7 @@ export function CustomNavbar() {
       title: post.relatedMotionPicture.title,
       actors: post.relatedMotionPicture.actors.join(","),
       genres: post.relatedMotionPicture.genres.join(", "),
-      year: post.relatedMotionPicture.initialRelease,
+      year: post.relatedMotionPicture.initialRelease.toString(),
     };
   });
   const location = useLocation();
