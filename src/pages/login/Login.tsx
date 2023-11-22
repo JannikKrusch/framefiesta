@@ -23,9 +23,9 @@ export function Login(): JSX.Element {
   const [submitLoading, setSubmitLoading] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const togglePasswordVisibility = () => {
+  function togglePasswordVisibility(): void {
     setShowPassword(!showPassword);
-  };
+  }
 
   async function handleSubmitAsync(
     event: React.FormEvent<HTMLFormElement>

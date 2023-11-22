@@ -110,7 +110,7 @@ export function CustomNavbar() {
                 overlay={
                   <Popover className="user-icon-popover">
                     <PopoverBody className="user-icon-popover-header">
-                      <span>{greeting}</span>{" "}
+                      <span>{greeting}</span>
                       {user?.name ? `, ${user.name}` : null}
                     </PopoverBody>
                     <PopoverBody>

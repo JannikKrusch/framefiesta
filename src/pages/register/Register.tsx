@@ -52,6 +52,7 @@ export function Register(): JSX.Element {
       const userFE = convertUserToUserFE(user, password);
       setUser((prev) => userFE);
       sessionStorageService?.setUser(userFE);
+      console.warn(user);
       navigate(RouterPaths.Default.path);
     } else {
       setIsInvalid(true);
