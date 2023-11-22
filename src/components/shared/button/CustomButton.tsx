@@ -12,7 +12,7 @@ interface ButtonProps {
   loading?: boolean;
   hidden?: boolean;
   disabled?: boolean;
-  method?: () => void;
+  method?: (() => void) | (() => Promise<void>);
 }
 
 export function CustomButton(props: ButtonProps): JSX.Element {

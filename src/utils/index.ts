@@ -25,7 +25,7 @@ export * from "./models/Comment";
 export * from "./models/CustomError";
 export * from "./models/DeleteCommentBody";
 export * from "./models/Film";
-export * from "./models/LoginBody";
+export * from "./models/IdentificationBody";
 export * from "./models/MotionPicture";
 export * from "./models/RegisterBody";
 export * from "./models/Search";

@@ -4,7 +4,7 @@ import {
   Comment,
   Controllers,
   DeleteCommentBody,
-  LoginBody,
+  IdentificationBody,
   Method,
   RegisterBody,
   User,
@@ -40,7 +40,7 @@ export class UserService extends DataService {
     password: string
   ): Promise<User | null> {
     const url = UserEndpoints.LogIn;
-    const body: LoginBody = {
+    const body: IdentificationBody = {
       userIdentification,
       password,
     };
@@ -85,6 +85,23 @@ export class UserService extends DataService {
       password,
       commentId,
       blogPostId,
+    };
+
+    return await this.callEndpointBooleanAsync(
+      url,
+      JSON.stringify(body),
+      Method.Delete
+    );
+  }
+
+  public async deleteUserAsync(
+    userIdentification: string,
+    password: string
+  ): Promise<boolean> {
+    const url = UserEndpoints.DeleteUser;
+    const body: IdentificationBody = {
+      userIdentification,
+      password,
     };
 
     return await this.callEndpointBooleanAsync(

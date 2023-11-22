@@ -27,7 +27,7 @@ import { CustomButton } from "../..";
 export function CustomNavbar() {
   const { blogPosts, user, setUser, setSelectedBlogPostId } =
     useContext(DataContext);
-  const { sessionStorageService } = useContext(ServiceContext);
+  const { userService, sessionStorageService } = useContext(ServiceContext);
   const { greeting } = useTime();
   const [selected, setSelected] = useState<Search[]>([]);
   const options: Search[] = blogPosts.map((post) => {
@@ -48,6 +48,26 @@ export function CustomNavbar() {
     "genre",
     "year",
   ])} ...`;
+
+  function removeUserFromStorageAndDefaultRedirect(): void {
+    setUser(undefined);
+    sessionStorageService?.deleteUser();
+    navigate(RouterPaths.Default.path);
+  }
+
+  async function deleteUser(): Promise<void> {
+    if (user) {
+      const successful = await userService?.deleteUserAsync(
+        user.name,
+        user.password
+      );
+      if (successful) {
+        setUser(undefined);
+        sessionStorageService?.deleteUser();
+        window.location.href = RouterPaths.Default.path;
+      }
+    }
+  }
 
   return (
     <Navbar
@@ -137,14 +157,20 @@ export function CustomNavbar() {
 
                         <CustomButton
                           active
-                          method={() => {
-                            setUser(undefined);
-                            sessionStorageService?.deleteUser();
-                            navigate(RouterPaths.Default.path);
+                          label={"Delete Account"}
+                          notLast
+                          hidden={user === undefined}
+                          method={async () => {
+                            deleteUser();
                           }}
+                        />
+
+                        <CustomButton
+                          active
                           label={"Logout"}
                           notLast
                           hidden={user === undefined}
+                          method={removeUserFromStorageAndDefaultRedirect}
                         />
                       </div>
                     </PopoverBody>
