@@ -38,6 +38,7 @@ export function Register(): JSX.Element {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       setValidated(true);
+      setIsInvalid(true);
       return;
     }
 
@@ -129,12 +130,16 @@ export function Register(): JSX.Element {
             />
             {showPassword ? (
               <EyeSlashFill
-                className="password-icon"
+                className={`register-password-icon ${
+                  isInvalid ? "invalid" : ""
+                }`}
                 onClick={togglePasswordVisibility}
               />
             ) : (
               <EyeFill
-                className="password-icon"
+                className={`register-password-icon ${
+                  isInvalid ? "invalid" : ""
+                }`}
                 onClick={togglePasswordVisibility}
               />
             )}

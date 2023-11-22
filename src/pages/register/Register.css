@@ -15,11 +15,17 @@
   position: relative;
 }
 
-.password-icon {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(50%);
+.register-password-icon.invalid {
+  right: 40px !important;
+  transform: translateY(50%) !important;
+}
+
+.register-password-icon {
+  position: absolute !important;
+  top: 50% !important;
+  right: 10px !important;
+  transform: translateY(50%) !important;
   cursor: pointer;
-  color: black;
+  color: rgb(0, 0, 0);
+  z-index: 1000 !important;
 }

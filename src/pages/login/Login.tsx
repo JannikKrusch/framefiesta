@@ -18,7 +18,7 @@ export function Login(): JSX.Element {
   const [password, setPassword] = useState<string>("");
   const { setUser } = useContext(DataContext);
   const { userService, sessionStorageService } = useContext(ServiceContext);
-  const [isInvalid, setIsvalid] = useState<boolean | undefined>(undefined);
+  const [isInvalid, setIsvalid] = useState<boolean>(false);
   const navigate = useNavigate();
   const [submitLoading, setSubmitLoading] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -36,6 +36,7 @@ export function Login(): JSX.Element {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       setValidated(true);
+      setIsvalid(true);
       return;
     }
     setValidated(true);
@@ -66,7 +67,7 @@ export function Login(): JSX.Element {
   return (
     <div className="d-flex justify-content-center login-container">
       <div className="col-sm-12 col-md-8 col-lg-4 col-12">
-        <h1 className="headline">Login</h1>
+        <h1 className="headline">Login {isInvalid ? "TRUE" : "FALSE"}</h1>
         <span className="subtext">Login with your account</span>
 
         <Form
@@ -111,12 +112,12 @@ export function Login(): JSX.Element {
             />
             {showPassword ? (
               <EyeSlashFill
-                className="password-icon"
+                className={`login-password-icon ${isInvalid ? "invalid" : ""}`}
                 onClick={togglePasswordVisibility}
               />
             ) : (
               <EyeFill
-                className="password-icon"
+                className={`login-password-icon ${isInvalid ? "invalid" : ""}`}
                 onClick={togglePasswordVisibility}
               />
             )}

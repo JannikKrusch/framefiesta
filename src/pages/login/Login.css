@@ -12,14 +12,20 @@
 }
 
 .position-relative {
-  position: relative;
+  position: relative !important;
 }
 
-.password-icon {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(50%);
+.login-password-icon.invalid {
+  right: 40px !important;
+  transform: translateY(-20%) !important;
+}
+
+.login-password-icon {
+  position: absolute !important;
+  top: 50% !important;
+  right: 10px !important;
+  transform: translateY(50%) !important;
   cursor: pointer;
-  color: black;
+  color: rgb(0, 0, 0);
+  z-index: 1000 !important;
 }
