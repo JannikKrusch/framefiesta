@@ -20,7 +20,7 @@ export enum UserEndpoints {
   LogIn = "/login",
   AddComment = "/comment",
   DeleteComment = "/comment",
-  DeleteUser = "/deleteUser",
+  DeleteUser = "/user",
 }
 
 export enum HttpStatusCodes {

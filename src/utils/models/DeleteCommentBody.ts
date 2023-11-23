@@ -1,6 +1,5 @@
-import { IdentificationBody } from "./IdentificationBody";
-
-export interface DeleteCommentBody extends IdentificationBody {
+export interface DeleteCommentBody {
+  password: string;
   commentId: string;
   blogPostId: string;
 }

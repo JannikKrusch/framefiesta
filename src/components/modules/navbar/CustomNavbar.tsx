@@ -20,6 +20,7 @@ import {
   Search,
   ServiceContext,
   listDisjunctionFormat,
+  navigateToHome,
   useTime,
 } from "../../../utils";
 import { CustomButton } from "../..";
@@ -52,7 +53,7 @@ export function CustomNavbar() {
   function removeUserFromStorageAndDefaultRedirect(): void {
     setUser(undefined);
     sessionStorageService?.deleteUser();
-    navigate(RouterPaths.Default.path);
+    navigateToHome();
   }
 
   async function deleteUser(): Promise<void> {

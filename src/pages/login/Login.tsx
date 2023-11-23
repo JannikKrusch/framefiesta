@@ -4,11 +4,11 @@ import {
   RouterPaths,
   ServiceContext,
   convertUserToUserFE,
+  navigateToHome,
   useInternalServerErrorRedirect,
 } from "../../utils";
 import { Form } from "react-bootstrap";
 import "./Login.css";
-import { useNavigate } from "react-router-dom";
 import { CustomButton } from "../../components";
 import { EyeFill, EyeSlashFill } from "react-bootstrap-icons";
 
@@ -19,7 +19,6 @@ export function Login(): JSX.Element {
   const { setUser } = useContext(DataContext);
   const { userService, sessionStorageService } = useContext(ServiceContext);
   const [isInvalid, setIsvalid] = useState<boolean>(false);
-  const navigate = useNavigate();
   const [submitLoading, setSubmitLoading] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -49,7 +48,7 @@ export function Login(): JSX.Element {
       setIsvalid((prev) => false);
       sessionStorageService?.setUser(userFE);
       setSubmitLoading(false);
-      navigate(RouterPaths.Default.path);
+      navigateToHome();
     } else {
       setIsvalid((prev) => true);
       setSubmitLoading(false);
@@ -103,7 +102,6 @@ export function Login(): JSX.Element {
             <Form.Label>Password</Form.Label>
             <Form.Control
               required
-              minLength={10}
               type={showPassword ? "text" : "password"}
               placeholder="Password"
               value={password}

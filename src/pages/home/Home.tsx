@@ -4,7 +4,6 @@ import {
   DataContext,
   ServiceContext,
   StateContext,
-  UserFE,
   useErrorRedirect,
 } from "../../utils";
 import { DetailPost, Loader } from "../../components";
@@ -23,14 +22,14 @@ export function Home(): JSX.Element {
 
   async function getBlogPostsAsync(): Promise<void> {
     setLoading((prev) => true);
-    const blogPosts = await blogPostService?.getBlogPostsAsync();
-    if (blogPosts === null || blogPosts === undefined) {
+    const tempBlogPosts = await blogPostService?.getBlogPostsAsync();
+    if (tempBlogPosts === null || tempBlogPosts === undefined) {
       return;
     }
 
-    if (selectedBlogPostId === "" && blogPosts.length > 0) {
-      setSelectedBlogPostId(blogPosts[blogPosts.length - 1].id);
-      setBlogPosts((prev) => blogPosts);
+    if (selectedBlogPostId === "" && tempBlogPosts.length > 0) {
+      setSelectedBlogPostId(tempBlogPosts[tempBlogPosts.length - 1].id);
+      setBlogPosts((prev) => tempBlogPosts ?? prev);
       setLoading((prev) => false);
     }
   }
@@ -46,14 +45,14 @@ export function Home(): JSX.Element {
     if (blogPostService === undefined) {
       return;
     }
-    const dummyPosts = DummyBlogPosts(20);
-    if (selectedBlogPostId === "") {
-      setSelectedBlogPostId(dummyPosts[dummyPosts.length - 1].id);
-    }
-    if (dummyPosts.length > 0) {
-      setLoading((prev) => false);
-    }
-    setBlogPosts(dummyPosts);
+    // const dummyPosts = DummyBlogPosts(20);
+    // if (selectedBlogPostId === "") {
+    //   setSelectedBlogPostId(dummyPosts[dummyPosts.length - 1].id);
+    // }
+    // if (dummyPosts.length > 0) {
+    //   setLoading((prev) => false);
+    // }
+    // setBlogPosts(dummyPosts);
 
     // const userFE = new UserFE();
     // userFE.id = "1";
@@ -63,7 +62,7 @@ export function Home(): JSX.Element {
     // setUser(userFE);
 
     //!use this when backend is available
-    // getBlogPostsAsync();
+    getBlogPostsAsync();
     getUserFromSessionStorage();
 
     return () => {

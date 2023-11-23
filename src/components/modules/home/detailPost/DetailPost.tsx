@@ -35,7 +35,7 @@ export function DetailPost(props: DetailPostProps): JSX.Element {
       <FullSizeImage
         title={selectedBlogPost.relatedMotionPicture.title}
         image={selectedBlogPost.relatedMotionPicture.image}
-        rating={selectedBlogPost.rating}
+        rating={selectedBlogPost.relatedMotionPicture.rating}
       />
       <PostInformation selectedBlogPost={selectedBlogPost} />
       <div></div>

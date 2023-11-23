@@ -4,7 +4,7 @@ import {
   Comment,
   Controllers,
   DeleteCommentBody,
-  IdentificationBody,
+  LoginBody,
   Method,
   RegisterBody,
   User,
@@ -40,7 +40,7 @@ export class UserService extends DataService {
     password: string
   ): Promise<User | null> {
     const url = UserEndpoints.LogIn;
-    const body: IdentificationBody = {
+    const body: LoginBody = {
       userIdentification,
       password,
     };
@@ -58,12 +58,13 @@ export class UserService extends DataService {
     comment: string,
     blogPostId: string
   ): Promise<Comment | null> {
-    const url = UserEndpoints.AddComment;
+    //'https://localhost:44302/api/FrameFiesta/comment?userIdentification=322432&blogId=1&comment=test'
+    const url =
+      UserEndpoints.AddComment +
+      `?userIdentification=${userIdentification}&blogId=${blogPostId}`;
     const body: AddCommentBody = {
-      userIdentification,
       password,
       comment,
-      blogPostId,
     };
 
     return await this.callEndpointGenericAsync<Comment>(
@@ -79,9 +80,11 @@ export class UserService extends DataService {
     commentId: string,
     blogPostId: string
   ): Promise<boolean> {
-    const url = UserEndpoints.DeleteComment;
+    //https://localhost:44302/api/FrameFiesta/comment?userIdentification=1&blogId=2&commentId=3
+    const url =
+      UserEndpoints.DeleteComment +
+      `?userIdentification=${userIdentification}&blogId=${blogPostId}&commentId=${commentId}`;
     const body: DeleteCommentBody = {
-      userIdentification,
       password,
       commentId,
       blogPostId,
@@ -98,15 +101,19 @@ export class UserService extends DataService {
     userIdentification: string,
     password: string
   ): Promise<boolean> {
-    const url = UserEndpoints.DeleteUser;
-    const body: IdentificationBody = {
-      userIdentification,
+    console.warn(password);
+    //  https://localhost:44302/api/FrameFiesta/user?userIdentification=Julia
+    // 'https://localhost:44302/api/FrameFiesta/user?userIdentification=erwwwe'
+    const url =
+      UserEndpoints.DeleteUser + `?userIdentification=${userIdentification}`;
+    const body = {
       password,
     };
+    console.warn(body);
 
     return await this.callEndpointBooleanAsync(
       url,
-      JSON.stringify(body),
+      JSON.stringify(password),
       Method.Delete
     );
   }

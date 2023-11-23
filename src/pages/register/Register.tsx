@@ -6,9 +6,9 @@ import {
   RouterPaths,
   ServiceContext,
   convertUserToUserFE,
+  navigateToHome,
   useInternalServerErrorRedirect,
 } from "../../utils";
-import { useNavigate } from "react-router-dom";
 import { CustomButton } from "../../components";
 import { EyeFill, EyeSlashFill } from "react-bootstrap-icons";
 
@@ -22,7 +22,6 @@ export function Register(): JSX.Element {
   const { userService, sessionStorageService } = useContext(ServiceContext);
   const { setUser } = useContext(DataContext);
   const [isInvalid, setIsInvalid] = useState<boolean | undefined>(undefined);
-  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -37,12 +36,15 @@ export function Register(): JSX.Element {
 
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
+      console.warn("in if");
       setValidated(true);
       setIsInvalid(true);
       return;
     }
 
     if (password !== confirmPassword || password.includes(" ")) {
+      setValidated(true);
+      setIsInvalid(true);
       return;
     }
 
@@ -53,8 +55,7 @@ export function Register(): JSX.Element {
       const userFE = convertUserToUserFE(user, password);
       setUser((prev) => userFE);
       sessionStorageService?.setUser(userFE);
-      console.warn(user);
-      navigate(RouterPaths.Default.path);
+      navigateToHome();
     } else {
       setIsInvalid(true);
     }
@@ -121,12 +122,11 @@ export function Register(): JSX.Element {
             <Form.Label>Password</Form.Label>
             <Form.Control
               required
-              minLength={10}
               type={showPassword ? "text" : "password"}
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              isInvalid={validated}
+              isInvalid={isInvalid}
             />
             {showPassword ? (
               <EyeSlashFill
@@ -144,9 +144,7 @@ export function Register(): JSX.Element {
               />
             )}
             <Form.Control.Feedback type="invalid">
-              {isInvalid === undefined
-                ? "Password required (at least 10 chars)"
-                : ""}
+              {isInvalid === undefined ? "Password required" : ""}
             </Form.Control.Feedback>
           </Form.Group>
 

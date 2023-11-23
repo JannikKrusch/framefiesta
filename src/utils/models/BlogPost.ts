@@ -9,7 +9,6 @@ export class BlogPost {
   public typeOf: string = "";
   public description: string = "";
   public review: string = "";
-  public rating: number = 0;
   public comments: Comment[] = [];
   //public relatedMotionPicture: MotionPicture = new MotionPicture();
   public relatedMotionPicture: Film | Series = new Film();

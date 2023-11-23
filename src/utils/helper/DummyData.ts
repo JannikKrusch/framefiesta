@@ -35,9 +35,9 @@ export function DummyBlogPosts(amount: number): BlogPost[] {
     motionPicture.title = `Pulp Fiction hjfd fhdjf d dfjhfj djf abc xyz ${i}`;
     motionPicture.seasons = 1;
     motionPicture.episodes = 10;
+    motionPicture.rating = 8.9;
 
     blogPost.id = i.toString();
-    blogPost.rating = 8.9;
     blogPost.relatedMotionPicture = motionPicture;
     blogPost.review =
       " Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia," +
