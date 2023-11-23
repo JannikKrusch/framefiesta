@@ -29,8 +29,12 @@
   color: var(--text-color-light-purple) !important;
 }
 
+.searchbox-container {
+  padding: 0;
+}
+
 .search-box {
-  min-width: 18.75rem;
+  min-width: 21rem;
   height: clamp(1rem, 4vw, 2rem) !important;
 }
 
@@ -52,4 +56,10 @@
 
 .user-icon.active {
   color: var(--text-color-purple);
+}
+
+@media only screen and (max-width: 576px) {
+  .searchbox-container {
+    padding: 1rem 0 1rem 0 !important;
+  }
 }

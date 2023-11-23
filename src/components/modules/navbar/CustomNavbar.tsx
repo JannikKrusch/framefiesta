@@ -85,7 +85,7 @@ export function CustomNavbar() {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" className="ms-auto" />
         <Navbar.Collapse id="navbarScroll">
-          <div className="ms-auto">
+          <div className="searchbox-container ms-auto">
             {location.pathname === RouterPaths.Default.path ? (
               <Typeahead
                 id="search-box"

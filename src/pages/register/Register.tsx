@@ -169,7 +169,7 @@ export function Register(): JSX.Element {
           </Form.Group>
           <div className="d-flex justify-content-between flex-sm-row flex-column">
             <CustomButton
-              label={`Got an account already? ${RouterPaths.Login.display}`}
+              label={`Got an account? ${RouterPaths.Login.display}`}
               href={RouterPaths.Login.path}
             />
             <CustomButton
