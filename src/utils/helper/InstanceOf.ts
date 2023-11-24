@@ -5,9 +5,10 @@ export function isInstanceOfResponse(input: unknown): input is Response {
   return input instanceof Response;
 }
 
-export function isInstanceOfFilm(input: unknown): input is Film {
-  return input instanceof Film;
+export function isInstanceOfFilm(object: any): object is Film {
+  return "runTime" in object;
 }
-export function isInstanceOfSeries(input: unknown): input is Series {
-  return input instanceof Series;
+
+export function isInstanceOfSeries(object: any): object is Series {
+  return "seasons" in object && "episodes" in object;
 }

@@ -8,6 +8,7 @@ export class MotionPicture {
   public genres: string[] = [];
   public initialRelease: number = 0;
   public budget: number = 0;
+  public type: string = "";
   //!wenn idee von paul nicht funktioniert, dann das hier benutzen
   //   public runTime?: number;
   //   public seasons?: number;
