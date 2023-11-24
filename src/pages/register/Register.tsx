@@ -21,8 +21,20 @@ export function Register(): JSX.Element {
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const { userService, sessionStorageService } = useContext(ServiceContext);
   const { setUser } = useContext(DataContext);
-  const [isInvalid, setIsInvalid] = useState<boolean | undefined>(undefined);
   const [showPassword, setShowPassword] = useState(false);
+
+  const [isInvalid, setIsInvalid] = useState<boolean | undefined>(undefined);
+  const [userNameEmptyInvalid, setUserNameEmptyInvalid] =
+    useState<boolean>(false);
+  const [userNameWhiteSpaceInvalid, setUserNameWhiteSpaceInvalid] =
+    useState<boolean>(false);
+  const [passwordEmptyInvalid, setPasswordEmptyInvalid] =
+    useState<boolean>(false);
+  const [passwordWhiteSpaceInvalid, setPasswordWhiteSpaceInvalid] =
+    useState<boolean>(false);
+
+  const [passwordAndConfirmInvalid, setPasswordAndConfirmInvalid] =
+    useState<boolean>(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -35,14 +47,39 @@ export function Register(): JSX.Element {
     event.stopPropagation();
 
     const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      console.warn("in if");
+
+    if (name.length === 0) {
+      setUserNameEmptyInvalid(true);
       setValidated(true);
       setIsInvalid(true);
-      return;
     }
 
-    if (password !== confirmPassword || password.includes(" ")) {
+    if (name.includes(" ")) {
+      setUserNameWhiteSpaceInvalid(true);
+      setValidated(true);
+      setIsInvalid(true);
+    }
+
+    if (password.length === 0) {
+      setPasswordEmptyInvalid(true);
+      setValidated(true);
+      setIsInvalid(true);
+    }
+
+    if (password.includes(" ")) {
+      setPasswordWhiteSpaceInvalid(true);
+      setValidated(true);
+      setIsInvalid(true);
+    }
+
+    if (password !== confirmPassword) {
+      setPasswordAndConfirmInvalid(true);
+      setValidated(true);
+      setIsInvalid(true);
+    }
+
+    if (form.checkValidity() === false) {
+      console.warn("in if");
       setValidated(true);
       setIsInvalid(true);
       return;
@@ -89,12 +126,14 @@ export function Register(): JSX.Element {
               placeholder="Username"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              isInvalid={isInvalid}
+              isInvalid={userNameEmptyInvalid || userNameWhiteSpaceInvalid}
             />
             <Form.Control.Feedback type="invalid">
-              {isInvalid === undefined
-                ? "Username required"
-                : "Username might be invalid"}
+              {userNameEmptyInvalid
+                ? "Username cannot be empty"
+                : userNameWhiteSpaceInvalid
+                ? "Username cannot have white space"
+                : ""}
             </Form.Control.Feedback>
           </Form.Group>
 
@@ -126,7 +165,11 @@ export function Register(): JSX.Element {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              isInvalid={isInvalid}
+              isInvalid={
+                passwordEmptyInvalid ||
+                passwordWhiteSpaceInvalid ||
+                passwordAndConfirmInvalid
+              }
             />
             {showPassword ? (
               <EyeSlashFill
@@ -144,7 +187,13 @@ export function Register(): JSX.Element {
               />
             )}
             <Form.Control.Feedback type="invalid">
-              {isInvalid === undefined ? "Password required" : ""}
+              {passwordEmptyInvalid
+                ? "Password cannot be empty"
+                : passwordWhiteSpaceInvalid
+                ? "Password cannot have white space"
+                : passwordAndConfirmInvalid
+                ? "Passwords must be identical"
+                : ""}
             </Form.Control.Feedback>
           </Form.Group>
 
@@ -159,7 +208,7 @@ export function Register(): JSX.Element {
               placeholder="Repeat Password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              isInvalid={password !== confirmPassword}
+              isInvalid={isInvalid}
             />
             <Form.Control.Feedback type="invalid">
               Password must be identical

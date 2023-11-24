@@ -54,6 +54,6 @@ export class UrlService {
       }
     }
 
-    return parameters.replaceAll(" ", "%20").replaceAll(":", "%3A");
+    return parameters;
   }
 }
