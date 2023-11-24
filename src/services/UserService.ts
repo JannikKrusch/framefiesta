@@ -1,14 +1,14 @@
 import { DataService } from ".";
 import {
   AddCommentBody,
+  AuthenticationInformationBody,
   Comment,
   Controllers,
-  DeleteCommentBody,
-  LoginBody,
   Method,
   RegisterBody,
   User,
   UserEndpoints,
+  UserParameters,
 } from "../utils";
 
 export class UserService extends DataService {
@@ -21,7 +21,7 @@ export class UserService extends DataService {
     password: string,
     email: string
   ): Promise<User | null> {
-    const url = UserEndpoints.Register;
+    const url = this.urlService.buildUrl(UserEndpoints.Register);
     const body: RegisterBody = {
       name,
       password,
@@ -39,8 +39,8 @@ export class UserService extends DataService {
     userIdentification: string,
     password: string
   ): Promise<User | null> {
-    const url = UserEndpoints.LogIn;
-    const body: LoginBody = {
+    const url = this.urlService.buildUrl(UserEndpoints.LogIn);
+    const body: AuthenticationInformationBody = {
       userIdentification,
       password,
     };
@@ -58,11 +58,15 @@ export class UserService extends DataService {
     comment: string,
     blogPostId: string
   ): Promise<Comment | null> {
-    //'https://localhost:44302/api/FrameFiesta/comment?userIdentification=322432&blogId=1&comment=test'
-    const url =
-      UserEndpoints.AddComment +
-      `?userIdentification=${userIdentification}&blogId=${blogPostId}`;
+    const parameters: Array<[string, string]> = [
+      this.urlService.createParameterTuple(
+        UserParameters.BlogPostId,
+        blogPostId
+      ),
+    ];
+    const url = this.urlService.buildUrl(UserEndpoints.AddComment, parameters);
     const body: AddCommentBody = {
+      userIdentification,
       password,
       comment,
     };
@@ -80,14 +84,20 @@ export class UserService extends DataService {
     commentId: string,
     blogPostId: string
   ): Promise<boolean> {
-    //https://localhost:44302/api/FrameFiesta/comment?userIdentification=1&blogId=2&commentId=3
-    const url =
-      UserEndpoints.DeleteComment +
-      `?userIdentification=${userIdentification}&blogId=${blogPostId}&commentId=${commentId}`;
-    const body: DeleteCommentBody = {
+    const parameters: Array<[string, string]> = [
+      this.urlService.createParameterTuple(
+        UserParameters.BlogPostId,
+        blogPostId
+      ),
+      this.urlService.createParameterTuple(UserParameters.CommentID, commentId),
+    ];
+    const url = this.urlService.buildUrl(
+      UserEndpoints.DeleteComment,
+      parameters
+    );
+    const body: AuthenticationInformationBody = {
+      userIdentification,
       password,
-      commentId,
-      blogPostId,
     };
 
     return await this.callEndpointBooleanAsync(
@@ -101,19 +111,15 @@ export class UserService extends DataService {
     userIdentification: string,
     password: string
   ): Promise<boolean> {
-    console.warn(password);
-    //  https://localhost:44302/api/FrameFiesta/user?userIdentification=Julia
-    // 'https://localhost:44302/api/FrameFiesta/user?userIdentification=erwwwe'
-    const url =
-      UserEndpoints.DeleteUser + `?userIdentification=${userIdentification}`;
-    const body = {
+    const url = this.urlService.buildUrl(UserEndpoints.DeleteComment);
+    const body: AuthenticationInformationBody = {
+      userIdentification,
       password,
     };
-    console.warn(body);
 
     return await this.callEndpointBooleanAsync(
       url,
-      JSON.stringify(password),
+      JSON.stringify(body),
       Method.Delete
     );
   }

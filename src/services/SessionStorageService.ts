@@ -1,7 +1,11 @@
 import { UserFE } from "../utils";
 
 export class SessionStorageService {
-  private readonly _key = "currentUser";
+  private readonly _key: string;
+
+  constructor() {
+    this._key = "CURRENT_USER";
+  }
 
   public setUser(user: UserFE): void {
     const json = JSON.stringify(user);

@@ -1,4 +1,5 @@
-export interface AddCommentBody {
-  password: string;
+import { AuthenticationInformationBody } from "..";
+
+export interface AddCommentBody extends AuthenticationInformationBody {
   comment: string;
 }

@@ -77,6 +77,7 @@ export function CommentSection(props: CommentProps): JSX.Element {
         );
         tempBlogPosts[index] = tempBlogPost;
         setBlogPosts(tempBlogPosts);
+        setComment("");
       }
       setAddCommentLoading((prev) => !prev);
       setIsFocused((prev) => false);

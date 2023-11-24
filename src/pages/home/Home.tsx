@@ -4,6 +4,7 @@ import {
   DataContext,
   ServiceContext,
   StateContext,
+  UserFE,
   useErrorRedirect,
 } from "../../utils";
 import { DetailPost, Loader } from "../../components";
@@ -42,9 +43,9 @@ export function Home(): JSX.Element {
   }
 
   useEffect(() => {
-    if (blogPostService === undefined) {
-      return;
-    }
+    // if (blogPostService === undefined) {
+    //   return;
+    // }
     // const dummyPosts = DummyBlogPosts(20);
     // if (selectedBlogPostId === "") {
     //   setSelectedBlogPostId(dummyPosts[dummyPosts.length - 1].id);

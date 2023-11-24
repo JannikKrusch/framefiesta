@@ -1,4 +1,4 @@
-export interface LoginBody {
+export interface AuthenticationInformationBody {
   userIdentification: string;
   password: string;
 }

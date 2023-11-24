@@ -7,7 +7,7 @@ export class BlogPostService extends DataService {
   }
 
   public async getBlogPostsAsync(): Promise<BlogPost[] | null> {
-    const url = BlogEndPoints.GetBlogPosts;
+    const url = this.urlService.buildUrl(BlogEndPoints.GetBlogPosts);
 
     return await this.callEndpointGenericAsync<BlogPost[]>(url);
   }

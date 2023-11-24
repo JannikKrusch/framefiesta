@@ -21,13 +21,11 @@ export * from "./hooks/UserInternalServerErrorRedirect";
 export * from "./hooks/UserTime";
 
 export * from "./models/AddCommentBody";
+export * from "./models/AuthenticationInformationBody";
 export * from "./models/BlogPost";
 export * from "./models/Comment";
 export * from "./models/CustomError";
-export * from "./models/DeleteCommentBody";
-export * from "./models/DeleteUserBody";
 export * from "./models/Film";
-export * from "./models/LoginBody";
 export * from "./models/MotionPicture";
 export * from "./models/RegisterBody";
 export * from "./models/Search";

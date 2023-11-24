@@ -2,20 +2,22 @@ import { useContext } from "react";
 import {
   Controllers,
   CustomError,
-  DEFAULT_URL,
-  HttpStatusCodes,
   Method,
   StateContext,
   isInstanceOfResponse,
 } from "../utils";
+import { UrlService } from "./UrlService";
+import { ResponseServie } from "./ResponseService";
 export class DataService {
-  private controller: Controllers;
+  protected readonly urlService: UrlService;
+  private readonly _responseService: ResponseServie;
   private _abortController: AbortController;
   private _setError: (error: CustomError | undefined) => void =
     useContext(StateContext).setError;
 
   constructor(controller: Controllers) {
-    this.controller = controller;
+    this.urlService = new UrlService(controller);
+    this._responseService = new ResponseServie();
     this._abortController = new AbortController();
   }
 
@@ -30,7 +32,9 @@ export class DataService {
     method?: Method
   ): Promise<Type | null> {
     const response = await this.callEndpointAsync(url, body, method);
-    const data = await this.handleResponseAsync<Type>(response);
+    const data = await this._responseService.handleResponseAsync<Type>(
+      response
+    );
     return data;
   }
 
@@ -40,7 +44,7 @@ export class DataService {
     method?: Method
   ): Promise<boolean> {
     const response = await this.callEndpointAsync(url, body, method);
-    await this.handleResponseAsync(response);
+    await this._responseService.handleResponseAsync(response);
     const successful = this.isVoidCallSuccessful(response);
     return successful;
   }
@@ -51,7 +55,7 @@ export class DataService {
     method?: Method
   ): Promise<Response | Error> {
     this.abortAllRequests();
-    const response = await fetch(`${DEFAULT_URL}${this.controller}${url}`, {
+    const response = await fetch(url, {
       signal: this._abortController.signal,
       mode: "cors",
       method: method ?? Method.Get,
@@ -70,48 +74,7 @@ export class DataService {
     return response;
   }
 
-  private async handleResponseAsync<Type>(
-    response: Response | Error
-  ): Promise<Type | null> {
-    try {
-      if (isInstanceOfResponse(response)) {
-        if (response.ok) {
-          const data = await response.json();
-          return data;
-        } else {
-          this._setError(this.convertToCustomError(response));
-          return null;
-        }
-      }
-      if (response.name !== "AbortError") {
-        // Fehlerbehandlung, falls nicht abgebrochen
-        this._setError(this.convertToCustomError(response));
-      } else {
-        console.warn("REQUEST ABORTED");
-      }
-
-      return null;
-    } catch (ex) {
-      this._setError(this.convertToCustomError(ex));
-      return null;
-    }
-  }
-
   private isVoidCallSuccessful(response: Response | Error): boolean {
     return isInstanceOfResponse(response) && response.ok;
-  }
-
-  private convertToCustomError(input: Response | unknown): CustomError {
-    const error = new CustomError();
-    if (isInstanceOfResponse(input)) {
-      error.message = input.statusText;
-      error.statusCode = input.status;
-      return error;
-    } else {
-      const parsed = input as Error;
-      error.message = parsed.message;
-      error.statusCode = HttpStatusCodes.InternalServerError;
-      return error;
-    }
   }
 }

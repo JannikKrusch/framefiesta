@@ -22,8 +22,8 @@ export function PageNotFound(): JSX.Element {
       </div>
       <div>
         <iframe
-          width="100%"
-          height="400px"
+          width="50%"
+          height="500px"
           src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=tDL65ZKiRWVkBbJI"
           title="Rick Astley - Never Gonna Give You Up (Official Music Video)"
           allowFullScreen
