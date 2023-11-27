@@ -32,7 +32,7 @@ Das Projekt kann man nun starten `npm start`, das kann kurz dauern. Es sollte si
 `20.9.0`
 
 # NPM Pakete
-| Paketname                 | Version |
+| Name                      | Version |
 | ------------------------- | ------- |
 | bootstrap                 | 5.3.2   |
 | classnames                | 2.3.2   |
