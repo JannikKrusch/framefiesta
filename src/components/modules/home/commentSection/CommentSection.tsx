@@ -7,6 +7,7 @@ import {
   DataContext,
   ServiceContext,
   Comment,
+  fullDateFormat,
 } from "../../../../utils";
 import { CustomButton } from "../../..";
 
@@ -20,8 +21,7 @@ export function CommentSection(props: CommentProps): JSX.Element {
   const itemsPerPage = 10;
   const [activeCommentPage, setActiveCommentPage] = useState(1);
   const [isFocused, setIsFocused] = useState(false);
-  const { user, setUser, blogPosts, setBlogPosts, selectedBlogPostId } =
-    useContext(DataContext);
+  const { user, setUser, blogPosts, setBlogPosts } = useContext(DataContext);
   const { userService } = useContext(ServiceContext);
   const [addCommentLoading, setAddCommentLoading] = useState<boolean>(false);
   const [deleteCommentLoading, setDeleteCommentLoading] =
@@ -65,13 +65,19 @@ export function CommentSection(props: CommentProps): JSX.Element {
       );
 
       if (data) {
+        const newComment = new Comment();
+        newComment.date = new Date(data.date);
+        newComment.id = data.id;
+        newComment.text = data.text;
+        newComment.name = data.name;
+
         const tempUser = { ...user };
-        tempUser.comments.push(data);
+        tempUser.comments.push(newComment);
         setUser(tempUser);
 
         const tempBlogPosts = blogPosts.map((item) => item);
         const tempBlogPost = { ...props.blogPost };
-        tempBlogPost.comments.push(data);
+        tempBlogPost.comments.push(newComment);
         const index = tempBlogPosts.findIndex(
           (item) => item.id === tempBlogPost.id
         );
@@ -218,7 +224,7 @@ export function CommentSection(props: CommentProps): JSX.Element {
           activeCommentPage * itemsPerPage
         )
         .map((comment: Comment, index: number) => {
-          const isUserComment = comment.userName === user?.name;
+          const isUserComment = comment.name === user?.name;
 
           return (
             <div className="comment-container g-0 row" key={index}>
@@ -227,10 +233,8 @@ export function CommentSection(props: CommentProps): JSX.Element {
                   <PersonCircle className="comment-author-icon" size={"3rem"} />
                 </div>
                 <div className="col mb-2">
-                  <div className="comment-author-name row">
-                    {comment.userName}
-                  </div>
-                  <div className="row">{comment.date.toLocaleDateString()}</div>
+                  <div className="comment-author-name row">{comment.name}</div>
+                  <div className="row">{fullDateFormat(comment.date)}</div>
                 </div>
               </div>
               <div className="row">{comment.text}</div>

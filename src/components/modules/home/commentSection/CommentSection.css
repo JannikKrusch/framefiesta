@@ -5,8 +5,8 @@ html {
 
 .comment-container {
   margin-bottom: 1rem;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   border-bottom: 1px solid var(--border-color);
   color: var(--text-color-default);
 }
@@ -37,7 +37,7 @@ html {
 }
 
 .comment-input-buttons {
-  margin-top: 1rem;
+  margin-top: 1rem !important;
   display: flex;
   flex-direction: row-reverse;
 }

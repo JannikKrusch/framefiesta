@@ -33,7 +33,6 @@ export function Description(props: DescriptionProps): JSX.Element {
   } else if (isInstanceOfSeries(motionPicture)) {
     factName.push("Seasons", "Episodes");
     factValue.push(motionPicture.seasons, motionPicture.episodes);
-    console.warn("ist Series");
   }
   factName.push("Director", "Cast");
   factValue.push(

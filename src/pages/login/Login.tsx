@@ -66,7 +66,7 @@ export function Login(): JSX.Element {
   return (
     <div className="d-flex justify-content-center login-container">
       <div className="col-sm-12 col-md-8 col-lg-4 col-12">
-        <h1 className="headline">Login {isInvalid ? "TRUE" : "FALSE"}</h1>
+        <h1 className="headline">Login</h1>
         <span className="subtext">Login with your account</span>
 
         <Form

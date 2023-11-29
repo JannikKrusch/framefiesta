@@ -27,7 +27,7 @@
 }
 
 .content-container {
-  min-height: calc(100vh - 128px - 72px);
+  min-height: calc(100vh - 128px - 72px + 4.4rem);
   background-color: var(--page-background-color);
   text-align: center;
 }

@@ -79,7 +79,6 @@ export function Register(): JSX.Element {
     }
 
     if (form.checkValidity() === false) {
-      console.warn("in if");
       setValidated(true);
       setIsInvalid(true);
       return;

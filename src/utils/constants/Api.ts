@@ -30,7 +30,7 @@ export enum UserParameters {
   Password = "password",
   Comment = "comment",
   CommentID = "commentID",
-  BlogPostId = "blogPostId",
+  BlogPostId = "blogId",
 }
 
 export enum HttpStatusCodes {

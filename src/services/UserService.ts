@@ -64,6 +64,7 @@ export class UserService extends DataService {
         blogPostId
       ),
     ];
+
     const url = this.urlService.buildUrl(UserEndpoints.AddComment, parameters);
     const body: AddCommentBody = {
       userIdentification,
@@ -111,7 +112,7 @@ export class UserService extends DataService {
     userIdentification: string,
     password: string
   ): Promise<boolean> {
-    const url = this.urlService.buildUrl(UserEndpoints.DeleteComment);
+    const url = this.urlService.buildUrl(UserEndpoints.DeleteUser);
     const body: AuthenticationInformationBody = {
       userIdentification,
       password,

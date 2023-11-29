@@ -161,9 +161,7 @@ export function CustomNavbar() {
                           label={"Delete Account"}
                           notLast
                           hidden={user === undefined}
-                          method={async () => {
-                            deleteUser();
-                          }}
+                          method={async () => await deleteUser()}
                         />
 
                         <CustomButton

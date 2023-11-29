@@ -32,3 +32,13 @@ export function timeFormat(input: number): string {
 
   return `${input} min / ${hours}:${minutes.toString().padStart(2, "0")} h`;
 }
+
+export const dateFormat = new Intl.DateTimeFormat("de-de", {
+  dateStyle: "short",
+  timeStyle: "short",
+  timeZone: "Europe/Berlin",
+});
+
+export function fullDateFormat(input: Date): string {
+  return dateFormat.format(input);
+}
