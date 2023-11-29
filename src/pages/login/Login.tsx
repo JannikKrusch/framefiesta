@@ -18,9 +18,14 @@ export function Login(): JSX.Element {
   const [password, setPassword] = useState<string>("");
   const { setUser } = useContext(DataContext);
   const { userService, sessionStorageService } = useContext(ServiceContext);
-  const [isInvalid, setIsvalid] = useState<boolean>(false);
+  const [isInvalid, setIsInvalid] = useState<boolean>(false);
   const [submitLoading, setSubmitLoading] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState(false);
+
+  const [passwordEmptyInvalid, setPasswordEmptyInvalid] =
+    useState<boolean>(false);
+  const [passwordWhiteSpaceInvalid, setPasswordWhiteSpaceInvalid] =
+    useState<boolean>(false);
 
   function togglePasswordVisibility(): void {
     setShowPassword(!showPassword);
@@ -32,10 +37,26 @@ export function Login(): JSX.Element {
     event.preventDefault();
     event.stopPropagation();
 
+    if (password.length === 0) {
+      setPasswordEmptyInvalid(true);
+      setValidated(true);
+      setIsInvalid(true);
+    } else {
+      setPasswordEmptyInvalid(false);
+    }
+
+    if (password.includes(" ")) {
+      setPasswordWhiteSpaceInvalid(true);
+      setValidated(true);
+      setIsInvalid(true);
+    } else {
+      setPasswordWhiteSpaceInvalid(false);
+    }
+
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       setValidated(true);
-      setIsvalid(true);
+      setIsInvalid(true);
       return;
     }
     setValidated(true);
@@ -45,12 +66,12 @@ export function Login(): JSX.Element {
     if (user) {
       const userFE = convertUserToUserFE(user, password);
       setUser((prev) => userFE);
-      setIsvalid((prev) => false);
+      setIsInvalid((prev) => false);
       sessionStorageService?.setUser(userFE);
       setSubmitLoading(false);
       navigateToHome();
     } else {
-      setIsvalid((prev) => true);
+      setIsInvalid((prev) => true);
       setSubmitLoading(false);
     }
   }
@@ -79,7 +100,7 @@ export function Login(): JSX.Element {
             controlId="validationUserIdentification"
             className="form-group"
           >
-            <Form.Label>User identification</Form.Label>
+            <Form.Label>Name or E-Mail</Form.Label>
             <Form.Control
               required
               type="text"
@@ -110,12 +131,20 @@ export function Login(): JSX.Element {
             />
             {showPassword ? (
               <EyeSlashFill
-                className={`login-password-icon ${isInvalid ? "invalid" : ""}`}
+                className={`login-password-icon ${
+                  passwordEmptyInvalid || passwordWhiteSpaceInvalid
+                    ? "invalid"
+                    : ""
+                }`}
                 onClick={togglePasswordVisibility}
               />
             ) : (
               <EyeFill
-                className={`login-password-icon ${isInvalid ? "invalid" : ""}`}
+                className={`login-password-icon ${
+                  passwordEmptyInvalid || passwordWhiteSpaceInvalid
+                    ? "invalid"
+                    : ""
+                }`}
                 onClick={togglePasswordVisibility}
               />
             )}

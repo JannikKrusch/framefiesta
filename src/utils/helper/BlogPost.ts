@@ -1,4 +1,5 @@
 import { BlogPost } from "../models/BlogPost";
+import { Comment } from "../models/Comment";
 
 export function convertSelectedIdToBlogPost(
   selectedID: string,

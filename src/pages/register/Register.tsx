@@ -28,6 +28,7 @@ export function Register(): JSX.Element {
     useState<boolean>(false);
   const [userNameWhiteSpaceInvalid, setUserNameWhiteSpaceInvalid] =
     useState<boolean>(false);
+  const [emailEmptyInvalid, setEmailEmptyInvalid] = useState<boolean>(false);
   const [passwordEmptyInvalid, setPasswordEmptyInvalid] =
     useState<boolean>(false);
   const [passwordWhiteSpaceInvalid, setPasswordWhiteSpaceInvalid] =
@@ -52,30 +53,48 @@ export function Register(): JSX.Element {
       setUserNameEmptyInvalid(true);
       setValidated(true);
       setIsInvalid(true);
+    } else {
+      setUserNameEmptyInvalid(false);
     }
 
     if (name.includes(" ")) {
       setUserNameWhiteSpaceInvalid(true);
       setValidated(true);
       setIsInvalid(true);
+    } else {
+      setPasswordEmptyInvalid(false);
+    }
+
+    if (email.length === 0) {
+      setEmailEmptyInvalid(true);
+      setValidated(true);
+      setIsInvalid(true);
+    } else {
+      setEmailEmptyInvalid(false);
     }
 
     if (password.length === 0) {
       setPasswordEmptyInvalid(true);
       setValidated(true);
       setIsInvalid(true);
+    } else {
+      setPasswordEmptyInvalid(false);
     }
 
     if (password.includes(" ")) {
       setPasswordWhiteSpaceInvalid(true);
       setValidated(true);
       setIsInvalid(true);
+    } else {
+      setPasswordWhiteSpaceInvalid(false);
     }
 
     if (password !== confirmPassword) {
       setPasswordAndConfirmInvalid(true);
       setValidated(true);
       setIsInvalid(true);
+    } else {
+      setPasswordAndConfirmInvalid(false);
     }
 
     if (form.checkValidity() === false) {
@@ -147,9 +166,11 @@ export function Register(): JSX.Element {
               isInvalid={isInvalid}
             />
             <Form.Control.Feedback type="invalid">
-              {isInvalid === undefined
+              {emailEmptyInvalid
                 ? "E-Mail required"
-                : "E-Mail might be invalid"}
+                : isInvalid
+                ? "E-Mail might be invalid"
+                : ""}
             </Form.Control.Feedback>
           </Form.Group>
 
@@ -173,14 +194,22 @@ export function Register(): JSX.Element {
             {showPassword ? (
               <EyeSlashFill
                 className={`register-password-icon ${
-                  isInvalid ? "invalid" : ""
+                  passwordEmptyInvalid ||
+                  passwordWhiteSpaceInvalid ||
+                  passwordAndConfirmInvalid
+                    ? "invalid"
+                    : ""
                 }`}
                 onClick={togglePasswordVisibility}
               />
             ) : (
               <EyeFill
                 className={`register-password-icon ${
-                  isInvalid ? "invalid" : ""
+                  passwordEmptyInvalid ||
+                  passwordWhiteSpaceInvalid ||
+                  passwordAndConfirmInvalid
+                    ? "invalid"
+                    : ""
                 }`}
                 onClick={togglePasswordVisibility}
               />

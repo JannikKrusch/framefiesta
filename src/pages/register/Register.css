@@ -17,7 +17,7 @@
 
 .register-password-icon.invalid {
   right: 40px !important;
-  transform: translateY(50%) !important;
+  transform: translateY(-25%) !important;
 }
 
 .register-password-icon {
