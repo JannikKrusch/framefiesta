@@ -9,7 +9,6 @@ import {
 import "./DetailPost.css";
 import { useContext } from "react";
 
-//https://dribbble.com/shots/2623175-MediaMe-Film-Card/attachments/524445?mode=media
 interface DetailPostProps {
   blogPosts: BlogPost[];
 }
