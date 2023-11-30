@@ -25,7 +25,7 @@ interface ContextProviderProps {
   children: ReactNode;
 }
 
-export function ServiceConntextProvider(
+export function ServiceContextProvider(
   props: ContextProviderProps
 ): JSX.Element {
   const userService = new UserService(Controllers.FrameFiesta);

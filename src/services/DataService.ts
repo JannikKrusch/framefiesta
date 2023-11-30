@@ -12,8 +12,6 @@ export class DataService {
   protected readonly urlService: UrlService;
   private readonly _responseService: ResponseServie;
   private _abortController: AbortController;
-  private _setError: (error: CustomError | undefined) => void =
-    useContext(StateContext).setError;
 
   constructor(controller: Controllers) {
     this.urlService = new UrlService(controller);

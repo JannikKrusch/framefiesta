@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { TimerInterval } from "../constants/Timer";
+import { TimerIntervalInMs } from "../constants/Timer";
 
 export function useTime(): {
   greeting: string;
@@ -15,7 +15,7 @@ export function useTime(): {
 
     updateTimeGreeting();
 
-    const interval = setInterval(updateTimeGreeting, TimerInterval);
+    const interval = setInterval(updateTimeGreeting, TimerIntervalInMs);
 
     return () => clearInterval(interval);
   }, []);

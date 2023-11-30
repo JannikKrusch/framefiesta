@@ -1,7 +1,6 @@
 import { FullSizeImage, PostInformation } from "../../..";
 import {
   BlogPost,
-  CustomError,
   DataContext,
   StateContext,
   convertSelectedIdToBlogPost,
@@ -22,10 +21,6 @@ export function DetailPost(props: DetailPostProps): JSX.Element {
   );
 
   if (!selectedBlogPost) {
-    const customError = new CustomError();
-    customError.message = "New Error";
-    customError.statusCode = 500;
-    setError(customError);
     return <></>;
   }
 

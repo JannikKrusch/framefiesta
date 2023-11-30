@@ -1,6 +1,5 @@
 import { Comment } from "./Comment";
 import { Film } from "./Film";
-import { MotionPicture } from "./MotionPicture";
 import { Series } from "./Series";
 
 export class BlogPost {

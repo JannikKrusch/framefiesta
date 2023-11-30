@@ -3,6 +3,8 @@ import "./PageNotFound.css";
 import { EmojiFrownFill } from "react-bootstrap-icons";
 
 export function PageNotFound(): JSX.Element {
+  const image = require("../../assets/images/Chad_Bad_Boys_For_Life.png");
+
   return (
     <div className="row g-0 error-container">
       <div className="col">
@@ -17,18 +19,13 @@ export function PageNotFound(): JSX.Element {
         unavailable
       </div>
 
-      <div className="rickroll-text">
-        But now that you are here enjoy the rickroll :)
+      <div className="col">
+        But now that you are here, have a look at the upcoming blog
+        <span className="upcoming-title"> Bad Boys For Life</span>
       </div>
+
       <div>
-        <iframe
-          width="50%"
-          height="500px"
-          src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=tDL65ZKiRWVkBbJI"
-          title="Rick Astley - Never Gonna Give You Up (Official Music Video)"
-          allowFullScreen
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        ></iframe>
+        <img src={image} alt="Motion picture" className="upcoming-image" />
       </div>
     </div>
   );

@@ -1,1 +1,1 @@
-export const TimerInterval: number = 900000;
+export const TimerIntervalInMs: number = 900000;

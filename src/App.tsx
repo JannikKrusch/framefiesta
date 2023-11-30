@@ -3,7 +3,7 @@ import "./App.css";
 import {
   DataContextProvider,
   StateContextProvider,
-  ServiceConntextProvider,
+  ServiceContextProvider,
   RouterPaths,
 } from "./utils";
 import { CustomNavbar, Footer } from "./components";
@@ -13,7 +13,7 @@ function App(): JSX.Element {
   return (
     <StateContextProvider>
       <DataContextProvider>
-        <ServiceConntextProvider>
+        <ServiceContextProvider>
           <BrowserRouter>
             <div className="main-container">
               <div className="content-container">
@@ -35,13 +35,13 @@ function App(): JSX.Element {
                     path={`${RouterPaths.Error.path}`}
                     element={<ErrorPage />}
                   />
-                  <Route path={`*`} element={<PageNotFound />} />
+                  <Route path={"*"} element={<PageNotFound />} />
                 </Routes>
               </div>
               <Footer />
             </div>
           </BrowserRouter>
-        </ServiceConntextProvider>
+        </ServiceContextProvider>
       </DataContextProvider>
     </StateContextProvider>
   );
