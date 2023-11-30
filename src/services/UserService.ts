@@ -1,15 +1,15 @@
+import { DataService } from ".";
 import {
   AddCommentBody,
+  AuthenticationInformationBody,
   Comment,
   Controllers,
-  DeleteCommentBody,
-  LoginBody,
   Method,
   RegisterBody,
   User,
   UserEndpoints,
+  UserParameters,
 } from "../utils";
-import { DataService } from "./DataService";
 
 export class UserService extends DataService {
   constructor(controller: Controllers) {
@@ -21,7 +21,7 @@ export class UserService extends DataService {
     password: string,
     email: string
   ): Promise<User | null> {
-    const url = UserEndpoints.Register;
+    const url = this.urlService.buildUrl(UserEndpoints.Register);
     const body: RegisterBody = {
       name,
       password,
@@ -39,8 +39,8 @@ export class UserService extends DataService {
     userIdentification: string,
     password: string
   ): Promise<User | null> {
-    const url = UserEndpoints.LogIn;
-    const body: LoginBody = {
+    const url = this.urlService.buildUrl(UserEndpoints.LogIn);
+    const body: AuthenticationInformationBody = {
       userIdentification,
       password,
     };
@@ -58,17 +58,24 @@ export class UserService extends DataService {
     comment: string,
     blogPostId: string
   ): Promise<Comment | null> {
-    const url = UserEndpoints.AddComment;
+    const parameters: Array<[string, string]> = [
+      this.urlService.createParameterTuple(
+        UserParameters.BlogPostId,
+        blogPostId
+      ),
+    ];
+
+    const url = this.urlService.buildUrl(UserEndpoints.AddComment, parameters);
     const body: AddCommentBody = {
       userIdentification,
       password,
       comment,
-      blogPostId,
     };
 
     return await this.callEndpointGenericAsync<Comment>(
       url,
-      JSON.stringify(body)
+      JSON.stringify(body),
+      Method.Put
     );
   }
 
@@ -78,18 +85,43 @@ export class UserService extends DataService {
     commentId: string,
     blogPostId: string
   ): Promise<boolean> {
-    const url = UserEndpoints.DeleteComment;
-    const body: DeleteCommentBody = {
+    const parameters: Array<[string, string]> = [
+      this.urlService.createParameterTuple(
+        UserParameters.BlogPostId,
+        blogPostId
+      ),
+      this.urlService.createParameterTuple(UserParameters.CommentID, commentId),
+    ];
+    const url = this.urlService.buildUrl(
+      UserEndpoints.DeleteComment,
+      parameters
+    );
+    const body: AuthenticationInformationBody = {
       userIdentification,
       password,
-      commentId,
-      blogPostId,
     };
 
     return await this.callEndpointBooleanAsync(
       url,
       JSON.stringify(body),
-      Method.Post
+      Method.Delete
+    );
+  }
+
+  public async deleteUserAsync(
+    userIdentification: string,
+    password: string
+  ): Promise<boolean> {
+    const url = this.urlService.buildUrl(UserEndpoints.DeleteUser);
+    const body: AuthenticationInformationBody = {
+      userIdentification,
+      password,
+    };
+
+    return await this.callEndpointBooleanAsync(
+      url,
+      JSON.stringify(body),
+      Method.Delete
     );
   }
 }

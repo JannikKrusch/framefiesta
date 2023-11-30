@@ -1,18 +1,18 @@
+import { FullSizeImage, PostInformation } from "../../..";
+import {
+  BlogPost,
+  DataContext,
+  StateContext,
+  convertSelectedIdToBlogPost,
+} from "../../../../utils";
 import "./DetailPost.css";
-import FullSizeImage from "../fullsizeimage/FullSizeImage";
-import PostInformation from "../postInformation/PostInformation";
 import { useContext } from "react";
-import { DataContext } from "../../../../utils/context/DataContext";
-import { convertSelectedIdToBlogPost } from "../../../../utils/helper/BlogPost";
-import { StateContext } from "../../../../utils/context/StateContext";
-import { BlogPost, CustomError } from "../../../../utils";
 
-//https://dribbble.com/shots/2623175-MediaMe-Film-Card/attachments/524445?mode=media
 interface DetailPostProps {
   blogPosts: BlogPost[];
 }
 
-function DetailPost(props: DetailPostProps): JSX.Element {
+export function DetailPost(props: DetailPostProps): JSX.Element {
   const { setError } = useContext(StateContext);
   const { selectedBlogPostId } = useContext(DataContext);
   const selectedBlogPost = convertSelectedIdToBlogPost(
@@ -21,10 +21,6 @@ function DetailPost(props: DetailPostProps): JSX.Element {
   );
 
   if (!selectedBlogPost) {
-    const customError = new CustomError();
-    customError.message = "New Error";
-    customError.statusCode = 500;
-    setError(customError);
     return <></>;
   }
 
@@ -33,12 +29,10 @@ function DetailPost(props: DetailPostProps): JSX.Element {
       <FullSizeImage
         title={selectedBlogPost.relatedMotionPicture.title}
         image={selectedBlogPost.relatedMotionPicture.image}
-        rating={selectedBlogPost.rating}
+        rating={selectedBlogPost.relatedMotionPicture.rating}
       />
       <PostInformation selectedBlogPost={selectedBlogPost} />
       <div></div>
     </div>
   );
 }
-
-export default DetailPost;

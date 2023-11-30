@@ -1,29 +1,39 @@
-export const DEFAULT_URL: string = "http://localhost:5000"; //! Add your backend url here
+export const DEFAULT_URL: string = "https://localhost:44302"; //! Add your backend url here
 
 export enum Controllers {
-  Blogs = "blogs",
-  User = "user",
+  FrameFiesta = "api/FrameFiesta",
 }
 
 export const enum Method {
   Get = "GET",
   Post = "POST",
   Put = "PUT",
+  Delete = "DELETE",
 }
 
 export enum BlogEndPoints {
-  GetBlogPosts = "/getBlogPosts",
+  GetBlogPosts = "blogPosts",
 }
 
 export enum UserEndpoints {
-  Register = "/register",
-  LogIn = "/login",
-  AddComment = "/addComment",
-  DeleteComment = "/deleteComment",
+  Register = "register",
+  LogIn = "login",
+  AddComment = "comment",
+  DeleteComment = "comment",
+  DeleteUser = "user",
+}
+
+export enum UserParameters {
+  Name = "name",
+  UserIdentification = "userIdentification",
+  Email = "email",
+  Password = "password",
+  Comment = "comment",
+  CommentID = "commentID",
+  BlogPostId = "blogId",
 }
 
 export enum HttpStatusCodes {
-  Ok = 200,
   NotFound = 404,
   InternalServerError = 500,
 }

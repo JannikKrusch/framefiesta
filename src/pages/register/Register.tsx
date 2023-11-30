@@ -1,17 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./Register.css";
 import { Form } from "react-bootstrap";
-import CustomButton from "../../components/shared/button/CustomButton";
 import {
   DataContext,
-  HttpStatusCodes,
   RouterPaths,
   ServiceContext,
-  StateContext,
+  convertUserToUserFE,
+  navigateToHome,
+  useInternalServerErrorRedirect,
 } from "../../utils";
-import { useNavigate } from "react-router-dom";
+import { CustomButton } from "../../components";
+import { EyeFill, EyeSlashFill } from "react-bootstrap-icons";
 
-function Register(): JSX.Element {
+export function Register(): JSX.Element {
   const [validated, setValidated] = useState(false);
 
   const [name, setName] = useState<string>("");
@@ -20,9 +21,25 @@ function Register(): JSX.Element {
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const { userService, sessionStorageService } = useContext(ServiceContext);
   const { setUser } = useContext(DataContext);
-  const { error } = useContext(StateContext);
-  const [isInvalid, setIsInValid] = useState<boolean | undefined>(undefined);
-  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+
+  const [isInvalid, setIsInvalid] = useState<boolean | undefined>(undefined);
+  const [userNameEmptyInvalid, setUserNameEmptyInvalid] =
+    useState<boolean>(false);
+  const [userNameWhiteSpaceInvalid, setUserNameWhiteSpaceInvalid] =
+    useState<boolean>(false);
+  const [emailEmptyInvalid, setEmailEmptyInvalid] = useState<boolean>(false);
+  const [passwordEmptyInvalid, setPasswordEmptyInvalid] =
+    useState<boolean>(false);
+  const [passwordWhiteSpaceInvalid, setPasswordWhiteSpaceInvalid] =
+    useState<boolean>(false);
+
+  const [passwordAndConfirmInvalid, setPasswordAndConfirmInvalid] =
+    useState<boolean>(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   async function handleSubmitAsync(
     event: React.FormEvent<HTMLFormElement>
@@ -31,32 +48,75 @@ function Register(): JSX.Element {
     event.stopPropagation();
 
     const form = event.currentTarget;
-    if (form.checkValidity() === false) {
+
+    if (name.length === 0) {
+      setUserNameEmptyInvalid(true);
       setValidated(true);
-      return;
+    } else {
+      setUserNameEmptyInvalid(false);
     }
 
-    if (password !== confirmPassword || password.includes(" ")) {
+    if (name.includes(" ")) {
+      setUserNameWhiteSpaceInvalid(true);
+      setValidated(true);
+    } else {
+      setPasswordEmptyInvalid(false);
+    }
+
+    if (email.length === 0) {
+      setEmailEmptyInvalid(true);
+      setValidated(true);
+    } else {
+      setEmailEmptyInvalid(false);
+    }
+
+    if (password.length === 0) {
+      setPasswordEmptyInvalid(true);
+      setValidated(true);
+    } else {
+      setPasswordEmptyInvalid(false);
+    }
+
+    if (password.includes(" ")) {
+      setPasswordWhiteSpaceInvalid(true);
+      setValidated(true);
+    } else {
+      setPasswordWhiteSpaceInvalid(false);
+    }
+
+    if (password !== confirmPassword) {
+      setPasswordAndConfirmInvalid(true);
+      setValidated(true);
+    } else {
+      setPasswordAndConfirmInvalid(false);
+    }
+
+    if (form.checkValidity() === false) {
+      setValidated(true);
+      setIsInvalid(true);
       return;
     }
 
     setValidated(true);
     const user = await userService?.registerAsync(name, password, email);
     if (user) {
-      setIsInValid(false);
-      setUser((prev) => user);
-      sessionStorageService?.setUser(user);
-      navigate(RouterPaths.Default.path);
+      setIsInvalid(false);
+      const userFE = convertUserToUserFE(user, password);
+      setUser((prev) => userFE);
+      sessionStorageService?.setUser(userFE);
+      navigateToHome();
     } else {
-      setIsInValid(true);
+      setIsInvalid(true);
     }
   }
 
   useEffect(() => {
-    if (error?.statusCode === HttpStatusCodes.InternalServerError) {
-      navigate(RouterPaths.Error.path);
-    }
-  }, [error, navigate]);
+    return () => {
+      userService?.abortAllRequests();
+    };
+  }, []);
+
+  useInternalServerErrorRedirect();
 
   return (
     <div className="d-flex justify-content-center register-container">
@@ -71,19 +131,21 @@ function Register(): JSX.Element {
           onSubmit={async (e) => await handleSubmitAsync(e)}
         >
           <Form.Group controlId="validationUsername" className="form-group">
-            <Form.Label>Username</Form.Label>
+            <Form.Label>Name</Form.Label>
             <Form.Control
               required
               type="text"
-              placeholder="Username"
+              placeholder="Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              isInvalid={isInvalid}
+              isInvalid={userNameEmptyInvalid || userNameWhiteSpaceInvalid}
             />
             <Form.Control.Feedback type="invalid">
-              {isInvalid === undefined
-                ? "Username required"
-                : "Username might be invalid"}
+              {userNameEmptyInvalid
+                ? "Username cannot be empty"
+                : userNameWhiteSpaceInvalid
+                ? "Username cannot have white space"
+                : ""}
             </Form.Control.Feedback>
           </Form.Group>
 
@@ -98,26 +160,61 @@ function Register(): JSX.Element {
               isInvalid={isInvalid}
             />
             <Form.Control.Feedback type="invalid">
-              {isInvalid === undefined
+              {emailEmptyInvalid
                 ? "E-Mail required"
-                : "E-Mail might be invalid"}
+                : isInvalid
+                ? "E-Mail might be invalid"
+                : ""}
             </Form.Control.Feedback>
           </Form.Group>
 
-          <Form.Group controlId="validationPassword" className="form-group">
+          <Form.Group
+            controlId="validationPassword"
+            className="form-group position-relative"
+          >
             <Form.Label>Password</Form.Label>
             <Form.Control
               required
-              minLength={10}
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              isInvalid={validated}
+              isInvalid={
+                passwordEmptyInvalid ||
+                passwordWhiteSpaceInvalid ||
+                passwordAndConfirmInvalid
+              }
             />
+            {showPassword ? (
+              <EyeSlashFill
+                className={`register-password-icon ${
+                  passwordEmptyInvalid ||
+                  passwordWhiteSpaceInvalid ||
+                  passwordAndConfirmInvalid
+                    ? "invalid"
+                    : ""
+                }`}
+                onClick={togglePasswordVisibility}
+              />
+            ) : (
+              <EyeFill
+                className={`register-password-icon ${
+                  passwordEmptyInvalid ||
+                  passwordWhiteSpaceInvalid ||
+                  passwordAndConfirmInvalid
+                    ? "invalid"
+                    : ""
+                }`}
+                onClick={togglePasswordVisibility}
+              />
+            )}
             <Form.Control.Feedback type="invalid">
-              {isInvalid === undefined
-                ? "Password required (at least 10 chars)"
+              {passwordEmptyInvalid
+                ? "Password cannot be empty"
+                : passwordWhiteSpaceInvalid
+                ? "Password cannot have white space"
+                : passwordAndConfirmInvalid
+                ? "Passwords must be identical"
                 : ""}
             </Form.Control.Feedback>
           </Form.Group>
@@ -133,7 +230,7 @@ function Register(): JSX.Element {
               placeholder="Repeat Password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              isInvalid={password !== confirmPassword}
+              isInvalid={passwordAndConfirmInvalid}
             />
             <Form.Control.Feedback type="invalid">
               Password must be identical
@@ -141,18 +238,13 @@ function Register(): JSX.Element {
           </Form.Group>
           <div className="d-flex justify-content-between flex-sm-row flex-column">
             <CustomButton
-              label={`Got an account already? ${RouterPaths.Login.display}`}
-              active={false}
-              notLast={false}
-              isSubit={false}
-              method={() => {}}
+              label={`Got an account? ${RouterPaths.Login.display}`}
               href={RouterPaths.Login.path}
             />
             <CustomButton
               label={`${RouterPaths.Register.display}`}
-              active={true}
-              notLast={false}
-              isSubit={true}
+              active
+              isSubmit
             />
           </div>
         </Form>
@@ -160,5 +252,3 @@ function Register(): JSX.Element {
     </div>
   );
 }
-
-export default Register;

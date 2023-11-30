@@ -1,5 +1,5 @@
 .register-container {
-  padding: 1rem;
+  padding: 5rem 1rem 1rem 1rem;
 }
 
 .headline {
@@ -9,4 +9,23 @@
 
 .form-group {
   margin-bottom: 1rem;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.register-password-icon.invalid {
+  right: 40px !important;
+  transform: translateY(-25%) !important;
+}
+
+.register-password-icon {
+  position: absolute !important;
+  top: 50% !important;
+  right: 10px !important;
+  transform: translateY(50%) !important;
+  cursor: pointer;
+  color: rgb(0, 0, 0);
+  z-index: 1000 !important;
 }

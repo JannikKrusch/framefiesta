@@ -1,6 +1,5 @@
-import { LoginBody } from "./LoginBody";
+import { AuthenticationInformationBody } from "..";
 
-export interface AddCommentBody extends LoginBody {
+export interface AddCommentBody extends AuthenticationInformationBody {
   comment: string;
-  blogPostId: string;
 }

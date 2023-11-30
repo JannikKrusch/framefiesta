@@ -1,0 +1,24 @@
+.upcoming-text {
+  font-size: 1.25rem;
+  margin-inline: auto;
+}
+
+.upcoming-title {
+  display: inline;
+  font-family: "Kdam Thmor Pro", sans-serif !important;
+  color: var(--text-color-purple);
+}
+
+.upcoming-image {
+  width: 50%;
+  padding-top: 1rem;
+  margin: auto;
+  height: auto;
+  display: block;
+}
+
+@media only screen and (max-width: 1024px) {
+  .upcoming-image {
+    width: 100%;
+  }
+}

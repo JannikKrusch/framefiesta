@@ -1,11 +1,13 @@
 import { useContext, useEffect } from "react";
-import { Loader } from "../../components/shared";
-import { DummyBlogPosts } from "../../utils/helper/DummyData";
-import DetailPost from "../../components/modules/home/detailPost/DetailPost";
-import { DataContext, ServiceContext, StateContext, User } from "../../utils";
-import { useErrorUpdate } from "../../utils/hooks/UseErrorUpdate";
+import {
+  DataContext,
+  ServiceContext,
+  StateContext,
+  useErrorRedirect,
+} from "../../utils";
+import { DetailPost, Loader } from "../../components";
 
-function Home(): JSX.Element {
+export function Home(): JSX.Element {
   const {
     blogPosts,
     setBlogPosts,
@@ -14,32 +16,39 @@ function Home(): JSX.Element {
     setUser,
   } = useContext(DataContext);
   const { setLoading, loading } = useContext(StateContext);
-  const { sessionStorageService } = useContext(ServiceContext);
-  useErrorUpdate();
+  const { blogPostService, sessionStorageService } = useContext(ServiceContext);
+  useErrorRedirect();
 
-  useEffect(() => {
+  async function getBlogPostsAsync(): Promise<void> {
     setLoading((prev) => true);
-    const dummyPosts = DummyBlogPosts(10);
-    if (selectedBlogPostId === "") {
-      setSelectedBlogPostId(dummyPosts[dummyPosts.length - 1].id);
+    const tempBlogPosts = await blogPostService?.getBlogPostsAsync();
+    if (tempBlogPosts === null || tempBlogPosts === undefined) {
+      return;
     }
-    if (dummyPosts.length > 0) {
+
+    if (selectedBlogPostId === "" && tempBlogPosts.length > 0) {
+      setSelectedBlogPostId(tempBlogPosts[tempBlogPosts.length - 1].id);
+      setBlogPosts((prev) => tempBlogPosts ?? prev);
       setLoading((prev) => false);
     }
-    // const user = new User();
-    // user.name = "Joe Mama der 3. von Among Us";
-    // user.email = "jannik.test@gmail.com";
-    // user.id = "1";
-    // user.password = "jannik@test.password";
-    // //setUser(user);
-    const user = sessionStorageService?.getUser();
-    if (user) {
-      setUser((prev) => user);
+  }
+
+  function getUserFromSessionStorage(): void {
+    const userFE = sessionStorageService?.getUser();
+    if (userFE) {
+      setUser((prev) => userFE);
     }
-    setBlogPosts(dummyPosts);
+  }
+
+  useEffect(() => {
+    getBlogPostsAsync();
+    getUserFromSessionStorage();
+
+    return () => {
+      // Abbruch aller laufenden Anfragen beim Unmount
+      blogPostService?.abortAllRequests();
+    };
   }, []);
 
   return <>{loading ? <Loader /> : <DetailPost blogPosts={blogPosts} />}</>;
 }
-
-export default Home;

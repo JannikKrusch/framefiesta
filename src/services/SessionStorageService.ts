@@ -1,9 +1,13 @@
-import { User } from "../utils";
+import { UserFE } from "../utils";
 
 export class SessionStorageService {
-  private readonly _key = "currentUser";
+  private readonly _key: string;
 
-  public setUser(user: User): void {
+  constructor() {
+    this._key = "CURRENT_USER";
+  }
+
+  public setUser(user: UserFE): void {
     const json = JSON.stringify(user);
     sessionStorage.setItem(this._key, json);
   }
@@ -12,7 +16,7 @@ export class SessionStorageService {
     sessionStorage.removeItem(this._key);
   }
 
-  public getUser(): User | null {
+  public getUser(): UserFE | null {
     const item = sessionStorage.getItem(this._key);
     if (item) {
       try {

@@ -1,7 +1,6 @@
 import classNames from "classnames";
 import "./CustomButton.css";
 import { Button } from "react-bootstrap";
-import { useState } from "react";
 
 interface ButtonProps {
   label: string;
@@ -9,13 +8,14 @@ interface ButtonProps {
   active?: boolean;
   onlyText?: boolean;
   href?: string;
-  isSubit?: boolean;
+  isSubmit?: boolean;
   loading?: boolean;
   hidden?: boolean;
-  method?: () => void;
+  disabled?: boolean;
+  method?: (() => void) | (() => Promise<void>);
 }
 
-function CustomButton(props: ButtonProps): JSX.Element {
+export function CustomButton(props: ButtonProps): JSX.Element {
   function handleClick() {
     if (props?.method) {
       props.method();
@@ -33,7 +33,8 @@ function CustomButton(props: ButtonProps): JSX.Element {
 
   return (
     <Button
-      type={props.isSubit ? "submit" : "button"}
+      disabled={props.disabled}
+      type={props.isSubmit ? "submit" : "button"}
       href={props.href}
       className={buttonClasses}
       onClick={handleClick}
@@ -42,5 +43,3 @@ function CustomButton(props: ButtonProps): JSX.Element {
     </Button>
   );
 }
-
-export default CustomButton;

@@ -1,26 +1,37 @@
 import React, { useContext, useEffect, useState } from "react";
-import CustomButton from "../../components/shared/button/CustomButton";
 import {
   DataContext,
-  HttpStatusCodes,
   RouterPaths,
   ServiceContext,
-  StateContext,
+  convertUserToUserFE,
+  navigateToHome,
+  useInternalServerErrorRedirect,
 } from "../../utils";
 import { Form } from "react-bootstrap";
 import "./Login.css";
-import { useNavigate } from "react-router-dom";
+import { CustomButton } from "../../components";
+import { EyeFill, EyeSlashFill } from "react-bootstrap-icons";
 
-function Login(): JSX.Element {
+export function Login(): JSX.Element {
   const [validated, setValidated] = useState(false);
   const [userIdentification, setUserIdentification] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const { setUser } = useContext(DataContext);
   const { userService, sessionStorageService } = useContext(ServiceContext);
-  const { error } = useContext(StateContext);
-  const [isInvalid, setIsValid] = useState<boolean | undefined>(undefined);
-  const navigate = useNavigate();
+  const [isInvalid, setIsInvalid] = useState<boolean>(false);
   const [submitLoading, setSubmitLoading] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const [userIdentificationEmptyInvalid, setUserIdentificationEmptyInvalid] =
+    useState<boolean>(false);
+  const [passwordEmptyInvalid, setPasswordEmptyInvalid] =
+    useState<boolean>(false);
+  const [passwordWhiteSpaceInvalid, setPasswordWhiteSpaceInvalid] =
+    useState<boolean>(false);
+
+  function togglePasswordVisibility(): void {
+    setShowPassword(!showPassword);
+  }
 
   async function handleSubmitAsync(
     event: React.FormEvent<HTMLFormElement>
@@ -28,34 +39,56 @@ function Login(): JSX.Element {
     event.preventDefault();
     event.stopPropagation();
 
+    if (userIdentification.length === 0) {
+      setUserIdentificationEmptyInvalid(true);
+    } else {
+      setUserIdentificationEmptyInvalid(false);
+    }
+
+    if (password.length === 0) {
+      setPasswordEmptyInvalid(true);
+      setValidated(true);
+    } else {
+      setPasswordEmptyInvalid(false);
+    }
+
+    if (password.includes(" ")) {
+      setPasswordWhiteSpaceInvalid(true);
+      setValidated(true);
+    } else {
+      setPasswordWhiteSpaceInvalid(false);
+    }
+
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       setValidated(true);
+      setIsInvalid(true);
       return;
     }
-
     setValidated(true);
-    //TODO send data
+
     setSubmitLoading(true);
     const user = await userService?.loginAsync(userIdentification, password);
     if (user) {
-      setUser((prev) => user);
-      setIsValid((prev) => false);
-      setUser((prev) => user);
-      sessionStorageService?.setUser(user);
+      const userFE = convertUserToUserFE(user, password);
+      setUser((prev) => userFE);
+      setIsInvalid((prev) => false);
+      sessionStorageService?.setUser(userFE);
       setSubmitLoading(false);
-      navigate(RouterPaths.Default.path);
+      navigateToHome();
     } else {
-      setIsValid((prev) => true);
+      setIsInvalid((prev) => true);
       setSubmitLoading(false);
     }
   }
 
   useEffect(() => {
-    if (error?.statusCode === HttpStatusCodes.InternalServerError) {
-      navigate(RouterPaths.Error.path);
-    }
-  }, [error, navigate]);
+    return () => {
+      userService?.abortAllRequests();
+    };
+  }, []);
+
+  useInternalServerErrorRedirect();
 
   return (
     <div className="d-flex justify-content-center login-container">
@@ -73,53 +106,74 @@ function Login(): JSX.Element {
             controlId="validationUserIdentification"
             className="form-group"
           >
-            <Form.Label>User identification</Form.Label>
+            <Form.Label>Name or E-Mail</Form.Label>
             <Form.Control
               required
               type="text"
               placeholder="Name or E-mail"
               value={userIdentification}
               onChange={(e) => setUserIdentification(e.target.value)}
-              isInvalid={isInvalid}
+              isInvalid={userIdentificationEmptyInvalid || isInvalid}
             />
             <Form.Control.Feedback type="invalid">
-              {isInvalid === undefined
+              {userIdentificationEmptyInvalid
                 ? "Username or E-mail required"
-                : "User identification or password invalid"}
+                : "Useridentification or Password invalid"}
             </Form.Control.Feedback>
           </Form.Group>
 
-          <Form.Group controlId="validationPassword" className="form-group">
+          <Form.Group
+            controlId="validationPassword"
+            className="form-group position-relative"
+          >
             <Form.Label>Password</Form.Label>
             <Form.Control
               required
-              minLength={10}
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              isInvalid={isInvalid}
+              isInvalid={
+                passwordEmptyInvalid || passwordWhiteSpaceInvalid || isInvalid
+              }
             />
+            {showPassword ? (
+              <EyeSlashFill
+                className={`login-password-icon ${
+                  passwordEmptyInvalid || passwordWhiteSpaceInvalid || isInvalid
+                    ? "invalid"
+                    : ""
+                }`}
+                onClick={togglePasswordVisibility}
+              />
+            ) : (
+              <EyeFill
+                className={`login-password-icon ${
+                  passwordEmptyInvalid || passwordWhiteSpaceInvalid || isInvalid
+                    ? "invalid"
+                    : ""
+                }`}
+                onClick={togglePasswordVisibility}
+              />
+            )}
             <Form.Control.Feedback type="invalid">
-              {isInvalid === undefined
-                ? "Password required (at least 10 chars)"
-                : "User identification or password invalid"}
+              {passwordEmptyInvalid
+                ? "Password cannot be empty"
+                : passwordWhiteSpaceInvalid
+                ? "Password cannot have white space"
+                : "Useridentification or Password invalid"}
             </Form.Control.Feedback>
           </Form.Group>
 
           <div className="d-flex justify-content-between flex-sm-row flex-column">
             <CustomButton
               label={`Don't have an account? ${RouterPaths.Register.display}`}
-              active={false}
-              notLast={false}
-              isSubit={false}
               href={RouterPaths.Register.path}
             />
             <CustomButton
               label={`${RouterPaths.Login.display}`}
-              active={true}
-              notLast={false}
-              isSubit={true}
+              active
+              isSubmit
               loading={submitLoading}
             />
           </div>
@@ -128,5 +182,3 @@ function Login(): JSX.Element {
     </div>
   );
 }
-
-export default Login;

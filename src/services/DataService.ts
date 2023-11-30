@@ -2,22 +2,25 @@ import { useContext } from "react";
 import {
   Controllers,
   CustomError,
-  DEFAULT_URL,
-  HttpStatusCodes,
   Method,
+  StateContext,
+  isInstanceOfResponse,
 } from "../utils";
-import { StateContext } from "../utils/context/StateContext";
-import { isInstanceOfResponse } from "../utils/helper/InstanceOf";
-
+import { UrlService } from "./UrlService";
+import { ResponseServie } from "./ResponseService";
 export class DataService {
-  public controller: Controllers;
-  private _url: string = DEFAULT_URL;
+  protected readonly urlService: UrlService;
+  private readonly _responseService: ResponseServie;
   private _abortController: AbortController;
-  private _setError: (error: CustomError | undefined) => void =
-    useContext(StateContext).setError;
 
   constructor(controller: Controllers) {
-    this.controller = controller;
+    this.urlService = new UrlService(controller);
+    this._responseService = new ResponseServie();
+    this._abortController = new AbortController();
+  }
+
+  public abortAllRequests(): void {
+    this._abortController.abort();
     this._abortController = new AbortController();
   }
 
@@ -27,7 +30,9 @@ export class DataService {
     method?: Method
   ): Promise<Type | null> {
     const response = await this.callEndpointAsync(url, body, method);
-    const data = await this.handleResponseAsync<Type>(response);
+    const data = await this._responseService.handleResponseAsync<Type>(
+      response
+    );
     return data;
   }
 
@@ -37,7 +42,7 @@ export class DataService {
     method?: Method
   ): Promise<boolean> {
     const response = await this.callEndpointAsync(url, body, method);
-    await this.handleResponseAsync(response);
+    await this._responseService.handleResponseAsync(response);
     const successful = this.isVoidCallSuccessful(response);
     return successful;
   }
@@ -47,9 +52,8 @@ export class DataService {
     body?: BodyInit,
     method?: Method
   ): Promise<Response | Error> {
-    this._abortController.abort();
-    this._abortController = new AbortController();
-    const response = await fetch(`${this._url}${url}`, {
+    this.abortAllRequests();
+    const response = await fetch(url, {
       signal: this._abortController.signal,
       mode: "cors",
       method: method ?? Method.Get,
@@ -68,43 +72,7 @@ export class DataService {
     return response;
   }
 
-  private async handleResponseAsync<Type>(
-    response: Response | Error
-  ): Promise<Type | null> {
-    try {
-      if (isInstanceOfResponse(response)) {
-        if (response.ok) {
-          const data = await response.json();
-          return data;
-        } else {
-          this._setError(this.convertToCustomError(response));
-          return null;
-        }
-      }
-      this._setError(this.convertToCustomError(response));
-      return null;
-    } catch (ex) {
-      this._setError(this.convertToCustomError(ex));
-      return null;
-    }
-  }
-
   private isVoidCallSuccessful(response: Response | Error): boolean {
     return isInstanceOfResponse(response) && response.ok;
-  }
-
-  private convertToCustomError(input: Response | unknown): CustomError {
-    const error = new CustomError();
-    console.warn(input);
-    if (isInstanceOfResponse(input)) {
-      error.message = input.statusText;
-      error.statusCode = input.status;
-      return error;
-    } else {
-      const parsed = input as Error;
-      error.message = parsed.message;
-      error.statusCode = HttpStatusCodes.InternalServerError;
-      return error;
-    }
   }
 }

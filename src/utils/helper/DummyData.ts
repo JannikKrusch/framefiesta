@@ -1,4 +1,4 @@
-import { BlogPost, MotionPicture } from "..";
+import { BlogPost, Film, MotionPicture, Series } from "..";
 import { Comment } from "../models/Comment";
 
 export function DummyBlogPosts(amount: number): BlogPost[] {
@@ -6,7 +6,7 @@ export function DummyBlogPosts(amount: number): BlogPost[] {
 
   for (let i = 1; i <= amount; i++) {
     const blogPost = new BlogPost();
-    const motionPicture = new MotionPicture();
+    const motionPicture = new Series();
     let actors = [];
     for (let actor = 1; actor < 5; actor++) {
       actors.push(`actor${i}${actor}`);
@@ -29,11 +29,15 @@ export function DummyBlogPosts(amount: number): BlogPost[] {
         : "https://images3.alphacoders.com/133/1337297.jpeg";
     motionPicture.initialRelease = 1994;
     motionPicture.ageRating = 18;
-    motionPicture.budget = 10000000;
+    motionPicture.budget = Math.floor(
+      Math.random() * (200000000 - 100000) + 100000
+    );
     motionPicture.title = `Pulp Fiction hjfd fhdjf d dfjhfj djf abc xyz ${i}`;
+    motionPicture.seasons = 1;
+    motionPicture.episodes = 10;
+    motionPicture.rating = 8.9;
 
     blogPost.id = i.toString();
-    blogPost.rating = 8.9;
     blogPost.relatedMotionPicture = motionPicture;
     blogPost.review =
       " Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia," +
@@ -78,7 +82,7 @@ export function DummyBlogPosts(amount: number): BlogPost[] {
       comment.date = new Date();
       comment.date.setDate(Math.floor(Math.random() * (30 - 1 + 1)) + 1);
       comment.date.setMonth(Math.floor(Math.random() * (12 - 1 + 1)) + 1);
-      comment.userName = i > 0 ? `Joe Mama${i}` : "Joe Mama";
+      comment.name = i > 0 ? `Joe Mama${i}` : "Joe Mama";
       comment.text = blogPost.review.substring(
         Math.floor(Math.random() * (max - min + 1)) + min,
         Math.floor(Math.random() * (max - min + 1)) + min

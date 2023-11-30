@@ -1,0 +1,65 @@
+.custom-navbar {
+  background-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 8),
+    rgba(0, 0, 0, 0.2)
+  ) !important;
+  color: var(--text-color-default) !important;
+  position: fixed !important;
+  top: 0 !important;
+  width: 100% !important;
+}
+
+.custom-navbar-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-color-purple) !important;
+}
+.custom-navbar-logo > span {
+  font-family: "Prisma", sans-serif;
+  font-size: clamp(1rem, 4vw, 2rem);
+}
+
+.custom-navbar-logo-icon {
+  margin-right: 0.5rem;
+}
+
+.custom-navbar-logo:hover {
+  color: var(--text-color-light-purple) !important;
+}
+
+.searchbox-container {
+  padding: 0;
+}
+
+.search-box {
+  min-width: 21rem;
+  height: 2rem !important;
+}
+
+.user-icon-popover {
+  background-color: var(--background-color-black) !important;
+  border-color: var(--border-color) !important;
+  max-width: 15rem !important;
+}
+
+.user-icon-popover-header {
+  color: var(--text-color-default) !important;
+  font-size: var(--text-size);
+}
+
+.user-icon {
+  width: clamp(1rem, 4vw, 2rem) !important;
+  height: clamp(1rem, 4vw, 2rem) !important;
+}
+
+.user-icon.active {
+  color: var(--text-color-purple);
+}
+
+@media only screen and (max-width: 576px) {
+  .searchbox-container {
+    padding: 1rem 0 1rem 0 !important;
+  }
+}

@@ -1,5 +1,5 @@
+import { DataService } from ".";
 import { BlogEndPoints, BlogPost, Controllers } from "../utils";
-import { DataService } from "./DataService";
 
 export class BlogPostService extends DataService {
   constructor(controller: Controllers) {
@@ -7,8 +7,20 @@ export class BlogPostService extends DataService {
   }
 
   public async getBlogPostsAsync(): Promise<BlogPost[] | null> {
-    const url = BlogEndPoints.GetBlogPosts;
+    const url = this.urlService.buildUrl(BlogEndPoints.GetBlogPosts);
 
-    return await this.callEndpointGenericAsync<BlogPost[]>(url);
+    let blogPosts = await this.callEndpointGenericAsync<BlogPost[]>(url);
+
+    if (blogPosts != null) {
+      const tempBlogPosts = [...blogPosts];
+      tempBlogPosts.forEach((blogPost) => {
+        blogPost.comments.forEach((comment) => {
+          comment.date = new Date(comment.date);
+        });
+      });
+      blogPosts = tempBlogPosts;
+    }
+
+    return blogPosts;
   }
 }

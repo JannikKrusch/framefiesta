@@ -1,4 +1,4 @@
-/* Color Theme https://colorhunt.co/palette/0000003e065f700b978e05c2 */
+/* https://dribbble.com/shots/2623175-MediaMe-Film-Card/attachments/524445?mode=media */
 
 :root {
   --page-background-color: rgb(30, 30, 30);
@@ -29,7 +29,7 @@
 }
 
 .content-container {
-  min-height: calc(100vh - 128px - 72px);
+  min-height: calc(100vh - 128px - 72px + 4.4rem);
   background-color: var(--page-background-color);
   text-align: center;
 }
