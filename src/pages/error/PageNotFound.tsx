@@ -1,3 +1,4 @@
+import { HttpStatusCodes } from "../../utils";
 import "./ErrorPage.css";
 import "./PageNotFound.css";
 import { EmojiFrownFill } from "react-bootstrap-icons";
@@ -13,7 +14,7 @@ export function PageNotFound(): JSX.Element {
       <div>
         <EmojiFrownFill className="error-icon" />
       </div>
-      <div className="error-text">404</div>
+      <div className="error-text">{HttpStatusCodes.NotFound}</div>
       <div className="error-text">
         The page you are looking for might have been removed or is temporarily
         unavailable
