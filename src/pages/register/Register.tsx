@@ -52,7 +52,6 @@ export function Register(): JSX.Element {
     if (name.length === 0) {
       setUserNameEmptyInvalid(true);
       setValidated(true);
-      setIsInvalid(true);
     } else {
       setUserNameEmptyInvalid(false);
     }
@@ -60,7 +59,6 @@ export function Register(): JSX.Element {
     if (name.includes(" ")) {
       setUserNameWhiteSpaceInvalid(true);
       setValidated(true);
-      setIsInvalid(true);
     } else {
       setPasswordEmptyInvalid(false);
     }
@@ -68,7 +66,6 @@ export function Register(): JSX.Element {
     if (email.length === 0) {
       setEmailEmptyInvalid(true);
       setValidated(true);
-      setIsInvalid(true);
     } else {
       setEmailEmptyInvalid(false);
     }
@@ -76,7 +73,6 @@ export function Register(): JSX.Element {
     if (password.length === 0) {
       setPasswordEmptyInvalid(true);
       setValidated(true);
-      setIsInvalid(true);
     } else {
       setPasswordEmptyInvalid(false);
     }
@@ -84,7 +80,6 @@ export function Register(): JSX.Element {
     if (password.includes(" ")) {
       setPasswordWhiteSpaceInvalid(true);
       setValidated(true);
-      setIsInvalid(true);
     } else {
       setPasswordWhiteSpaceInvalid(false);
     }
@@ -92,7 +87,6 @@ export function Register(): JSX.Element {
     if (password !== confirmPassword) {
       setPasswordAndConfirmInvalid(true);
       setValidated(true);
-      setIsInvalid(true);
     } else {
       setPasswordAndConfirmInvalid(false);
     }
@@ -137,11 +131,11 @@ export function Register(): JSX.Element {
           onSubmit={async (e) => await handleSubmitAsync(e)}
         >
           <Form.Group controlId="validationUsername" className="form-group">
-            <Form.Label>Username</Form.Label>
+            <Form.Label>Name</Form.Label>
             <Form.Control
               required
               type="text"
-              placeholder="Username"
+              placeholder="Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
               isInvalid={userNameEmptyInvalid || userNameWhiteSpaceInvalid}
@@ -236,7 +230,7 @@ export function Register(): JSX.Element {
               placeholder="Repeat Password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              isInvalid={isInvalid}
+              isInvalid={passwordAndConfirmInvalid}
             />
             <Form.Control.Feedback type="invalid">
               Password must be identical

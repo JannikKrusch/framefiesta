@@ -35,21 +35,24 @@ export function PostInformation(props: PostInformationProps): JSX.Element {
       .slice(0, 12);
   }
 
-  function getScore(movie1: MotionPicture, movie2: MotionPicture): number {
+  function getScore(
+    motionPicture1: MotionPicture,
+    motionPicture2: MotionPicture
+  ): number {
     let score = 0;
 
-    for (const genre of movie1.genres) {
-      if (movie2.genres.includes(genre)) {
+    for (const genre of motionPicture1.genres) {
+      if (motionPicture2.genres.includes(genre)) {
         score += 1;
       }
     }
 
-    if (movie1.director === movie2.director) {
+    if (motionPicture1.director === motionPicture2.director) {
       score += 2;
     }
 
-    for (const actor of movie1.actors) {
-      if (movie2.actors.includes(actor)) {
+    for (const actor of motionPicture1.actors) {
+      if (motionPicture2.actors.includes(actor)) {
         score += 1;
       }
     }

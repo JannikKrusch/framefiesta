@@ -22,6 +22,8 @@ export function Login(): JSX.Element {
   const [submitLoading, setSubmitLoading] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState(false);
 
+  const [userIdentificationEmptyInvalid, setUserIdentificationEmptyInvalid] =
+    useState<boolean>(false);
   const [passwordEmptyInvalid, setPasswordEmptyInvalid] =
     useState<boolean>(false);
   const [passwordWhiteSpaceInvalid, setPasswordWhiteSpaceInvalid] =
@@ -37,10 +39,15 @@ export function Login(): JSX.Element {
     event.preventDefault();
     event.stopPropagation();
 
+    if (userIdentification.length === 0) {
+      setUserIdentificationEmptyInvalid(true);
+    } else {
+      setUserIdentificationEmptyInvalid(false);
+    }
+
     if (password.length === 0) {
       setPasswordEmptyInvalid(true);
       setValidated(true);
-      setIsInvalid(true);
     } else {
       setPasswordEmptyInvalid(false);
     }
@@ -48,7 +55,6 @@ export function Login(): JSX.Element {
     if (password.includes(" ")) {
       setPasswordWhiteSpaceInvalid(true);
       setValidated(true);
-      setIsInvalid(true);
     } else {
       setPasswordWhiteSpaceInvalid(false);
     }
@@ -107,12 +113,12 @@ export function Login(): JSX.Element {
               placeholder="Name or E-mail"
               value={userIdentification}
               onChange={(e) => setUserIdentification(e.target.value)}
-              isInvalid={isInvalid}
+              isInvalid={userIdentificationEmptyInvalid || isInvalid}
             />
             <Form.Control.Feedback type="invalid">
-              {isInvalid === undefined
+              {userIdentificationEmptyInvalid
                 ? "Username or E-mail required"
-                : "User identification or password invalid"}
+                : "Useridentification or Password invalid"}
             </Form.Control.Feedback>
           </Form.Group>
 
@@ -127,12 +133,14 @@ export function Login(): JSX.Element {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              isInvalid={isInvalid}
+              isInvalid={
+                passwordEmptyInvalid || passwordWhiteSpaceInvalid || isInvalid
+              }
             />
             {showPassword ? (
               <EyeSlashFill
                 className={`login-password-icon ${
-                  passwordEmptyInvalid || passwordWhiteSpaceInvalid
+                  passwordEmptyInvalid || passwordWhiteSpaceInvalid || isInvalid
                     ? "invalid"
                     : ""
                 }`}
@@ -141,7 +149,7 @@ export function Login(): JSX.Element {
             ) : (
               <EyeFill
                 className={`login-password-icon ${
-                  passwordEmptyInvalid || passwordWhiteSpaceInvalid
+                  passwordEmptyInvalid || passwordWhiteSpaceInvalid || isInvalid
                     ? "invalid"
                     : ""
                 }`}
@@ -149,9 +157,11 @@ export function Login(): JSX.Element {
               />
             )}
             <Form.Control.Feedback type="invalid">
-              {isInvalid === undefined
-                ? "Password required (at least 10 chars)"
-                : "User identification or password invalid"}
+              {passwordEmptyInvalid
+                ? "Password cannot be empty"
+                : passwordWhiteSpaceInvalid
+                ? "Password cannot have white space"
+                : "Useridentification or Password invalid"}
             </Form.Control.Feedback>
           </Form.Group>
 
