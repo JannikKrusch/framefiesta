@@ -38,9 +38,12 @@
   height: 2rem !important;
 }
 
-.dropdown-item.active,
-.dropdown-item:hover {
+.dropdown-item.active {
   background-color: var(--text-color-purple) !important;
+}
+
+.dropdown-item:hover {
+  background-color: var(--text-color-light-purple) !important;
 }
 
 .user-icon-popover {
