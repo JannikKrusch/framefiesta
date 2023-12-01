@@ -38,6 +38,10 @@
   height: 2rem !important;
 }
 
+.dropdown-item.active {
+  background-color: var(--text-color-purple) !important;
+}
+
 .user-icon-popover {
   background-color: var(--background-color-black) !important;
   border-color: var(--border-color) !important;
