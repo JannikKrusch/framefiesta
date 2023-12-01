@@ -24,6 +24,7 @@ import {
   useTime,
 } from "../../../utils";
 import { CustomButton } from "../..";
+import Fuse from "fuse.js";
 
 export function CustomNavbar() {
   const { blogPosts, user, setUser, setSelectedBlogPostId } =
@@ -35,11 +36,12 @@ export function CustomNavbar() {
     return {
       id: post.id,
       title: post.relatedMotionPicture.title,
-      actors: post.relatedMotionPicture.actors.join(","),
-      genres: post.relatedMotionPicture.genres.join(", "),
+      actors: post.relatedMotionPicture.actors,
+      genres: post.relatedMotionPicture.genres,
       year: post.relatedMotionPicture.initialRelease.toString(),
     };
   });
+
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -110,10 +112,32 @@ export function CustomNavbar() {
                   ) {
                     setSelected((prev) => []);
                   }
+
+                  if (text.length === 0) {
+                    setSelected((prev) => []);
+                  }
                 }}
                 options={options}
                 labelKey={"title"}
-                filterBy={["title", "actors", "genres", "year"]}
+                filterBy={(option, props) => {
+                  if (!props.text) {
+                    return true;
+                  }
+
+                  const fuse = new Fuse(options, {
+                    keys: ["title", "actors", "genres", "year"],
+                    includeScore: true,
+                    shouldSort: true,
+                    useExtendedSearch: true,
+                    findAllMatches: true,
+                  });
+
+                  const result = fuse.search(props.text);
+
+                  return result.some(
+                    (searchResult) => searchResult.item === option
+                  );
+                }}
                 placeholder={seachBoxPlaceholder}
                 selected={selected}
                 clearButton

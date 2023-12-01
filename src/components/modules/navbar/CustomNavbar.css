@@ -42,6 +42,10 @@
   background-color: var(--text-color-purple) !important;
 }
 
+.dropdown-item:hover {
+  background-color: var(--text-color-light-purple) !important;
+}
+
 .user-icon-popover {
   background-color: var(--background-color-black) !important;
   border-color: var(--border-color) !important;
