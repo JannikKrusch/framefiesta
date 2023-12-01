@@ -39,6 +39,7 @@ Das Projekt kann man nun starten `npm start`, das kann kurz dauern. Es sollte si
 | ------------------------- | ------- |
 | bootstrap                 | 5.3.2   |
 | classnames                | 2.3.2   |
+| fuse.js                   | 7.0.0   |
 | react-bootstrap           | 2.9.2   |
 | react-bootstrap-icons     | 1.10.3  |
 | react-bootstrap-typeahead | 6.3.1   |
