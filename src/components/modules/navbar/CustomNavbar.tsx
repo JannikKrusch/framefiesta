@@ -110,6 +110,10 @@ export function CustomNavbar() {
                   ) {
                     setSelected((prev) => []);
                   }
+
+                  if (text.length === 0) {
+                    setSelected((prev) => []);
+                  }
                 }}
                 options={options}
                 labelKey={"title"}
