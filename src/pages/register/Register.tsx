@@ -51,48 +51,42 @@ export function Register(): JSX.Element {
 
     if (name.length === 0) {
       setUserNameEmptyInvalid(true);
-      setValidated(true);
     } else {
       setUserNameEmptyInvalid(false);
     }
 
     if (name.includes(" ")) {
       setUserNameWhiteSpaceInvalid(true);
-      setValidated(true);
     } else {
       setPasswordEmptyInvalid(false);
     }
 
     if (email.length === 0) {
       setEmailEmptyInvalid(true);
-      setValidated(true);
     } else {
       setEmailEmptyInvalid(false);
     }
 
     if (password.length === 0) {
       setPasswordEmptyInvalid(true);
-      setValidated(true);
     } else {
       setPasswordEmptyInvalid(false);
     }
 
     if (password.includes(" ")) {
       setPasswordWhiteSpaceInvalid(true);
-      setValidated(true);
     } else {
       setPasswordWhiteSpaceInvalid(false);
     }
 
     if (password !== confirmPassword) {
       setPasswordAndConfirmInvalid(true);
-      setValidated(true);
     } else {
       setPasswordAndConfirmInvalid(false);
     }
 
     if (form.checkValidity() === false) {
-      setValidated(true);
+      setValidated(false);
       setIsInvalid(true);
       return;
     }
@@ -106,6 +100,7 @@ export function Register(): JSX.Element {
       sessionStorageService?.setUser(userFE);
       navigateToHome();
     } else {
+      setValidated(false);
       setIsInvalid(true);
     }
   }
