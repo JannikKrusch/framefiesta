@@ -47,21 +47,19 @@ export function Login(): JSX.Element {
 
     if (password.length === 0) {
       setPasswordEmptyInvalid(true);
-      setValidated(true);
     } else {
       setPasswordEmptyInvalid(false);
     }
 
     if (password.includes(" ")) {
       setPasswordWhiteSpaceInvalid(true);
-      setValidated(true);
     } else {
       setPasswordWhiteSpaceInvalid(false);
     }
 
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
-      setValidated(true);
+      setValidated(false);
       setIsInvalid(true);
       return;
     }
@@ -77,6 +75,7 @@ export function Login(): JSX.Element {
       setSubmitLoading(false);
       navigateToHome();
     } else {
+      setValidated(false);
       setIsInvalid((prev) => true);
       setSubmitLoading(false);
     }
