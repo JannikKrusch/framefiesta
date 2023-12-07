@@ -1,4 +1,4 @@
-import { BlogPost, Film, MotionPicture, Series } from "..";
+import { BlogPost, Series } from "..";
 import { Comment } from "../models/Comment";
 
 export function DummyBlogPosts(amount: number): BlogPost[] {

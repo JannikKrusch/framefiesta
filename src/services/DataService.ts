@@ -1,11 +1,4 @@
-import { useContext } from "react";
-import {
-  Controllers,
-  CustomError,
-  Method,
-  StateContext,
-  isInstanceOfResponse,
-} from "../utils";
+import { Controllers, Method, isInstanceOfResponse } from "../utils";
 import { UrlService } from "./UrlService";
 import { ResponseServie } from "./ResponseService";
 export class DataService {
