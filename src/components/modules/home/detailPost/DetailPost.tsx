@@ -2,7 +2,6 @@ import { FullSizeImage, PostInformation } from "../../..";
 import {
   BlogPost,
   DataContext,
-  StateContext,
   convertSelectedIdToBlogPost,
 } from "../../../../utils";
 import "./DetailPost.css";
@@ -13,7 +12,6 @@ interface DetailPostProps {
 }
 
 export function DetailPost(props: DetailPostProps): JSX.Element {
-  const { setError } = useContext(StateContext);
   const { selectedBlogPostId } = useContext(DataContext);
   const selectedBlogPost = convertSelectedIdToBlogPost(
     selectedBlogPostId,

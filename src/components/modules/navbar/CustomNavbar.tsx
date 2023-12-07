@@ -42,6 +42,14 @@ export function CustomNavbar() {
     };
   });
 
+  const fuse = new Fuse(options, {
+    keys: ["title", "actors", "genres", "year"],
+    includeScore: true,
+    shouldSort: true,
+    useExtendedSearch: true,
+    findAllMatches: true,
+  });
+
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -123,14 +131,6 @@ export function CustomNavbar() {
                   if (!props.text) {
                     return true;
                   }
-
-                  const fuse = new Fuse(options, {
-                    keys: ["title", "actors", "genres", "year"],
-                    includeScore: true,
-                    shouldSort: true,
-                    useExtendedSearch: true,
-                    findAllMatches: true,
-                  });
 
                   const result = fuse.search(props.text);
 
