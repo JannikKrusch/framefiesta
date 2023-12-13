@@ -11,4 +11,6 @@ export * from "./modules/home/review/Review";
 
 export * from "./modules/navbar/CustomNavbar";
 
+export * from "./modules/scrollIndicator/ScrollIndicator";
+
 export * from "./shared/button/CustomButton";

@@ -1,0 +1,16 @@
+.scroll-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(var(--text-size) * 0.5);
+  background-color: var(--text-color-purple);
+  z-index: 999;
+  transition: width 0.3s ease-in-out;
+  pointer-events: none;
+}
+
+.scroll-indicator.hidden {
+  width: 0;
+  pointer-events: none;
+}
