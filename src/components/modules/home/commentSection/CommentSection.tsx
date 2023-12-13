@@ -21,7 +21,7 @@ export function CommentSection(props: CommentProps): JSX.Element {
   const itemsPerPage = 10;
   const [activeCommentPage, setActiveCommentPage] = useState(1);
   const [isFocused, setIsFocused] = useState(false);
-  const { user, setUser, blogPosts, setBlogPosts } = useContext(DataContext);
+  const { user, setUser, setBlogPosts } = useContext(DataContext);
   const { userService } = useContext(ServiceContext);
   const [addCommentLoading, setAddCommentLoading] = useState<boolean>(false);
   const [deleteCommentLoading, setDeleteCommentLoading] =
@@ -71,18 +71,24 @@ export function CommentSection(props: CommentProps): JSX.Element {
         newComment.text = data.text;
         newComment.name = data.name;
 
-        const tempUser = { ...user };
-        tempUser.comments.push(newComment);
-        setUser(tempUser);
+        setUser((prevState) => {
+          if (!prevState) {
+            return prevState;
+          }
 
-        const tempBlogPosts = blogPosts.map((item) => item);
-        const tempBlogPost = { ...props.blogPost };
-        tempBlogPost.comments.push(newComment);
-        const index = tempBlogPosts.findIndex(
-          (item) => item.id === tempBlogPost.id
+          return {
+            ...prevState,
+            comments: [...(prevState.comments || []), newComment],
+          };
+        });
+
+        setBlogPosts((prevBlogPosts) =>
+          prevBlogPosts.map((post) =>
+            post.id === props.blogPost.id
+              ? { ...post, comments: [...post.comments, newComment] }
+              : post
+          )
         );
-        tempBlogPosts[index] = tempBlogPost;
-        setBlogPosts(tempBlogPosts);
         setComment("");
       }
       setAddCommentLoading((prev) => !prev);
@@ -101,22 +107,32 @@ export function CommentSection(props: CommentProps): JSX.Element {
       );
 
       if (successful) {
-        const tempUser = { ...user };
-        tempUser.comments = tempUser.comments.filter(
-          (comment) => comment.id !== commentId
-        );
-        setUser(tempUser);
+        setUser((prevUser) => {
+          if (!prevUser) {
+            return prevUser;
+          }
 
-        const tempBlogPosts = blogPosts.map((item) => item);
-        const tempBlogPost = { ...props.blogPost };
-        tempBlogPost.comments = tempBlogPost.comments.filter(
-          (comment) => comment.id !== commentId
+          return {
+            ...prevUser,
+            comments: prevUser.comments.filter(
+              (comment) => comment.id !== commentId
+            ),
+          };
+        });
+
+        setBlogPosts((prevBlogPosts) =>
+          prevBlogPosts.map((post) => {
+            if (post.id === props.blogPost.id) {
+              return {
+                ...post,
+                comments: post.comments.filter(
+                  (comment) => comment.id !== commentId
+                ),
+              };
+            }
+            return post;
+          })
         );
-        const index = tempBlogPosts.findIndex(
-          (item) => item.id === tempBlogPost.id
-        );
-        tempBlogPosts[index] = tempBlogPost;
-        setBlogPosts(tempBlogPosts);
       }
       setDeleteCommentLoading((prev) => !prev);
     }
@@ -150,7 +166,7 @@ export function CommentSection(props: CommentProps): JSX.Element {
     if (sortedState === -1) {
       setSortedState(1);
     }
-  }, [props.blogPost.comments]);
+  }, [props.blogPost.comments, sortedState]);
 
   const sorted = sortComments();
 

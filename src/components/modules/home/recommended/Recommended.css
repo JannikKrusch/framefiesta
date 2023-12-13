@@ -16,7 +16,7 @@
   width: 100%;
 }
 
-.recommended-card-title:hover {
+.recommend-card:hover {
   color: var(--text-color-light-purple) !important;
 }
 

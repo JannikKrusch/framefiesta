@@ -38,7 +38,7 @@
 }
 
 .button.text:hover {
-  color: var(--text-color-purple) !important;
+  color: var(--text-color-light-purple) !important;
 }
 
 .button.hidden {

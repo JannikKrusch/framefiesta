@@ -19,21 +19,9 @@ export function Footer(): JSX.Element {
       </div>
 
       <div className="d-flex justify-content-center py-2">
-        <Instagram
-          className="social-media-icons"
-          size={"2rem"}
-          onClick={iconClick}
-        />
-        <Twitter
-          className="social-media-icons mx-5"
-          size={"2rem"}
-          onClick={iconClick}
-        />
-        <Youtube
-          className="social-media-icons"
-          size={"2rem"}
-          onClick={iconClick}
-        />
+        <Instagram className="social-media-icons" onClick={iconClick} />
+        <Twitter className="social-media-icons mx-5" onClick={iconClick} />
+        <Youtube className="social-media-icons" onClick={iconClick} />
       </div>
     </footer>
   );
