@@ -40,10 +40,12 @@
 
 .dropdown-item.active {
   background-color: var(--text-color-purple) !important;
+  font-size: 1.2rem !important;
 }
 
 .dropdown-item:hover {
   background-color: var(--text-color-light-purple) !important;
+  font-size: 1.2rem !important;
 }
 
 .user-icon-popover {
