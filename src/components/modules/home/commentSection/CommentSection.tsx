@@ -169,17 +169,19 @@ export function CommentSection(props: CommentProps): JSX.Element {
   }, [props.blogPost.comments, sortedState]);
 
   const sorted = sortComments();
+  const amountOfComments = props.blogPost.comments.length;
 
   return (
     <div className="commentsection-container" id={"comment-section-start"}>
       <div className="commentsection-header">
-        <span>Comments ({props.blogPost.comments.length})</span>
+        <span>Comments ({amountOfComments})</span>
         <div className="">
           <ButtonGroup>
             <CustomButton
               label={"Oldest"}
               active={sortedState === 0}
               notLast
+              disabled={amountOfComments === 0}
               method={() => {
                 setSortedState(0);
               }}
@@ -187,6 +189,7 @@ export function CommentSection(props: CommentProps): JSX.Element {
             <CustomButton
               label={"Newest"}
               active={sortedState === 1}
+              disabled={amountOfComments === 0}
               method={() => {
                 setSortedState(1);
               }}
