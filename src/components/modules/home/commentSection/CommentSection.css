@@ -36,16 +36,21 @@ html {
   border-bottom: 1px solid var(--border-color) !important;
 }
 
-.comment-input-buttons {
-  margin-top: 1rem !important;
-  display: flex;
-  flex-direction: row-reverse;
-}
-
 .comment-author-icon {
   color: var(--text-color-purple);
 }
 
 .comment-author-name {
   color: var(--text-color-purple);
+}
+
+.comment-input-buttons,
+.comment-container:hover .comment-delete-button {
+  margin-top: 1rem !important;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.comment-delete-button {
+  display: none;
 }

@@ -7,7 +7,7 @@ export function DummyBlogPosts(amount: number): BlogPost[] {
   for (let i = 1; i <= amount; i++) {
     const blogPost = new BlogPost();
     const motionPicture = new Series();
-    let actors = [];
+    const actors = [];
     for (let actor = 1; actor < 5; actor++) {
       actors.push(`actor${i}${actor}`);
     }
