@@ -140,7 +140,7 @@ export function CommentSection(props: CommentProps): JSX.Element {
 
   function displayCommentPages(): ReactNode {
     const amountCommentPages = Math.ceil(sorted.length / 10);
-    let buttonLabels = [];
+    const buttonLabels = [];
     for (let i = 1; i <= amountCommentPages; i++) {
       buttonLabels.push(i);
     }
@@ -149,7 +149,7 @@ export function CommentSection(props: CommentProps): JSX.Element {
         {buttonLabels.map((label, index) => {
           return (
             <CustomButton
-              key={index}
+              key={label}
               label={label.toString()}
               active={label === activeCommentPage}
               notLast={index < buttonLabels.length - 1}
@@ -222,7 +222,11 @@ export function CommentSection(props: CommentProps): JSX.Element {
               label={"Cancel"}
               notLast
               onlyText
-              method={() => setIsFocused((prev) => false)}
+              method={() => {
+                setComment("");
+                userService?.abortAllRequests();
+                setIsFocused((prev) => false);
+              }}
             />
             <CustomButton
               label={"Comment"}
@@ -246,7 +250,10 @@ export function CommentSection(props: CommentProps): JSX.Element {
           const isUserComment = comment.name === user?.name;
 
           return (
-            <div className="comment-container g-0 row" key={index}>
+            <div
+              className="comment-container g-0 row"
+              key={comment.date.getTime()}
+            >
               <div className="row">
                 <div className="col-auto ps-0">
                   <PersonCircle className="comment-author-icon" size={"3rem"} />
@@ -258,7 +265,7 @@ export function CommentSection(props: CommentProps): JSX.Element {
               </div>
               <div className="row">{comment.text}</div>
 
-              <div hidden={!isUserComment} className="comment-input-buttons">
+              <div hidden={!isUserComment} className="comment-delete-button">
                 <ButtonGroup>
                   <CustomButton
                     label={"Delete comment"}

@@ -33,12 +33,22 @@ export function timeFormat(input: number): string {
   return `${input} min / ${hours}:${minutes.toString().padStart(2, "0")} h`;
 }
 
-export const dateFormat = new Intl.DateTimeFormat("de-de", {
-  dateStyle: "short",
-  timeStyle: "short",
+const formatDate = new Intl.DateTimeFormat("de-de", {
+  day: "2-digit",
+  month: "2-digit",
+  year: "numeric",
+  timeZone: "Europe/Berlin",
+});
+
+const formatTime = new Intl.DateTimeFormat("de-de", {
+  hour: "2-digit",
+  minute: "2-digit",
   timeZone: "Europe/Berlin",
 });
 
 export function fullDateFormat(input: Date): string {
-  return dateFormat.format(input);
+  const timeFormat = formatTime.format(input);
+  const dateFormat = formatDate.format(input);
+
+  return `${timeFormat}, ${dateFormat}`;
 }

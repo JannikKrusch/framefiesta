@@ -27,7 +27,7 @@ export class UrlService {
     key: string,
     values: Array<unknown>
   ): Array<[string, string]> {
-    let tuples: Array<[string, string]> = [];
+    const tuples: Array<[string, string]> = [];
     values.forEach((value: unknown) =>
       tuples.push(this.createParameterTuple(key, value))
     );
