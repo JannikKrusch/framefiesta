@@ -6,7 +6,7 @@ import {
   isInstanceOfResponse,
 } from "../utils";
 
-export class ResponseServie {
+export class ResponseService {
   private _setError: (error: CustomError | undefined) => void =
     useContext(StateContext).setError;
 

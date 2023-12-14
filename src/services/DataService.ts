@@ -1,14 +1,14 @@
 import { Controllers, Method, isInstanceOfResponse } from "../utils";
 import { UrlService } from "./UrlService";
-import { ResponseServie } from "./ResponseService";
+import { ResponseService } from "./ResponseService";
 export class DataService {
   protected readonly urlService: UrlService;
-  private readonly _responseService: ResponseServie;
+  private readonly _responseService: ResponseService;
   private _abortController: AbortController;
 
   constructor(controller: Controllers) {
     this.urlService = new UrlService(controller);
-    this._responseService = new ResponseServie();
+    this._responseService = new ResponseService();
     this._abortController = new AbortController();
   }
 
