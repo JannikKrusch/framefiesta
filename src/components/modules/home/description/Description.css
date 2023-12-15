@@ -12,3 +12,7 @@
 .highlight {
   color: var(--text-color-purple) !important;
 }
+
+.justify-text {
+  text-align: justify;
+}

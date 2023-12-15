@@ -1,26 +1,3 @@
-.clickable {
-  cursor: pointer;
-}
-
-.review-progressbar .progress-bar {
-  background-color: var(--text-color-purple) !important;
-  font-size: var(--text-size);
-}
-
-.review-placeholder {
-  width: 100%;
-  cursor: pointer;
-  animation-name: example;
-  animation-duration: 4s;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-}
-
-@keyframes example {
-  0% {
-    background-color: var(--text-color-default);
-  }
-  100% {
-    background-color: var(--text-color-purple);
-  }
+.justify-text {
+  text-align: justify;
 }

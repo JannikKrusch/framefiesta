@@ -63,7 +63,9 @@ export function Description(props: DescriptionProps): JSX.Element {
 
   return (
     <div className="description-container row">
-      <div className="col-sm-12 col-md-6 mb-sm-4">{props.description}</div>
+      <div className="col-sm-12 col-md-6 mb-sm-4 justify-text">
+        {props.description}
+      </div>
       <div className="col-sm-12 col-md-6">{displayFacts()}</div>
     </div>
   );
