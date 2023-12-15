@@ -10,9 +10,7 @@ export function Review(props: ReviewProps): JSX.Element {
   return (
     <>
       <div className="row">
-        <div className="col mb-4">
-          <span className="review-text">{props.blogPost.review}</span>
-        </div>
+        <div className="col mb-4 justify-text">{props.blogPost.review}</div>
       </div>
 
       <CommentSection blogPost={props.blogPost} />
