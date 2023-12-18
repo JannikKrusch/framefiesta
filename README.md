@@ -2,6 +2,8 @@
 Das Frontend zum BT-S Schulprojekt im 3. Lehrjahr - FrameFiesta
 
 [Backend Repo](https://github.com/paulMaibachCamao/FrameFiesta)
+
+Für die Dokumentation auf das [Wiki](https://github.com/JannikKrusch/framefiesta/wiki)
 # Einrichtug
 
 ## Kurzanleitung
