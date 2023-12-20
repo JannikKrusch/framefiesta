@@ -187,6 +187,7 @@ export function CustomNavbar(): JSX.Element {
                             label={"Delete Account"}
                             notLast
                             hidden={user === undefined}
+                            danger
                             method={async () => await deleteUser()}
                           />
 

@@ -44,3 +44,11 @@
 .button.hidden {
   display: none;
 }
+
+.button.danger {
+  background-color: var(--text-color-red) !important;
+}
+
+.button.danger:hover {
+  background-color: var(--text-color-dark-red) !important;
+}
