@@ -58,7 +58,7 @@ export function Register(): JSX.Element {
     if (name.includes(" ")) {
       setUserNameWhiteSpaceInvalid(true);
     } else {
-      setPasswordEmptyInvalid(false);
+      setUserNameWhiteSpaceInvalid(false);
     }
 
     if (email.length === 0) {
