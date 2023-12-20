@@ -12,6 +12,7 @@ interface ButtonProps {
   loading?: boolean;
   hidden?: boolean;
   disabled?: boolean;
+  danger?: boolean;
   method?: (() => void) | (() => Promise<void>);
 }
 
@@ -28,7 +29,8 @@ export function CustomButton(props: ButtonProps): JSX.Element {
     { notLast: props.notLast },
     { last: !props.notLast },
     { text: props.onlyText },
-    { hidden: props.hidden }
+    { hidden: props.hidden },
+    { danger: props.danger }
   );
 
   return (
